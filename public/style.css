@@ -44,7 +44,7 @@ body {
     margin-top: 10px;
 }
 
-/* Personalización de los colores de Materialize para adaptarlo a tu escuela */
+/* Personalización de los colores de Materialize */
 .input-field .prefix.active {
     color: #3182ce !important;
 }
@@ -60,6 +60,15 @@ body {
     box-shadow: 0 1px 0 0 #3182ce !important;
 }
 
+/* Contenedor de la acción de envío */
+.action-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 54px;
+    margin-top: 15px;
+}
+
 /* Botón principal de Ingresar */
 .btn-submit {
     width: 100%;
@@ -73,12 +82,16 @@ body {
     cursor: pointer;
     transition: background-color 0.2s ease;
     letter-spacing: 0.5px;
-    margin-top: 15px;
     text-transform: uppercase;
 }
 
 .btn-submit:hover {
     background-color: #2b6cb0;
+}
+
+/* Clase auxiliar para ocultar el Spinner */
+.hidden {
+    display: none !important;
 }
 
 /* Organiza los botones adicionales uno abajo del otro con ancho completo */
