@@ -24,7 +24,7 @@ body {
 
 .login-header {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 .logo-wrapper {
@@ -33,7 +33,7 @@ body {
 }
 
 .login-logo {
-    max-width: 140px; /* Tamaño optimizado para escudos circulares */
+    max-width: 140px;
     height: auto;
     object-fit: contain;
 }
@@ -44,58 +44,20 @@ body {
     margin-top: 10px;
 }
 
-/* Estilos de la caja moderna (estilo de tu imagen) */
-.input-container-modern {
-    display: flex;
-    align-items: flex-end;
-    margin-bottom: 30px;
-    position: relative;
-    padding-bottom: 5px;
+/* Personalización de los colores de Materialize para adaptarlo a tu escuela */
+.input-field .prefix.active {
+    color: #3182ce !important;
 }
 
-/* Iconos grandes a la izquierda */
-.modern-icon {
-    font-size: 28px;
-    margin-right: 15px;
-    margin-bottom: 2px;
-    user-select: none;
+.input-field input[type=text]:focus + label, 
+.input-field input[type=password]:focus + label {
+    color: #3182ce !important;
 }
 
-.input-field-wrapper {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.input-field-wrapper label {
-    color: #3182ce; /* Color azul para los títulos de los campos */
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-
-/* Campos de texto estilizados como líneas limpias */
-.input-field-wrapper input {
-    width: 100%;
-    border: none;
-    border-bottom: 2px solid #cbd5e0; /* Línea gris inferior inicial */
-    padding: 6px 0;
-    font-size: 16px;
-    color: #2d3748;
-    background: transparent;
-    transition: border-color 0.3s ease;
-}
-
-/* Efecto cuando el estudiante hace clic para escribir */
-.input-field-wrapper input:focus {
-    outline: none;
-    border-bottom: 2px solid #1a365d; /* La línea cambia a azul oscuro */
-}
-
-/* Marcador de posición en gris claro */
-.input-field-wrapper input::placeholder {
-    color: #a0aec0;
-    font-size: 15px;
+.input-field input[type=text]:focus, 
+.input-field input[type=password]:focus {
+    border-bottom: 1px solid #3182ce !important;
+    box-shadow: 0 1px 0 0 #3182ce !important;
 }
 
 /* Botón principal de Ingresar */
@@ -111,7 +73,8 @@ body {
     cursor: pointer;
     transition: background-color 0.2s ease;
     letter-spacing: 0.5px;
-    margin-top: 10px;
+    margin-top: 15px;
+    text-transform: uppercase;
 }
 
 .btn-submit:hover {
