@@ -96,7 +96,6 @@ body {
     background-color: #2b6cb0;
 }
 
-/* Contenedor para los botones adicionales */
 .extra-buttons-container {
     display: flex;
     gap: 12px;
@@ -104,7 +103,6 @@ body {
     justify-content: space-between;
 }
 
-/* Estilo para los botones de Servicio Social y Nuevo Ingreso */
 .btn-secondary {
     flex: 1;
     text-align: center;
