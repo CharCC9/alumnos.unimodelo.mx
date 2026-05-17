@@ -78,7 +78,7 @@ body {
     outline: none;
 }
 
-/* Estilo unificado para el botón de ingresar */
+/* Botón principal de Ingresar */
 .btn-submit {
     width: 100%;
     padding: 14px;
@@ -97,17 +97,18 @@ body {
     background-color: #2b6cb0;
 }
 
-/* Contenedor para los botones adicionales */
+/* Organiza los botones adicionales uno abajo del otro con ancho completo */
 .extra-buttons-container {
     display: flex;
+    flex-direction: column;
     gap: 12px;
-    margin-top: 15px;
-    justify-content: space-between;
+    margin-top: 12px;
 }
 
-/* Estilo idéntico al botón principal para Servicio Social y Nuevo Ingreso */
+/* Estilo unificado para los botones de Servicio Social y Nuevo Ingreso */
 .btn-secondary {
-    flex: 1;
+    display: block;
+    width: 100%;
     text-align: center;
     padding: 14px;
     background-color: #3182ce;
