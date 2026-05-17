@@ -17,7 +17,7 @@
             <h2>SERVICIOS ESCOLARES</h2>
         </div>
         
-        <form id="loginForm" action="/login" method="POST" class="login-form">
+        <form action="/login" method="POST" class="login-form">
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">person</i>
@@ -32,17 +32,7 @@
                 </div>
             </div>
             
-            <div class="action-wrapper">
-                <button type="submit" id="submitBtn" class="btn-submit">INGRESAR</button>
-                
-                <div id="loadingSpinner" class="preloader-wrapper small active hidden">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left"><div class="circle"></div></div>
-                        <div class="gap-patch"><div class="circle"></div></div>
-                        <div class="circle-clipper right"><div class="circle"></div></div>
-                    </div>
-                </div>
-            </div>
+            <button type="submit" class="btn-submit">INGRESAR</button>
         </form>
         
         <div class="extra-buttons-container">
@@ -56,24 +46,5 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            // Detiene el envío inmediato
-            e.preventDefault();
-            
-            const btn = document.getElementById('submitBtn');
-            const spinner = document.getElementById('loadingSpinner');
-            
-            // Oculta el botón y muestra la animación de carga
-            btn.style.display = 'none';
-            spinner.classList.remove('hidden');
-            
-            // Espera 2.5 segundos (simulando carga de datos) y envía el formulario al servidor
-            setTimeout(() => {
-                this.submit();
-            }, 2500);
-        });
-    </script>
 </body>
 </html>
