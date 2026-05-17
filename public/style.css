@@ -78,6 +78,7 @@ body {
     outline: none;
 }
 
+/* Estilo unificado para el botón de ingresar */
 .btn-submit {
     width: 100%;
     padding: 14px;
@@ -96,6 +97,7 @@ body {
     background-color: #2b6cb0;
 }
 
+/* Contenedor para los botones adicionales */
 .extra-buttons-container {
     display: flex;
     gap: 12px;
@@ -103,24 +105,25 @@ body {
     justify-content: space-between;
 }
 
+/* Estilo idéntico al botón principal para Servicio Social y Nuevo Ingreso */
 .btn-secondary {
     flex: 1;
     text-align: center;
-    padding: 10px;
-    background-color: #edf2f7;
-    color: #4a5568;
+    padding: 14px;
+    background-color: #3182ce;
+    color: white;
     text-decoration: none;
     border-radius: 6px;
-    font-size: 11px;
+    font-size: 16px;
     font-weight: bold;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    border: 1px solid #cbd5e0;
-    letter-spacing: 0.3px;
+    transition: background-color 0.2s ease;
+    letter-spacing: 0.5px;
+    border: none;
 }
 
 .btn-secondary:hover {
-    background-color: #e2e8f0;
-    color: #2d3748;
+    background-color: #2b6cb0;
+    color: white;
 }
 
 .login-footer {
@@ -136,12 +139,4 @@ body {
 
 .login-footer a:hover {
     text-decoration: underline;
-}
-
-.login-footer small {
-    display: block;
-    margin-top: 20px;
-    color: #718096;
-    font-size: 12px;
-    font-weight: 500;
 }
