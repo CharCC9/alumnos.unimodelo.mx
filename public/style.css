@@ -27,6 +27,18 @@ body {
     margin-bottom: 30px;
 }
 
+.logo-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-logo {
+    max-width: 180px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
 .login-header h2 {
     color: #1a365d;
     margin-bottom: 8px;
@@ -77,10 +89,40 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    letter-spacing: 0.5px;
 }
 
 .btn-submit:hover {
     background-color: #2b6cb0;
+}
+
+/* Contenedor para los botones adicionales */
+.extra-buttons-container {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+
+/* Estilo para los botones de Servicio Social y Nuevo Ingreso */
+.btn-secondary {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background-color: #edf2f7;
+    color: #4a5568;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border: 1px solid #cbd5e0;
+    letter-spacing: 0.3px;
+}
+
+.btn-secondary:hover {
+    background-color: #e2e8f0;
+    color: #2d3748;
 }
 
 .login-footer {
@@ -101,45 +143,7 @@ body {
 .login-footer small {
     display: block;
     margin-top: 20px;
-    color: #e53e3e;
+    color: #718096;
     font-size: 12px;
     font-weight: 500;
-}
-/* Contenedor para los nuevos botones */
-.extra-buttons-container {
-    display: flex;
-    gap: 12px;
-    margin-top: 15px;
-    justify-content: space-between;
-}
-
-/* Estilo para los botones secundarios (Servicio Social y Nuevo Ingreso) */
-.btn-secondary {
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    background-color: #edf2f7;
-    color: #4a5568;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: bold;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    border: 1px solid #cbd5e0;
-}
-
-.btn-secondary:hover {
-    background-color: #e2e8f0;
-    color: #2d3748;
-}
-/* Estilos para el área del logotipo */
-.logo-wrapper {
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.login-logo {
-    max-width: 180px;
-    height: auto;
-    object-fit: contain;
 }
