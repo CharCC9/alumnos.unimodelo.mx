@@ -105,3 +105,30 @@ body {
     font-size: 12px;
     font-weight: 500;
 }
+/* Contenedor para los nuevos botones */
+.extra-buttons-container {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+
+/* Estilo para los botones secundarios (Servicio Social y Nuevo Ingreso) */
+.btn-secondary {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background-color: #edf2f7;
+    color: #4a5568;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border: 1px solid #cbd5e0;
+}
+
+.btn-secondary:hover {
+    background-color: #e2e8f0;
+    color: #2d3748;
+}
