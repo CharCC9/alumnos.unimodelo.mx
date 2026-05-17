@@ -1,0 +1,12 @@
+{
+  "name": "portal-escolar-simulador",
+  "version": "1.0.0",
+  "description": "Simulación de portal escolar para proyecto académico",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
