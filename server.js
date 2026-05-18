@@ -145,7 +145,7 @@ function getPortalTemplate() {
                 .custom-menu-li.active-item a { color: #025fa4 !important; font-weight: bold; }
                 .custom-menu-li.active-item a i { color: #025fa4; }
 
-                /* Estilos Mi Cuenta / Eduvida Card */
+                /* Estilos Mi Cuenta */
                 .mc-header-container { margin-bottom: 20px; }
                 .mc-title { font-size: 22px; color: #333; font-weight: 400; text-transform: uppercase; margin: 0; }
                 .mc-banner-blue { background-color: #025fa4; color: white; padding: 10px 15px; font-size: 14px; font-weight: 500; text-transform: uppercase; margin-bottom: 30px; border-radius: 2px; }
@@ -156,7 +156,7 @@ function getPortalTemplate() {
                 .mc-checkbox-label { display: flex; align-items: center; cursor: pointer; font-size: 14px; color: #666; }
                 .mc-checkbox-label input { margin-right: 10px; width: 16px; height: 16px; accent-color: #025fa4; }
                 
-                /* Botón Guardar / Entrar Portal genérico */
+                /* Botón Genérico */
                 .generic-blue-btn { background-color: #007bc4; color: white; border: none; border-radius: 3px; height: 38px; padding: 0 20px; font-size: 13.5px; text-transform: uppercase; display: inline-flex; align-items: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-weight: 400; gap: 8px; }
 
                 /* Estilos de la sección Documentos */
