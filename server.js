@@ -121,7 +121,7 @@ function getPortalTemplate() {
                 .content-card { background: white; padding: 35px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); min-height: 450px; }
                 .content-card h4 { margin: 0 0 20px 0; color: #333333; font-size: 24px; font-weight: 300; padding-bottom: 10px; }
                 
-                /* Estilos de maquetación idénticos a la captura real */
+                /* Estilos Generales de Contenido */
                 .libreta-container { font-family: 'Segoe UI', Arial, sans-serif; color: #333333; font-size: 14.5px; line-height: 1.5; }
                 .libreta-blue-text { color: #0033cc; font-weight: bold; }
                 .libreta-divider { border: 0; border-top: 1px solid #cccccc; margin: 20px 0; }
@@ -133,9 +133,13 @@ function getPortalTemplate() {
                 .libreta-red-note { color: #990000; font-weight: bold; margin: 25px 0; font-size: 15px; }
                 .libreta-action-btn { background-color: #007bc4 !important; color: white !important; font-weight: 400; text-transform: uppercase; padding: 0 25px; height: 46px; line-height: 46px; border-radius: 4px; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-size: 14.5px; }
 
-                .simulated-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                .simulated-table th, .simulated-table td { border: 1px solid #e0e0e0; padding: 12px; font-size: 14px; }
-                .simulated-table th { background-color: #f8f9fa; color: #0d2c54; }
+                /* Tablas e información del Alumno */
+                .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 14px; color: #333; }
+                .simulated-table th, .simulated-table td { border: 1px solid #cccccc; padding: 10px 12px; text-align: left; }
+                .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; }
+                .simulated-table tr:nth-child(even) { background-color: #fafafa; }
+                .student-info-box { font-size: 15px; line-height: 1.6; margin-bottom: 20px; color: #222; }
+
                 @media only screen and (max-width : 992px) { .side-nav-container { display: none; } .main-content-area { margin-left: 0; } }
             </style>
         </head>
@@ -148,7 +152,7 @@ function getPortalTemplate() {
                             <img src="${LOGO_BASE64}" alt="Escudo" class="logo-menu-top">
                             <div class="select-wrapper-custom">
                                 <select id="menu-navegacion" class="browser-default">
-                                    <option value="libreta_de_pago" selected>Libreta de pago</option>
+                                    <option value="horario" selected>Horario</option>
                                     <option value="logout">Salir</option>
                                 </select>
                             </div>
@@ -244,8 +248,75 @@ function getPortalTemplate() {
                             </div>
                         \` 
                     },
-                    colegiaturas: { title: "Colegiaturas e Inscripciones", html: "<table class='simulated-table'><tr><th>Folio Digital</th><th>Periodo</th><th>Concepto Base</th><th>Monto</th></tr><tr><td>MOD-78452</td><td>2026-A</td><td>Reinscripción Semestral</td><td>$5,100.00</td></tr></table>" },
-                    horario: { title: "Horario de Clases", html: "<table class='simulated-table'><tr><th>Hora</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th></tr><tr><td>07:00 - 09:00</td><td>Programación Web</td><td>Base de Datos</td><td>Programación Web</td><td>Base de Datos</td><td>Taller</td></tr></table>" },
+                    colegiaturas: { 
+                        title: "Pagos del alumno", 
+                        html: \`
+                            <div class="student-info-box">
+                                <div><b>Clave:</b> 15246740</div>
+                                <div><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</div>
+                            </div>
+                            <table class="simulated-table">
+                                <thead>
+                                    <tr>
+                                        <th>Descripción</th>
+                                        <th>Concepto</th>
+                                        <th>Referencia</th>
+                                        <th>Adeudo vigente</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Colegiatura Mayo/2026</td><td>092509</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Abril/2026</td><td>082508</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Marzo/2026</td><td>072507</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Febrero/2026</td><td>062506</td><td></td><td>NO</td></tr>
+                                    <tr><td>Inscripción Semestral / Enero 2026</td><td>002500</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Octubre/2025</td><td>02</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Septiembre/2025</td><td>012501</td><td></td><td>NO</td></tr>
+                                    <tr><td>Inscripción Anual o Semestral/ Agosto 2025</td><td>992599</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Junio/2025</td><td>102410</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Mayo/2025</td><td>092409</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Abril/2025</td><td>082408</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Marzo/2025</td><td>072407</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Febrero/2025</td><td>062406</td><td></td><td>NO</td></tr>
+                                    <tr><td>Inscripción Semestral / Enero 2025</td><td>002400</td><td></td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Enero/2025</td><td>052405</td><td></td><td>NO</td></tr>
+                                </tbody>
+                            </table>
+                        \`
+                    },
+                    horario: { 
+                        title: "Horarios del alumno", 
+                        html: \`
+                            <div class="student-info-box">
+                                <div><b>Clave:</b> 15246740</div>
+                                <div><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</div>
+                            </div>
+                            <table class="simulated-table">
+                                <thead>
+                                    <tr>
+                                        <th>Materia</th>
+                                        <th>Lunes</th>
+                                        <th>Martes</th>
+                                        <th>Miercoles</th>
+                                        <th>Jueves</th>
+                                        <th>Viernes</th>
+                                        <th>Sábado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><i>Sin materias asignadas en este periodo</i></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        \`
+                    },
                     asignaturas: { title: "Asignaturas Inscritas", html: "<ul><li>• Laboratorio de Programación Web</li><li>• Ingeniería de Software II</li><li>• Arquitectura de Sistemas Distribuidos</li><li>• Redes Avanzadas de Computadoras</li></ul>" },
                     calificaciones: { title: "Consulta de Calificaciones", html: "<table class='simulated-table'><tr><th>Materia</th><th>Parcial 1</th><th>Parcial 2</th><th>Promedio General</th></tr><tr><td>Programación Web</td><td>9.5</td><td>9.0</td><td><b>9.5</b></td></tr></table>" },
                     ordinarios: { title: "Exámenes Ordinarios", html: "<p class='grey-text'><i>La publicación del rol oficial está pendiente por servicios escolares.</i></p>" },
@@ -264,7 +335,7 @@ function getPortalTemplate() {
                     const data = sectionsData[sectionKey];
                     if (data) {
                         document.getElementById('dynamicContentCard').innerHTML = '<h4>' + data.title + '</h4>' + data.html;
-                        if(sectionKey === 'libreta_de_pago') $('#menu-navegacion').val('libreta_de_pago');
+                        if(sectionKey === 'horario') $('#menu-navegacion').val('horario');
                     }
                 }
 
@@ -286,7 +357,8 @@ function getPortalTemplate() {
                         if($(this).val() === 'logout') window.location.href = '/';
                         else showSection($(this).val());
                     });
-                    showSection('libreta_de_pago');
+                    // Iniciamos directo en Horario por defecto para probar los cambios
+                    showSection('horario');
                 });
             </script>
         </body>
