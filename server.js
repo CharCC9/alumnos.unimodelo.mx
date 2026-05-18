@@ -248,7 +248,7 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                function generateExternalDataTablesFooter(columnWidthsArray, totalEntries) {
+                function generateExternalDataTablesFooter(columnWidthsArray, totalEntries, showPageTwo = false) {
                     let searchBoxesHtml = '<div class="dt-search-footer-container">';
                     
                     columnWidthsArray.forEach(function(widthPercentage) {
@@ -258,23 +258,76 @@ function getPortalTemplate() {
                     });
                     searchBoxesHtml += '</div>';
                     
+                    let startEntry = showPageTwo ? 11 : 1;
+                    let endEntry = showPageTwo ? totalEntries : 10;
+                    if (totalEntries <= 10) { endEntry = totalEntries; }
+
+                    let prevClass = showPageTwo ? "" : "disabled-page";
+                    let nextClass = showPageTwo ? "disabled-page" : "";
+                    let p1Class = showPageTwo ? "" : "active-page";
+                    let p2Class = showPageTwo ? "active-page" : "";
+                    
                     let paginationHtml = 
                         '<div class="dt-footer-container">' +
-                            '<div class="dt-info">Showing 1 to ' + totalEntries + ' of ' + totalEntries + ' entries</div>' +
+                            '<div class="dt-info">Showing ' + startEntry + ' to ' + endEntry + ' of ' + totalEntries + ' entries</div>' +
                             '<ul class="dt-pagination">' +
-                                '<li class="disabled-page"><a>Previous</a></li>' +
-                                '<li class="active-page"><a>1</a></li>' +
-                                '<li class="disabled-page"><a>Next</a></li>' +
+                                '<li class="' + prevClass + '"><a onclick="changeColegiaturasPage(1)">Previous</a></li>' +
+                                '<li class="' + p1Class + '"><a onclick="changeColegiaturasPage(1)">1</a></li>' +
+                                '<li class="' + p2Class + '"><a onclick="changeColegiaturasPage(2)">2</a></li>' +
+                                '<li class="' + nextClass + '"><a onclick="changeColegiaturasPage(2)">Next</a></li>' +
                             '</ul>' +
                         '</div>';
                         
                     return searchBoxesHtml + paginationHtml;
                 }
 
-                const footerColegiaturas = generateExternalDataTablesFooter([25, 25, 25, 25], 14);
                 const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3);
                 const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
                 const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3);
+
+                function changeColegiaturasPage(pageNumber) {
+                    const container = $('#dynamicRenderCard');
+                    container.css('opacity', '0.4');
+                    
+                    setTimeout(function() {
+                        let tbodyHtml = "";
+                        let footerHtml = "";
+                        
+                        if (pageNumber === 1) {
+                            tbodyHtml = 
+                                '<tr><td>Colegiatura Mayo/2026</td><td>09</td><td>2509</td><td>NO</td></tr>' +
+                                '<tr><td>Colegiatura Abril/2026</td><td>08</td><td>2508</td><td>NO</td></tr>' +
+                                '<tr><td>Colegiatura Marzo/2026</td><td>07</td><td>2507</td><td>NO</td></tr>' +
+                                '<tr><td>Colegiatura Febrero/2026</td><td>06</td><td>2506</td><td>NO</td></tr>' +
+                                '<tr><td>Inscripción Semestral / Enero 2026</td><td>00</td><td>2500</td><td>NO</td></tr>' +
+                                '<tr><td>Colegiatura Octubre/2025</td><td>02</td><td></td><td>NO</td></tr>' +
+                                '<tr><td>Colegiatura Septiembre/2025</td><td>01</td><td>2501</td><td>NO</td></tr>' +
+                                '<tr><td>Inscripción Anual o Semestral / Agosto 2025</td><td>99</td><td>2599</td><td>NO</td></tr>' +
+                                '<tr><td>Colegiatura Junio/2025</td><td>10</td><td>2410</td><td>NO</td></tr>' +
+                                '<tr><td>Colegiatura Mayo/2025</td><td>09</td><td>2409</td><td>NO</td></tr>';
+                            footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 14, false);
+                        } else {
+                            tbodyHtml = 
+                                '<tr><td>Colegiatura Abril/2025</td><td>08</td><td>2408</td><td>NO</td></tr>' +
+                                '<tr><td>Colegiatura Marzo/2025</td><td>07</td><td>2407</td><td>NO</td></tr>' +
+                                '<tr><td>Colegiatura Febrero/2025</td><td>06</td><td>2406</td><td>NO</td></tr>' +
+                                '<tr><td>Inscripción Semestral / Enero 2025</td><td>00</td><td>2400</td><td>NO</td></tr>';
+                            footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 14, true);
+                        }
+                        
+                        let baseHtml = 
+                              '<h5 style="font-weight: 400; color: #222;">Pagos del alumno</h5>' +
+                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
+                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
+                              '<table class="simulated-table">' +
+                              '<colgroup><col style="width:40%"><col style="width:15%"><col style="width:25%"><col style="width:20%"></colgroup>' +
+                              '<thead><tr><th class="dt-sort-icon">Descripción</th><th class="dt-sort-icon">Concepto</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Adeudo vigente</th></tr></thead>' +
+                              '<tbody>' + tbodyHtml + '</tbody></table>' + footerHtml;
+                              
+                        document.getElementById('dynamicRenderCard').innerHTML = baseHtml;
+                        container.css('opacity', '1');
+                    }, 60);
+                }
 
                 const sectionsData = {
                     libreta_de_pago: {
@@ -308,29 +361,7 @@ function getPortalTemplate() {
                     colegiaturas: {
                         label: 'Colegiaturas / Inscr.',
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Pagos del Alumno',
-                        html: '<h5 style="font-weight: 400; color: #222;">Pagos del alumno</h5>' +
-                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
-                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
-                              '<table class="simulated-table">' +
-                              '<colgroup><col style="width:40%"><col style="width:15%"><col style="width:25%"><col style="width:20%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon">Descripción</th><th class="dt-sort-icon">Concepto</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Adeudo vigente</th></tr></thead>' +
-                              '<tbody>' +
-                              '<tr><td>Colegiatura Mayo/2026</td><td>09</td><td>2509</td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Abril/2026</td><td>08</td><td>2508</td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Marzo/2026</td><td>07</td><td>2507</td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Febrero/2026</td><td>06</td><td>2506</td><td>NO</td></tr>' +
-                              '<tr><td>Inscripción Semestral / Enero 2026</td><td>00</td><td>2500</td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Octubre/2025</td><td>02</td><td></td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Septiembre/2025</td><td>01</td><td>2501</td><td>NO</td></tr>' +
-                              '<tr><td>Inscripción Anual o Semestral / Agosto 2025</td><td>99</td><td>2599</td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Junio/2025</td><td>10</td><td>2410</td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Mayo/2025</td><td>09</td><td>2409</td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Abril/2025</td><td>08</td><td>2408</td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Marzo/2025</td><td>07</td><td>2407</td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Febrero/2025</td><td>06</td><td>2406</td><td>NO</td></tr>' +
-                              '<tr><td>Inscripción Semestral / Enero 2025</td><td>00</td><td>2400</td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Enero/2025</td><td>05</td><td>2405</td><td>NO</td></tr>' +
-                              '</tbody></table>' + footerColegiaturas
+                        html: 'TRIGGER_PAGE_1'
                     },
                     horario: {
                         label: 'Horario',
@@ -372,9 +403,9 @@ function getPortalTemplate() {
                               '<colgroup><col style="width:25%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"></colgroup>' +
                               '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Parcial 1</th><th class="dt-sort-icon">Parcial 2</th><th class="dt-sort-icon">Promedio</th><th class="dt-sort-icon">Ordinario</th><th class="dt-sort-icon">Calif. Final</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td>0</td><td>8</td><td>4</td><td></td><td></td></tr>' +
-                              '<tr><td>CALCULO DIFERENCIAL</td><td>0</td><td>8</td><td>4</td><td></td><td></td></tr>' +
-                              '<tr><td>FISICA APLICADA</td><td>10</td><td>7</td><td>8.5</td><td></td><td></td></tr>' +
+                              '<tr><td>ALGORITMOS</td><td>0</td><td>0</td><td>0</td><td></td><td></td></tr>' +
+                              '<tr><td>CALCULO DIFERENCIAL</td><td>0</td><td>38</td><td>19</td><td></td><td></td></tr>' +
+                              '<tr><td>FISICA APLICADA</td><td>10</td><td></td><td></td><td></td><td></td></tr>' +
                               '</tbody></table>' + footerCalificaciones
                     },
                     ordinarios: { 
@@ -410,7 +441,12 @@ function getPortalTemplate() {
                         
                         setTimeout(function() {
                             document.getElementById('breadcrumb-container').innerHTML = data.breadcrumb;
-                            document.getElementById('dynamicRenderCard').innerHTML = data.html;
+                            
+                            if (sectionKey === 'colegiaturas') {
+                                changeColegiaturasPage(1);
+                            } else {
+                                document.getElementById('dynamicRenderCard').innerHTML = data.html;
+                            }
                             
                             $('.custom-menu-li').removeClass('active-item');
                             
