@@ -165,7 +165,7 @@ function getPortalTemplate() {
                                     <li><a onclick="showSection('calificaciones')">Calificaciones</a></li>
                                     <li class="divider"></li>
                                     <li><a href="/">Salir</a></li>
-                                end </ul>
+                                </ul>
 
                                 <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo</span>
                             </div>
@@ -327,7 +327,6 @@ function getPortalTemplate() {
                     calificaciones: {
                         label: 'Calificaciones',
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Calificaciones',
-                        // MODIFICADO: Calificaciones de primer y segundo parcial ajustadas a 7 y 8 manteniendo el orden exacto de renderizado
                         html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Calificaciones del Alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
