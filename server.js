@@ -275,6 +275,127 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
+                // Definición de las secciones simuladas para no perder la información al cambiar de menú
+                const secciones = {
+                    libreta_de_pago: \`
+                        <div class="libreta-container">
+                            <div class="libreta-subtitle-large">Impresión de Libreta de Pago</div>
+                            <hr class="libreta-divider">
+                            <p>Para realizar depósitos en ventanilla bancaria, descarga tu libreta en formato PDF haciendo clic abajo:</p>
+                            <div class="libreta-action-btn">Descargar Libreta de Pago (PDF)</div>
+                        </div>
+                    \`,
+                    colegiaturas: \`
+                        <div class="libreta-container">
+                            <div class="libreta-subtitle-large">Estado de Colegiaturas e Inscripciones</div>
+                            <hr class="libreta-divider">
+                            <table class="simulated-table">
+                                <thead>
+                                    <tr>
+                                        <th>Concepto</th>
+                                        <th>Mes</th>
+                                        <th>Referencia</th>
+                                        <th>Pagado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="colegiaturasTableBody">
+                                    <tr><td>Colegiatura Mayo/2026</td><td>09</td><td>2509</td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Abril/2026</td><td>08</td><td>2508</td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Marzo/2026</td><td>07</td><td>2507</td><td>NO</td></tr>
+                                    <tr><td>Colegiatura Febrero/2026</td><td>06</td><td>2506</td><td>NO</td></tr>
+                                </tbody>
+                            </table>
+                            <div id="colegiaturasTableFooter"></div>
+                        </div>
+                    \`,
+                    horario: \`
+                        <div class="libreta-container">
+                            <div class="libreta-subtitle-large">Horario de Clases</div>
+                            <hr class="libreta-divider">
+                            <table class="simulated-table">
+                                <thead>
+                                    <tr><th>Asignatura</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Programación Web</td><td>07:00 - 09:00</td><td>-</td><td>07:00 - 09:00</td><td>-</td><td>-</td></tr>
+                                    <tr><td>Bases de Datos</td><td>-</td><td>09:00 - 11:00</td><td>-</td><td>09:00 - 11:00</td><td>-</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    \`,
+                    calificaciones: \`
+                        <div class="libreta-container">
+                            <div class="libreta-subtitle-large">Consulta de Calificaciones</div>
+                            <hr class="libreta-divider">
+                            <table class="simulated-table">
+                                <thead>
+                                    <tr><th>Materia</th><th>Parcial 1</th><th>Parcial 2</th><th>Parcial 3</th><th>Promedio</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Programación Web</td><td>95</td><td>88</td><td>92</td><td>91.6</td></tr>
+                                    <tr><td>Bases de Datos</td><td>85</td><td>90</td><td>87</td><td>87.3</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    \`,
+                    micuenta: \`
+                        <div class="libreta-container">
+                            <div class="mc-header-container"><h5 class="mc-title">Mi Cuenta</h5></div>
+                            <div class="mc-banner-blue">Actualizar Contraseña de Acceso</div>
+                            <div class="row mc-form-row">
+                                <div class="col s12 m6 mc-input-field">
+                                    <label>Contraseña Actual</label>
+                                    <input type="password">
+                                </div>
+                            </div>
+                            <div class="row mc-form-row">
+                                <div class="col s12 m6 mc-input-field">
+                                    <label>Nueva Contraseña</label>
+                                    <input type="password">
+                                </div>
+                            </div>
+                            <div class="mc-btn-save"><i class="material-icons">save</i>Guardar Cambios</div>
+                        </div>
+                    \`,
+                    documentos: \`
+                        <div class="doc-main-container">
+                            <div class="doc-left-panel">
+                                <div class="doc-banner-blue" style="color:white; padding:10px 15px; font-weight:500;">Entrega de Documentación Digital</div>
+                                <p>Selecciona tus archivos en formato PDF o JPG (Máx 5MB):</p>
+                                <div class="doc-select-btn">Seleccionar Archivo</div>
+                                <hr class="doc-line-divider">
+                                <div class="doc-btn-submit-disabled"><i class="material-icons">cloud_upload</i>Subir Documentos</div>
+                            </div>
+                            <div class="doc-right-notes-card">
+                                <h5 class="doc-notes-title">Notas Importantes</h5>
+                                <ul class="doc-notes-list">
+                                    <li>Los documentos deben ser completamente legibles.</li>
+                                    <li>El proceso de validación toma de 2 a 3 días hábiles.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    \`
+                };
+
+                // Función encargada de cambiar de pantallas dinámicamente sin recargar la web
+                function showSection(sectionKey) {
+                    const htmlContent = secciones[sectionKey] || '<div class="libreta-container"><div class="libreta-subtitle-large">Sección en construcción</div><hr class="libreta-divider"><p>Esta vista estará disponible próximamente en el simulador.</p></div>';
+                    
+                    // Quitar clase activa de todos los menús laterales anteriores
+                    $('.custom-menu-li').removeClass('active-item');
+                    // Activar el menú actual
+                    $('#menu-' + sectionKey).addClass('active-item');
+                    
+                    // Inyectar el HTML correspondiente
+                    $('#dynamicRenderCard').html(htmlContent);
+                    
+                    // Si es la sección de colegiaturas, generar su footer de paginación inicial
+                    if (sectionKey === 'colegiaturas') {
+                        let footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 14, false);
+                        $('#colegiaturasTableFooter').html(footerHtml);
+                    }
+                }
+
                 function generateExternalDataTablesFooter(columnWidthsArray, totalEntries, showPageTwo = false, isZeroEntries = false, searchFieldsCount = null) {
                     let searchBoxesHtml = '<div class="dt-search-footer-container">';
                     let limit = searchFieldsCount !== null ? searchFieldsCount : columnWidthsArray.length;
@@ -322,12 +443,6 @@ function getPortalTemplate() {
                         '</div>';
                 }
 
-                const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3);
-                const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
-                const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3);
-                const footerAdeudadas = generateExternalDataTablesFooter([50, 25, 25], 0, false, true);
-                const footerConstancias = generateExternalDataTablesFooter([35, 25, 20, 20], 0, false, true, 3);
-
                 function changeColegiaturasPage(pageNumber) {
                     const container = $('#dynamicRenderCard');
                     container.css('opacity', '0.4');
@@ -341,13 +456,7 @@ function getPortalTemplate() {
                                 '<tr><td>Colegiatura Mayo/2026</td><td>09</td><td>2509</td><td>NO</td></tr>' +
                                 '<tr><td>Colegiatura Abril/2026</td><td>08</td><td>2508</td><td>NO</td></tr>' +
                                 '<tr><td>Colegiatura Marzo/2026</td><td>07</td><td>2507</td><td>NO</td></tr>' +
-                                '<tr><td>Colegiatura Febrero/2026</td><td>06</td><td>2506</td><td>NO</td></tr>' +
-                                '<tr><td>Inscripción Semestral / Enero 2026</td><td>00</td><td>2500</td><td>NO</td></tr>' +
-                                '<tr><td>Colegiatura Octubre/2025</td><td>02</td><td></td><td>NO</td></tr>' +
-                                '<tr><td>Colegiatura Septiembre/2025</td><td>01</td><td>2501</td><td>NO</td></tr>' +
-                                '<tr><td>Inscripción Anual o Semestral / Agosto 2025</td><td>99</td><td>2599</td><td>NO</td></tr>' +
-                                '<tr><td>Colegiatura Junio/2025</td><td>10</td><td>2410</td><td>NO</td></tr>' +
-                                '<tr><td>Colegiatura Mayo/2025</td><td>09</td><td>2409</td><td>NO</td></tr>';
+                                '<tr><td>Colegiatura Febrero/2026</td><td>06</td><td>2506</td><td>NO</td></tr>';
                             footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 14, false);
                         } else {
                             tbodyHtml = 
@@ -358,12 +467,21 @@ function getPortalTemplate() {
                             footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 14, true);
                         }
                         
-                        // Aquí completamos el renderizado inyectándolo de vuelta en el DOM
                         $('#colegiaturasTableBody').html(tbodyHtml);
                         $('#colegiaturasTableFooter').html(footerHtml);
                         container.css('opacity', '1');
                     }, 200);
                 }
+
+                // Cargar una sección por defecto al entrar por primera vez
+                $(document).ready(function() {
+                    // Inicializa dropdowns de Materialize por si acaso
+                    $('.dropdown-trigger').dropdown({ constrainWidth: false });
+                    $('.collapsible').collapsible();
+                    
+                    // Mostrar libreta de pago como pantalla de inicio del portal
+                    showSection('libreta_de_pago');
+                });
             </script>
         </body>
         </html>
