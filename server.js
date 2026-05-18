@@ -358,14 +358,12 @@ function getPortalTemplate() {
                             footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 14, true);
                         }
                         
-                        // Renderizado dinámico simulado para las tablas
                         $('#colegiaturasTableBody').html(tbodyHtml);
                         $('#colegiaturasFooterNav').html(footerHtml);
                         container.css('opacity', '1');
                     }, 200);
                 }
 
-                // Inicializar elementos de Materialize al cargar la página
                 $(document).ready(function(){
                     $('.dropdown-trigger').dropdown({ constrainWidth: false });
                     $('.collapsible').collapsible();
@@ -384,7 +382,7 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    // Credenciales de prueba o tu validación real
+    // Credenciales de acceso para las pruebas locales/despliegue
     if (username === 'santiago' && password === 'modelo123') {
         res.send(getPortalTemplate());
     } else {
@@ -393,7 +391,7 @@ app.post('/login', (req, res) => {
 });
 
 // ==========================================
-// EL BLOQUE CORREGIDO (Línea 478 sin errores)
+// EL BLOQUE CORREGIDO (Línea final limpia)
 // ==========================================
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
