@@ -138,11 +138,12 @@ function getPortalTemplate() {
                 .collapsible-header { background-color: transparent !important; border: none !important; padding: 14px 20px !important; font-size: 13px !important; font-weight: 500 !important; color: #444 !important; text-transform: uppercase; display: flex !important; align-items: center; justify-content: space-between; }
                 .collapsible-header:hover { background-color: #f0f0f0; }
                 .collapsible-header div { display: flex; align-items: center; }
-                .collapsible-header i.main-icon { margin-right: 15px; color: #777; font-size: 18px; font-weight: bold; }
+                .collapsible-header i.main-icon { margin-right: 15px; color: #777; font-size: 20px; }
                 .collapsible-header i.arrow-indicator { font-size: 18px; color: #777; transition: transform 0.2s; }
                 li.active .collapsible-header i.arrow-indicator { transform: rotate(180deg); }
                 .collapsible-body { padding: 0 !important; border: none !important; background-color: #fafafa; }
                 .collapsible-body li a { padding-left: 54px !important; font-size: 13px !important; text-transform: none !important; font-weight: 400 !important; color: #555 !important; }
+                .collapsible-body li.active-subitem a { color: #0d47a1 !important; font-weight: bold !important; background-color: #e0e0e0; }
                 
                 #breadcrumb-container { font-size: 15px; color: #666; margin-bottom: 10px; display: flex; align-items: center; }
                 #breadcrumb-container i { font-size: 16px; margin: 0 8px; color: #999; }
@@ -212,7 +213,7 @@ function getPortalTemplate() {
                             <li id="menu-extraordinarios-root">
                                 <a class="collapsible-header waves-effect">
                                     <div>
-                                        <i class="material-icons main-icon">keyboard_arrow_right</i>
+                                        <i class="material-icons main-icon">dashboard</i>
                                         <span>EXTRAORDINARIOS</span>
                                     </div>
                                     <i class="material-icons arrow-indicator">keyboard_arrow_down</i>
@@ -372,7 +373,8 @@ function getPortalTemplate() {
                     extra_inscritos: { label:'Exámenes Inscritos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Inscritos', html: "<h5>Exámenes Extraordinarios Inscritos</h5><p>No cuentas con exámenes extraordinarios inscritos en este periodo.</p>" },
                     extra_calificaciones: { label:'Calificaciones', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Calificaciones', html: "<h5>Calificaciones de Extraordinarios</h5><p>No se registran calificaciones de exámenes extraordinarios históricos.</p>" },
                     formularios: { label:'Formularios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2'>Evaluación Docente 2026</button>" },
-                    biblioteca: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente con los registros de la institución.</p>" },
+                    text: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
+                    biblioteca: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
                     micuenta: { label:'Mi Cuenta', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', html: "<h5>Mi Cuenta</h5><p><b>Carrera:</b> Ingeniería en Sistemas Computacionales</p>" },
                     documentos: { label:'Documentos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', html: "<h5>Documentos</h5><p>Expediente digital completo.</p>" },
                     eduvida: { label:'EduVida', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> EduVida', html: "<h5>Educación para la Vida</h5><p>Talleres acreditados.</p>" }
@@ -389,7 +391,12 @@ function getPortalTemplate() {
                             document.getElementById('dynamicRenderCard').innerHTML = data.html;
                             
                             $('.custom-menu-li').removeClass('active-item');
-                            $('#menu-' + sectionKey).addClass('active-item');
+                            
+                            if(sectionKey === 'extra_inscritos' || sectionKey === 'extra_calificaciones') {
+                                $('#' + menuId).addClass('active-item');
+                            } else {
+                                $('#menu-' + sectionKey).addClass('active-item');
+                            }
                             
                             if (data.label) {
                                 document.getElementById('label-select-actual').innerHTML = data.label + ' <i class="material-icons">arrow_drop_down</i>';
