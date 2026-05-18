@@ -38,7 +38,7 @@ function getLoginTemplate(showAlert = false) {
                 <div class="system-title">SERVICIOS</div>
                 <div class="system-subtitle">ESCOLARES</div>
                 
-                ${showAlert ? '<div class="error-text">Escuela Modelo Usuario y/o contraseña inválidos</div>' : ''}
+                \${showAlert ? '<div class="error-text">Escuela Modelo Usuario y/o contraseña inválidos</div>' : ''}
 
                 <form action="/login" method="POST">
                     <div class="input-field">
@@ -81,7 +81,7 @@ function getPortalTemplate() {
                 .mainPaddingSidebar { padding-left: 240px; transition: padding 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
                 .mainPaddingLeft { padding-left: 0px; transition: padding 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
                 
-                #left-sidebar-nav { position: fixed; width: 240px; left: 0; top: 64px; height: calc(100vh - 64px); background: #fff; z-index: 999; box-shadow: 1px 0 5px rgba(0,0,0,0.1); transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+                #left-sidebar-nav { position: fixed; width: 240px; left: 0; top: 64px; height: calc(100vh - 64px); background: #fff; z-index: 999; box-shadow: 1px 0 5px rgba(0,0,0,0.1); transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); overflow-y: auto; }
                 .side-nav-hidden { transform: translateX(-240px); }
                 
                 header nav { background-color: #0d47a1 !important; height: 64px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
@@ -105,6 +105,7 @@ function getPortalTemplate() {
                 .libreta-red-note { color: #a30000; font-weight: bold; margin: 25px 0; font-size: 14.5px; text-transform: uppercase; }
                 .libreta-action-btn { background-color: #007bc4 !important; color: white !important; font-weight: 400; text-transform: uppercase; padding: 0 25px; height: 46px; line-height: 46px; border-radius: 4px; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-size: 14.5px; margin-top: 10px; }
                 
+                /* Tabla principal */
                 .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; color: #333; margin-bottom: 0px !important; table-layout: fixed; }
                 .simulated-table th, .simulated-table td { border: 1px solid #cccccc; padding: 10px 12px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
                 .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; position: relative; }
@@ -113,9 +114,14 @@ function getPortalTemplate() {
                 .dt-sort-icon::after { content: " ⇅"; font-size: 11px; color: #bbb; position: absolute; right: 8px; top: 12px; }
                 .dt-sort-icon-active::after { content: " ▲"; font-size: 10px; color: #0d47a1; position: absolute; right: 8px; top: 12px; }
 
-                .dt-search-footer-container { display: flex; width: 100%; background: transparent; padding-top: 8px; box-sizing: border-box; }
-                .dt-search-col-box { padding-right: 0px; box-sizing: border-box; display: inline-block; }
-                .dt-search-input { width: 96% !important; height: 28px !important; margin: 0 auto !important; padding: 0 4px !important; font-size: 13px !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; display: block; }
+                /* Estructura para simular el pie de búsqueda nativo fuera de la caja */
+                .dt-search-footer-table { width: 100%; border-collapse: collapse; table-layout: fixed; margin-top: 0px !important; margin-bottom: 0px !important; }
+                .dt-search-footer-table td { border: none !important; padding: 12px 10px 5px 10px !important; background: transparent !important; }
+                .dt-search-footer-table td:first-child { padding-left: 2px !important; }
+                .dt-search-footer-table td:last-child { padding-right: 2px !important; }
+
+                /* Inputs limpios con línea inferior gris */
+                .dt-search-input { width: 100% !important; height: 32px !important; margin: 0 !important; padding: 0 4px !important; font-size: 14px !important; color: #333 !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; display: block; }
                 .dt-search-input::placeholder { color: #bbb; font-weight: 400; }
                 .dt-search-input:focus { border-bottom: 1px solid #0d47a1 !important; box-shadow: none !important; }
                 
@@ -129,10 +135,20 @@ function getPortalTemplate() {
                 
                 .custom-menu-li a { color: #444 !important; display: flex !important; align-items: center; padding: 14px 20px; cursor: pointer; font-size: 13px; font-weight: 500; text-transform: uppercase; position: relative; overflow: hidden; }
                 .custom-menu-li a:hover { background-color: #f0f0f0; }
-                .custom-menu-li a i { margin-right: 15px; color: #777; font-size: 20px; pointer-events: none; }
+                .custom-menu-li a i.menu-arrow { margin-right: 15px; color: #777; font-size: 18px; font-weight: bold; }
                 .custom-menu-li.active-item { background-color: #e0e0e0; border-left: 4px solid #0d47a1; }
                 .custom-menu-li.active-item a { color: #0d47a1 !important; font-weight: bold; }
-                .custom-menu-li.active-item a i { color: #0d47a1; }
+                .custom-menu-li.active-item a i.menu-arrow { color: #0d47a1; }
+
+                .collapsible-header { background-color: transparent !important; border: none !important; padding: 14px 20px !important; font-size: 13px !important; font-weight: 500 !important; color: #444 !important; text-transform: uppercase; display: flex !important; align-items: center; justify-content: space-between; }
+                .collapsible-header:hover { background-color: #f0f0f0; }
+                .collapsible-header div { display: flex; align-items: center; }
+                .collapsible-header i.main-icon { margin-right: 15px; color: #777; font-size: 20px; }
+                .collapsible-header i.arrow-indicator { font-size: 18px; color: #777; transition: transform 0.2s; }
+                li.active .collapsible-header i.arrow-indicator { transform: rotate(180deg); }
+                .collapsible-body { padding: 0 !important; border: none !important; background-color: #fafafa; }
+                .collapsible-body li a { padding-left: 54px !important; font-size: 13px !important; text-transform: none !important; font-weight: 400 !important; color: #555 !important; }
+                .collapsible-body li.active-subitem a { color: #0d47a1 !important; font-weight: bold !important; background-color: #e0e0e0; }
                 
                 #breadcrumb-container { font-size: 15px; color: #666; margin-bottom: 10px; display: flex; align-items: center; }
                 #breadcrumb-container i { font-size: 16px; margin: 0 8px; color: #999; }
@@ -189,21 +205,38 @@ function getPortalTemplate() {
             <div id="main" class="mainPaddingSidebar">
                 <div class="wrapper">
                     <aside id="left-sidebar-nav">
-                        <ul style="margin: 0; padding: 0; list-style: none;">
-                            <li class="custom-menu-li" id="menu-libreta_de_pago"><a onclick="showSection('libreta_de_pago')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>LIBRETA DE PAGO</a></li>
-                            <li class="custom-menu-li" id="menu-colegiaturas"><a onclick="showSection('colegiaturas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>COLEGIATURAS / INSCR.</a></li>
-                            <li class="custom-menu-li" id="menu-horario"><a onclick="showSection('horario')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>HORARIO</a></li>
-                            <li class="custom-menu-li" id="menu-asignaturas"><a onclick="showSection('asignaturas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ASIGNATURAS</a></li>
-                            <li class="custom-menu-li" id="menu-calificaciones"><a onclick="showSection('calificaciones')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>CALIFICACIONES</a></li>
-                            <li class="custom-menu-li" id="menu-ordinarios"><a onclick="showSection('ordinarios')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ORDINARIOS</a></li>
-                            <li class="custom-menu-li" id="menu-adeudadas"><a onclick="showSection('adeudadas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ASIG.ADEUDADAS</a></li>
-                            <li class="custom-menu-li" id="menu-constancias"><a onclick="showSection('constancias')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>CONSTANCIAS</a></li>
-                            <li class="custom-menu-li" id="menu-formularios"><a onclick="showSection('formularios')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>FORMULARIOS</a></li>
-                            <li class="custom-menu-li" id="menu-biblioteca"><a onclick="showSection('biblioteca')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>BIBLIOTECA</a></li>
-                            <li class="custom-menu-li" id="menu-micuenta"><a onclick="showSection('micuenta')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>MI CUENTA</a></li>
-                            <li class="custom-menu-li" id="menu-documentos"><a onclick="showSection('documentos')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>DOCUMENTOS</a></li>
-                            <li class="custom-menu-li" id="menu-eduvida"><a onclick="showSection('eduvida')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>EDUCACION PARA LA VIDA</a></li>
-                            <li class="custom-menu-li"><a href="/" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>SALIR</a></li>
+                        <ul class="collapsible collapsible-accordion" style="margin: 0; padding: 0; list-style: none;" data-collapsible="accordion">
+                            <li class="custom-menu-li" id="menu-libreta_de_pago"><a onclick="showSection('libreta_de_pago')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>LIBRETA DE PAGO</a></li>
+                            <li class="custom-menu-li" id="menu-colegiaturas"><a onclick="showSection('colegiaturas')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>COLEGIATURAS / INSCR.</a></li>
+                            <li class="custom-menu-li" id="menu-horario"><a onclick="showSection('horario')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>HORARIO</a></li>
+                            <li class="custom-menu-li" id="menu-asignaturas"><a onclick="showSection('asignaturas')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>ASIGNATURAS</a></li>
+                            <li class="custom-menu-li" id="menu-calificaciones"><a onclick="showSection('calificaciones')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>CALIFICACIONES</a></li>
+                            <li class="custom-menu-li" id="menu-ordinarios"><a onclick="showSection('ordinarios')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>ORDINARIOS</a></li>
+                            <li class="custom-menu-li" id="menu-adeudadas"><a onclick="showSection('adeudadas')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>ASIG.ADEUDADAS</a></li>
+                            <li class="custom-menu-li" id="menu-constancias"><a onclick="showSection('constancias')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>CONSTANCIAS</a></li>
+                            
+                            <li id="menu-extraordinarios-root">
+                                <a class="collapsible-header waves-effect">
+                                    <div>
+                                        <i class="material-icons main-icon">dashboard</i>
+                                        <span>EXTRAORDINARIOS</span>
+                                    </div>
+                                    <i class="material-icons arrow-indicator">keyboard_arrow_down</i>
+                                </a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li class="custom-menu-li" id="menu-extra_inscritos"><a onclick="showSection('extra_inscritos')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>Exámenes Inscritos</a></li>
+                                        <li class="custom-menu-li" id="menu-extra_calificaciones"><a onclick="showSection('extra_calificaciones')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>Calificaciones</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="custom-menu-li" id="menu-formularios"><a onclick="showSection('formularios')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>FORMULARIOS</a></li>
+                            <li class="custom-menu-li" id="menu-biblioteca"><a onclick="showSection('biblioteca')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>BIBLIOTECA</a></li>
+                            <li class="custom-menu-li" id="menu-micuenta"><a onclick="showSection('micuenta')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>MI CUENTA</a></li>
+                            <li class="custom-menu-li" id="menu-documentos"><a onclick="showSection('documentos')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>DOCUMENTOS</a></li>
+                            <li class="custom-menu-li" id="menu-eduvida"><a onclick="showSection('eduvida')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>EDUCACION PARA LA VIDA</a></li>
+                            <li class="custom-menu-li"><a href="/" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>SALIR</a></li>
                         </ul>
                     </aside>
 
@@ -220,15 +253,13 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                function generateExternalDataTablesFooter(columnWidthsArray, totalEntries) {
-                    let searchBoxesHtml = '<div class="dt-search-footer-container">';
-                    
-                    columnWidthsArray.forEach(function(widthPercentage) {
-                        searchBoxesHtml += '<div class="dt-search-col-box" style="width: ' + widthPercentage + '%;">' +
-                                                '<input type="text" class="dt-search-input" placeholder="Buscar">' +
-                                           '</div>';
-                    });
-                    searchBoxesHtml += '</div>';
+                // Función global: Genera la tabla secundaria externa de búsquedas perfectamente emparejada con las columnas superiores
+                function generateExternalDataTablesFooter(columnsCount, totalEntries) {
+                    let searchBoxesHtml = '<table class="dt-search-footer-table"><tr>';
+                    for (let i = 0; i < columnsCount; i++) {
+                        searchBoxesHtml += '<td><input type="text" class="dt-search-input" placeholder="Buscar"></td>';
+                    }
+                    searchBoxesHtml += '</tr></table>';
                     
                     let paginationHtml = 
                         '<div class="dt-footer-container">' +
@@ -243,10 +274,10 @@ function getPortalTemplate() {
                     return searchBoxesHtml + paginationHtml;
                 }
 
-                const footerColegiaturas = generateExternalDataTablesFooter([25, 25, 25, 25], 5);
-                const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3);
-                const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
-                const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3);
+                const footerColegiaturas = generateExternalDataTablesFooter(4, 5);
+                const footerHorarios = generateExternalDataTablesFooter(7, 3);
+                const footerAsignaturas = generateExternalDataTablesFooter(2, 3);
+                const footerCalificaciones = generateExternalDataTablesFooter(6, 3);
 
                 const sectionsData = {
                     libreta_de_pago: {
@@ -334,14 +365,16 @@ function getPortalTemplate() {
                               '<colgroup><col style="width:25%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"></colgroup>' +
                               '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Parcial 1</th><th class="dt-sort-icon">Parcial 2</th><th class="dt-sort-icon">Promedio</th><th class="dt-sort-icon">Ordinario</th><th class="dt-sort-icon">Calif. Final</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td>8</td><td>8</td><td>8</td><td></td><td></td></tr>' +
-                              '<tr><td>CALCULO DIFERENCIAL</td><td>8</td><td>8</td><td>8</td><td></td><td></td></tr>' +
-                              '<tr><td>FISICA APLICADA</td><td>7</td><td>7</td><td>7</td><td></td><td></td></tr>' +
+                              '<tr><td>ALGORITMOS</td><td>0</td><td>8</td><td>4</td><td></td><td></td></tr>' +
+                              '<tr><td>CALCULO DIFERENCIAL</td><td>0</td><td>8</td><td>4</td><td></td><td></td></tr>' +
+                              '<tr><td>FISICA APLICADA</td><td>10</td><td>7</td><td>8.5</td><td></td><td></td></tr>' +
                               '</tbody></table>' + footerCalificaciones
                     },
                     ordinarios: { label:'Ordinarios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', html: "<h5>Exámenes Ordinarios</h5><p><i>La publicación oficial del rol de exámenes ordinarios está pendiente.</i></p>" },
                     adeudadas: { label:'Asig. Adeudadas', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Adeudadas', html: "<h5>Asignaturas Adeudadas</h5><p style='color:green;'><b>Estatus Regular:</b> No se registran asignaturas reprobadas.</p>" },
                     constancias: { label:'Constancias', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', html: "<h5>Trámite de Constancias</h5><button class='btn blue darken-4'>Solicitar Constancia</button>" },
+                    extra_inscritos: { label:'Exámenes Inscritos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Inscritos', html: "<h5>Exámenes Extraordinarios Inscritos</h5><p>No cuentas con exámenes extraordinarios inscritos en este periodo.</p>" },
+                    extra_calificaciones: { label:'Calificaciones', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Calificaciones', html: "<h5>Calificaciones de Extraordinarios</h5><p>No se registran calificaciones de exámenes extraordinarios históricos.</p>" },
                     formularios: { label:'Formularios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2'>Evaluación Docente 2026</button>" },
                     biblioteca: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
                     micuenta: { label:'Mi Cuenta', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', html: "<h5>Mi Cuenta</h5><p><b>Carrera:</b> Ingeniería en Sistemas Computacionales</p>" },
@@ -360,7 +393,12 @@ function getPortalTemplate() {
                             document.getElementById('dynamicRenderCard').innerHTML = data.html;
                             
                             $('.custom-menu-li').removeClass('active-item');
-                            $('#menu-' + sectionKey).addClass('active-item');
+                            
+                            if(sectionKey === 'extra_inscritos' || sectionKey === 'extra_calificaciones') {
+                                $('#' + menuId).addClass('active-item');
+                            } else {
+                                $('#menu-' + sectionKey).addClass('active-item');
+                            }
                             
                             if (data.label) {
                                 document.getElementById('label-select-actual').innerHTML = data.label + ' <i class="material-icons">arrow_drop_down</i>';
@@ -388,6 +426,8 @@ function getPortalTemplate() {
                 });
 
                 $(document).ready(function() {
+                    $('.collapsible').collapsible();
+                    
                     $('.dropdown-trigger').dropdown({ 
                         constrainWidth: false, 
                         alignment: 'left', 
