@@ -12,11 +12,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Logotipo Oficial de la Universidad Modelo en Base64 (Carga 100% garantizada de forma local)
 const LOGO_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABY7eeBAAAASFBMVEUAAAD///8OnMEAnMAAnf8Anf4Anf0AnP8Anf8Anf4Anf8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf/7yG0WAAAAFnRSTlMA9g72DRb29vYWFvYWFhYW9vb2FhYWFhH3738AAAGpSURBVFjD7ZfZkoMgEEXb0BAsatT//7VpUAnSgG0m86SreS88CgciwS7L/id8tEw8U7Z+b10p368739q27z/HwE7UvXNtzD6r2X7P70ePId/bC6R7jB3w/H4Y8uW87Xp9gUwnXz3Yg79v98N8Z6+XN6R7M9+R/g6ZAn83H+b70vF9Y9G67X3vFpA/6+P7A7A/zPf1h+B7Hn4A0wNoGv4O03Uu6XofwHRbCHmD+T/InL3tXN0h8Z/08G7wK/6T6X/6L/ivX/Ffvw6H4L8eP2f3+G7wfY9D8Pf6Ew6Hw+FwOBwO99C4MbyTid279uC8C2N+F6yI5N0P68G4O7Euxv8mVsX+zZg7scgC+E203G9ihpL30EshTiyE/Cai96XkPRRi8pXEXBPy6X0l6wH4SszfF0ImIeaf9w6ZixmBf4M5u9Nf6Yv9GZitGZ9/gxlpX+x7MGMz7v4OplK+2PdgnAWDfwvGWTB07jVDP+96ZpB6ZpB6ZtDT09PT09PT09PT09PT08vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vL+/8ZfwD8yBv1RstbYwAAAABJRU5ErkJggg==";
 
-// 1. PLANTILLA DE LOGIN (Limpia, sin interferencias de barras de navegación)
+// 1. PLANTILLA DE LOGIN
 function getLoginTemplate(showAlert = false) {
     let alertScript = "";
     if (showAlert) {
-        // Cuadrito emergente idéntico al solicitado
         alertScript = `
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -121,6 +120,13 @@ function getPortalTemplate() {
                 .main-content-area { margin-left: 300px; padding: 30px; min-height: calc(100vh - 64px); background: #e9ecef url('https://www.transparenttextures.com/patterns/cream-paper.png'); box-sizing: border-box; }
                 .content-card { background: white; padding: 35px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); min-height: 450px; }
                 .content-card h4 { margin: 0 0 20px 0; color: #0d2c54; font-size: 24px; font-weight: bold; border-bottom: 2px solid #0d2c54; padding-bottom: 10px; }
+                
+                /* Estilos específicos para la sección libreta de pago */
+                .libreta-text { font-size: 15px; line-height: 1.6; color: #333; text-align: justify; }
+                .libreta-section-title { font-weight: bold; margin-top: 20px; color: #0d2c54; font-size: 16px; text-transform: uppercase; border-left: 4px solid #2979ff; padding-left: 8px; }
+                .libreta-sub { font-weight: bold; margin-top: 10px; color: #555; }
+                .important-box { background-color: #fff3e0; border: 1px solid #ffe0b2; border-left: 5px solid #ffb74d; padding: 15px; margin-top: 20px; border-radius: 4px; }
+                
                 .simulated-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
                 .simulated-table th, .simulated-table td { border: 1px solid #e0e0e0; padding: 12px; font-size: 14px; }
                 .simulated-table th { background-color: #f8f9fa; color: #0d2c54; }
@@ -193,7 +199,37 @@ function getPortalTemplate() {
             <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
             <script>
                 const sectionsData = {
-                    libreta_de_pago: { title: "Libreta de Pago", html: "<p>No hay estados de cuenta pendientes de liquidación.</p><table class='simulated-table'><tr><th>Concepto</th><th>Fecha de Vencimiento</th><th>Monto</th><th>Estatus</th></tr><tr><td>Colegiatura del Mes</td><td>10/05/2026</td><td>$4,200.00</td><td><span class='green-text'><b>PAGADO</b></span></td></tr></table>" },
+                    libreta_de_pago: { 
+                        title: "LIBRETA DE PAGO", 
+                        html: \`
+                            <div class="libreta-text">
+                                <p><b>Estimado(a) alumno(a):</b> Aquí puedes descargar tu libreta de pago acorde a tu plan de pago previamente registrado: <b>Colegiatura Diez Meses</b>, y la <b>Inscripción de Enero</b> a pagarse el monto total en el mes de Enero.</p>
+                                <p>Cualquier duda ó aclaración, favor de comunicarte a la Coordinación Administrativa de la Universidad Modelo.</p>
+                                <p style="color: #555; background: #f1f3f5; padding: 10px; border-radius: 4px; font-size: 14px;">
+                                    <b>Coordinación administrativa</b> | Tel.: 999 - 9301900 ext. 1151 o al celular 999 135 6225 | Email: <a href="mailto:coordinacion.administrativa@modelo.edu.mx">coordinacion.administrativa@modelo.edu.mx</a>
+                                </p>
+                                
+                                <div class="libreta-section-title">IMPORTANTE: Favor de descargar la libreta:</div>
+                                <div style="font-weight: bold; font-size: 16px; margin: 10px 0; color: #d32f2f;">INSTRUCCIONES DE PAGO.</div>
+                                
+                                <div class="libreta-sub">BBVA:</div>
+                                <p style="margin-left: 15px; margin-top:5px;"><b>I. PAGO DIRECTO EN SUCURSAL BANCARIA BBVA:</b><br>
+                                1-SI PAGA EN VENTANILLA O CAJERO AUTOMÁTICO DE SUCURSAL BANCARIA BBVA, SELECCIONE PAGO DE SERVICIO CON EL CONVENIO <b>1852132</b></p>
+                                
+                                <p style="margin-left: 15px;"><b>II. PAGO EN LÍNEA (APLICACIÓN Ó PORTAL WEB BANCARIO):</b><br>
+                                A) SI PAGA DE BBVA A BBVA (DESDE SU PORTAL BANCARIO BBVA), UTILICE PAGO DE SERVICIO CON EL CONVENIO <b>1852132</b><br>
+                                B) DESDE OTRO BANCO A BBVA (SPEI), USAR LA CLABE INTERBANCARIA <b>012914002018521323</b></p>
+                                
+                                <div class="libreta-sub">HSBC:</div>
+                                <p style="margin-left: 15px; margin-top:5px;"><b>I.</b> SI PAGA DE HSBC A HSBC, PAGAR COMO SERVICIO <b>9022</b><br>
+                                <b>II.</b> DESDE OTRO BANCO A HSBC (SPEI), USAR LA CLABE INTERBANCARIA <b>021180550300090224</b></p>
+                                
+                                <div class="important-box">
+                                    <b>NOTA:</b> EN CUALQUIER OPERACIÓN DE PAGO DEBERÁ INGRESARSE LOS 26 DIGITOS DEL CONCEPTO DE PAGO O REFERENCIA
+                                </div>
+                            </div>
+                        \` 
+                    },
                     colegiaturas: { title: "Colegiaturas e Inscripciones", html: "<table class='simulated-table'><tr><th>Folio Digital</th><th>Periodo</th><th>Concepto Base</th><th>Monto</th></tr><tr><td>MOD-78452</td><td>2026-A</td><td>Reinscripción Semestral</td><td>$5,100.00</td></tr></table>" },
                     horario: { title: "Horario de Clases", html: "<table class='simulated-table'><tr><th>Hora</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th></tr><tr><td>07:00 - 09:00</td><td>Programación Web</td><td>Base de Datos</td><td>Programación Web</td><td>Base de Datos</td><td>Taller</td></tr></table>" },
                     asignaturas: { title: "Asignaturas Inscritas", html: "<ul><li>• Laboratorio de Programación Web</li><li>• Ingeniería de Software II</li><li>• Arquitectura de Sistemas Distribuidos</li><li>• Redes Avanzadas de Computadoras</li></ul>" },
@@ -255,7 +291,6 @@ app.post('/login', (req, res) => {
     if (username === "15246740" && password === "ARCOS") {
         res.send(getPortalTemplate());
     } else {
-        // Ejecuta el login mandando el activador de la alerta popup
         res.send(getLoginTemplate(true));
     }
 });
