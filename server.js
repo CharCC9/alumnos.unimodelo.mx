@@ -105,27 +105,26 @@ function getPortalTemplate() {
                 .libreta-red-note { color: #a30000; font-weight: bold; margin: 25px 0; font-size: 14.5px; text-transform: uppercase; }
                 .libreta-action-btn { background-color: #007bc4 !important; color: white !important; font-weight: 400; text-transform: uppercase; padding: 0 25px; height: 46px; line-height: 46px; border-radius: 4px; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-size: 14.5px; margin-top: 10px; }
                 
-                /* Tabla principal */
-                .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; color: #333; margin-bottom: 0px !important; table-layout: fixed; }
+                /* Corrección de la tabla principal */
+                .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; color: #333; margin-bottom: 0px !important; table-layout: fixed; border: 1px solid #cccccc; }
                 .simulated-table th, .simulated-table td { border: 1px solid #cccccc; padding: 10px 12px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-                .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; position: relative; }
+                .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; position: relative; border-bottom: 2px solid #cccccc; }
                 .simulated-table tr:nth-child(even) { background-color: #fafafa; }
                 
                 .dt-sort-icon::after { content: " ⇅"; font-size: 11px; color: #bbb; position: absolute; right: 8px; top: 12px; }
                 .dt-sort-icon-active::after { content: " ▲"; font-size: 10px; color: #0d47a1; position: absolute; right: 8px; top: 12px; }
 
-                /* Estructura para simular el pie de búsqueda nativo fuera de la caja */
-                .dt-search-footer-table { width: 100%; border-collapse: collapse; table-layout: fixed; margin-top: 0px !important; margin-bottom: 0px !important; }
-                .dt-search-footer-table td { border: none !important; padding: 12px 10px 5px 10px !important; background: transparent !important; }
-                .dt-search-footer-table td:first-child { padding-left: 2px !important; }
-                .dt-search-footer-table td:last-child { padding-right: 2px !important; }
-
-                /* Inputs limpios con línea inferior gris */
-                .dt-search-input { width: 100% !important; height: 32px !important; margin: 0 !important; padding: 0 4px !important; font-size: 14px !important; color: #333 !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; display: block; }
+                /* Contenedor de búsquedas completamente fuera y separado del recuadro de la tabla */
+                .dt-search-footer-container { display: flex; width: 100%; background: transparent; padding-top: 14px; padding-bottom: 5px; box-sizing: border-box; }
+                .dt-search-col-box { box-sizing: border-box; display: inline-block; padding-right: 10px; }
+                .dt-search-col-box:last-child { padding-right: 0px; }
+                
+                /* Estilo idéntico al input nativo de DataTables */
+                .dt-search-input { width: 100% !important; height: 30px !important; margin: 0 !important; padding: 0 2px !important; font-size: 14px !important; color: #333 !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; display: block; }
                 .dt-search-input::placeholder { color: #bbb; font-weight: 400; }
                 .dt-search-input:focus { border-bottom: 1px solid #0d47a1 !important; box-shadow: none !important; }
                 
-                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #333; }
+                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13.5px; color: #333; }
                 .dt-info { font-size: 13.5px; color: #333; }
                 .dt-pagination { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
                 .dt-pagination li { margin: 0 2px; }
@@ -183,7 +182,7 @@ function getPortalTemplate() {
                                     <li><a href="/">Salir</a></li>
                                 </ul>
 
-                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo</span>
+                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo 🏆</span>
                             </div>
                             <ul class="right hide-on-med-and-down" style="margin-right: 20px;">
                                 <li style="color: white; font-size: 14px; display: inline-block; vertical-align: middle; margin-right: 10px;">SANTIAGO DE JESUS ARCOS GUZMAN</li>
@@ -253,13 +252,15 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                // Función global: Genera la tabla secundaria externa de búsquedas perfectamente emparejada con las columnas superiores
-                function generateExternalDataTablesFooter(columnsCount, totalEntries) {
-                    let searchBoxesHtml = '<table class="dt-search-footer-table"><tr>';
-                    for (let i = 0; i < columnsCount; i++) {
-                        searchBoxesHtml += '<td><input type="text" class="dt-search-input" placeholder="Buscar"></td>';
-                    }
-                    searchBoxesHtml += '</tr></table>';
+                function generateExternalDataTablesFooter(columnWidthsArray, totalEntries) {
+                    let searchBoxesHtml = '<div class="dt-search-footer-container">';
+                    
+                    columnWidthsArray.forEach(function(widthPercentage) {
+                        searchBoxesHtml += '<div class="dt-search-col-box" style="width: ' + widthPercentage + '%;">' +
+                                                '<input type="text" class="dt-search-input" placeholder="Buscar">' +
+                                           '</div>';
+                    });
+                    searchBoxesHtml += '</div>';
                     
                     let paginationHtml = 
                         '<div class="dt-footer-container">' +
@@ -274,10 +275,10 @@ function getPortalTemplate() {
                     return searchBoxesHtml + paginationHtml;
                 }
 
-                const footerColegiaturas = generateExternalDataTablesFooter(4, 5);
-                const footerHorarios = generateExternalDataTablesFooter(7, 3);
-                const footerAsignaturas = generateExternalDataTablesFooter(2, 3);
-                const footerCalificaciones = generateExternalDataTablesFooter(6, 3);
+                const footerColegiaturas = generateExternalDataTablesFooter([25, 25, 25, 25], 5);
+                const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3);
+                const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
+                const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3);
 
                 const sectionsData = {
                     libreta_de_pago: {
@@ -395,7 +396,8 @@ function getPortalTemplate() {
                             $('.custom-menu-li').removeClass('active-item');
                             
                             if(sectionKey === 'extra_inscritos' || sectionKey === 'extra_calificaciones') {
-                                $('#' + menuId).addClass('active-item');
+                                $('#menu-extraordinarios-root').addClass('active');
+                                $('#menu-' + sectionKey).addClass('active-item');
                             } else {
                                 $('#menu-' + sectionKey).addClass('active-item');
                             }
