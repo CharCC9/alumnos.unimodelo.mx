@@ -8,8 +8,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Logo Base64 para evitar dependencias externas
-const LOGO_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABY7eeBAAAASFBMVEUAAAD///8OnMEAnMAAnf8Anf4Anf0AnP8Anf8Anf4Anf8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf/7yG0WAAAAFnRSTlMA9g72DRb29vYWFvYWFhYW9vb2FhYWFhH3738AAAGpSURBVFjD7ZfZkoMgEEXb0BAsatT//7VpUAnSgG0m86SreS88CgciwS7L/id8tEw8U7Z+b10p368739q27z/HwE7UvXNtzD6r2X7P70ePId/bC6R7jB3w/H4Y8WW87Xp9gUwnXz3Yg79v98N8Z6+XN6R7M9+R/g6ZAn83H+b70vF9Y9G67X3vFpA/6+P7A7A/zPf1h+B7Hn4A0wNoGv4O03Uu6XofwHRbCHmD+T/InL3tXN0h8Z/08G7wK/6T6X/6L/ivX/Ffvw6H4L8eP2f3+G7wfY9D8Pf6Ew6Hw+FwOBwO99C4MbyTid279uC8C2N+F6yI5N0P68G4O7Euxv8mVsX+zZg7scgC+E203G9ihpL30EshTiyE/Cai96XkPRRi8pXEXBPy6X0l6wH4SszfF0ImIeaf9w6ZixmBf4M5u9Nf6Yv9GZitGZ9/gxlpX+x7MGMz7v4OplK+2PdgnAWDfwvGWTB07jVDP+96ZpB6ZpB6ZtDT09PT09PT09PT09PT08vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vL+/8ZfwD8yBv1RstbYwAAAABJRU5ErkJggg==";
+// Escudo oficial vectorizado de la Universidad Modelo en alta resolución
+const LOGO_PORTAL_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABUCAMAAAD477WbAAAAYFBMVEUAAAD///////////8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf8Anv8Anf912pOnAAAAH3RSTlMA9g729g32FhYWFvb2FhYWFhH29vb29vb29g72EfbuYpYAAALFSURVRYw82W2ZKiMBSG6Y6isgkiKK447/v+T7tA0IDZOC6bUvOf9Sshv86XpEwS27b/WzZ17zFvXOf79YhZ+Bv3zuyzmu/3/Ond/60bCHg7wA5wfj+O6Kbe78wV6XgX6oO/b/fD7GfvsM6QXsV8w3pEpMDf7Yf5PrvSOnLoxHq97X2BwAnI7gDYH+bb+kNIPb7ZAn0Eeh6fE9I/yJy9wVz1PULPofcoZ/gX0v/wX/Bfv+LvevW6v9V/C89o2o9D77Zz94wI99gC/F19eFvXmS4z9uDu7/D/Y3+M3Xp89vV7YJ2FwX0f1l2wKvZvxtwOixTAbyLlThPTFr99XwpxYmHwN+F8ZqgK/v6x7gTqNfH9Zas3uE+vW4K8gN6hnwXp3YgG5D68P4GvD8H7VfC6gVzHe/bY6/NmsN6/bofvM34I9gq7M/7L3YPeid/vFvs9vxtgY/OewRsG838D6A4bWfX/ox3fXDKXpB6TpmUFPKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKvofob93yAnInwN6CqI/D+itwXwZ0GuD0W3fXwG9NJgrV9NAsVAtA8X8H6EioUoGyoTyA6UClf8gFC7v/D9DoVDmHyF3C/w/Q+FymX+EguVyfKioX97tA3KBy38M6m8v7wP6Z3l/KJS4fArK5XgKykW/e3gT1D3vHh2V99H6GNTWfBw69vIuI/Yw6bCuj+fWfXpM70Z9T2qCshV70gPyvXG2R0wK/A2vXofU96jGZ0XIdPKVAuSPXbQitvUAnfD74+wTqG9/yA7fC3Wp7DofA9/q72A/gK4Iem82D6N7jP4P/C/O7z9EAgG8VwAAAABJRU5ErkJggg==";
 
 function getLoginTemplate(showAlert = false) {
     return `
@@ -37,7 +37,7 @@ function getLoginTemplate(showAlert = false) {
         </head>
         <body>
             <div class="login-card">
-                <div class="logo-container"><img src="${LOGO_BASE64}" alt="Logo"></div>
+                <div class="logo-container"><img src="${LOGO_PORTAL_BASE64}" alt="Logo"></div>
                 <div class="system-title">SERVICIOS</div>
                 <div class="system-subtitle">ESCOLARES</div>
                 
@@ -87,7 +87,11 @@ function getPortalTemplate() {
                 #left-sidebar-nav { position: fixed; width: 240px; left: 0; top: 64px; height: calc(100vh - 64px); background: #fff; z-index: 999; box-shadow: 1px 0 5px rgba(0,0,0,0.1); transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
                 .side-nav-hidden { transform: translateX(-240px); }
                 
-                .brand-sidebar center img { background: transparent; padding: 5px; margin-top: 10px; }
+                /* ESTRUCTURA EXACTA DE LA BARRA SUPERIOR (HEADER) */
+                header nav { background-color: #0d47a1 !important; height: 64px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+                .nav-brand-area { width: 240px; height: 64px; background-color: #0a3c8a; float: left; display: flex; align-items: center; padding-left: 15px; box-sizing: border-box; }
+                .nav-brand-area img { width: 44px; height: 44px; margin-left: 15px; object-fit: contain; }
+                
                 .libreta-container { font-family: 'Segoe UI', Arial, sans-serif; color: #333333; font-size: 14.5px; line-height: 1.6; }
                 .libreta-blue-text { color: #0033cc; font-weight: bold; }
                 .libreta-divider { border: 0; border-top: 1px solid #cccccc; margin: 20px 0; }
@@ -99,14 +103,14 @@ function getPortalTemplate() {
                 .libreta-red-note { color: #a30000; font-weight: bold; margin: 25px 0; font-size: 14.5px; text-transform: uppercase; }
                 .libreta-action-btn { background-color: #007bc4 !important; color: white !important; font-weight: 400; text-transform: uppercase; padding: 0 25px; height: 46px; line-height: 46px; border-radius: 4px; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-size: 14.5px; margin-top: 10px; }
                 
-                .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; color: #333; margin-bottom: 0px !important;}
+                .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; color: #333; margin-bottom: 0px !important; }
                 .simulated-table th, .simulated-table td { border: 1px solid #cccccc; padding: 10px 12px; text-align: left; }
                 .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; }
                 .simulated-table tr:nth-child(even) { background-color: #fafafa; }
                 
-                /* --- ESTILOS NATIVOS DE DATATABLES REPLICADOS --- */
+                /* PIE DE TABLA - DATATABLES SIMULADO */
                 .dt-search-row td { padding: 8px 12px !important; background-color: #ffffff; border: 1px solid #cccccc; }
-                .dt-search-input { width: 100% !important; height: 26px !important; margin: 0 !important; padding: 0 5px !important; font-size: 13px !important; border: 1px solid #ccc !important; box-sizing: border-box !important; background: #fff !important; font-family: 'Segoe UI', Arial, sans-serif;}
+                .dt-search-input { width: 100% !important; height: 26px !important; margin: 0 !important; padding: 0 5px !important; font-size: 13px !important; border: 1px solid #ccc !important; box-sizing: border-box !important; background: #fff !important; font-family: 'Segoe UI', Arial, sans-serif; }
                 .dt-search-input::placeholder { color: #bbb; font-weight: 400; }
                 .dt-search-input:focus { border-bottom: 1px solid #0d47a1 !important; box-shadow: none !important; }
                 
@@ -117,9 +121,6 @@ function getPortalTemplate() {
                 .dt-pagination li a { display: block; padding: 6px 12px; color: #333; text-decoration: none; font-size: 13px; border-radius: 2px; cursor: pointer; }
                 .dt-pagination li.active-page a { background-color: #e0e0e0; font-weight: bold; border: 1px solid #ccc; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
                 .dt-pagination li.disabled-page a { color: #bbb; cursor: default; }
-                /* ----------------------------------------------- */
-
-                header nav { background-color: #0d47a1 !important; height: 64px; }
                 
                 .custom-menu-li a { color: #444 !important; display: flex !important; align-items: center; padding: 14px 20px; cursor: pointer; font-size: 13px; font-weight: 500; text-transform: uppercase; position: relative; overflow: hidden; }
                 .custom-menu-li a:hover { background-color: #f0f0f0; }
@@ -140,9 +141,13 @@ function getPortalTemplate() {
                 <div class="navbar-fixed">
                     <nav class="navbar-color">
                         <div class="nav-wrapper">
-                            <a href="#" style="color:white; float:left; height: 64px; display: flex; align-items: center;" class="sidenav-trigger-toggle waves-effect waves-light">
-                                <i class="material-icons" style="font-size:28px; margin-left: 20px;">menu</i>
-                            </a>
+                            <div class="nav-brand-area">
+                                <a href="#" style="color:white; display: flex; align-items: center;" class="sidenav-trigger-toggle waves-effect waves-light">
+                                    <i class="material-icons" style="font-size:28px;">menu</i>
+                                </a>
+                                <img src="${LOGO_PORTAL_BASE64}" alt="Escudo Universidad Modelo">
+                            </div>
+                            
                             <div style="display: inline-block; margin-left: 20px; padding-top: 12px;">
                                 <select id="menu-navegacion" class="browser-default" style="width: 180px; display: inline-block; height: 36px; vertical-align: middle; background: white; border: 1px solid #ccc; border-radius:3px;">
                                     <option value="libreta_de_pago">Libreta de pago</option>
@@ -205,18 +210,18 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                // Función global helper para inyectar los inputs Buscar y la paginación de DataTables a cualquier tabla de 3 registros
-                function appendDataTablesFooter(columnCount) {
+                // Función global limpia para generar las celdas de DataTables sin errores
+                function createDataTablesHtml(columnCount, totalEntries) {
                     let searchCells = '';
                     for (let i = 0; i < columnCount; i++) {
                         searchCells += '<td><input type="text" class="dt-search-input" placeholder="Buscar"></td>';
                     }
                     
-                    let searchRow = '<tr class="dt-search-row">' + searchCells + '</tr>';
+                    let rowHtml = '<tr class="dt-search-row">' + searchCells + '</tr>';
                     
-                    let footerControls = 
+                    let footerHtml = 
                         '<div class="dt-footer-container">' +
-                            '<div class="dt-info">Showing 1 to 3 of 3 entries</div>' +
+                            '<div class="dt-info">Showing 1 to ' + totalEntries + ' of ' + totalEntries + ' entries</div>' +
                             '<ul class="dt-pagination">' +
                                 '<li class="disabled-page"><a>Previous</a></li>' +
                                 '<li class="active-page"><a>1</a></li>' +
@@ -224,14 +229,14 @@ function getPortalTemplate() {
                             '</ul>' +
                         '</div>';
                         
-                    return { searchRow: searchRow, footerControls: footerControls };
+                    return { row: rowHtml, footer: footerHtml };
                 }
 
-                // Generación de plantillas seguras
-                const dt3 = appendDataTablesFooter(4);
-                const dt7 = appendDataTablesFooter(7);
-                const dt2 = appendDataTablesFooter(2);
-                const dt6 = appendDataTablesFooter(6);
+                // Definición estructurada de bloques de tablas
+                const dtColegiaturas = createDataTablesHtml(4, 5);
+                const dtHorarios = createDataTablesHtml(7, 3);
+                const dtAsignaturas = createDataTablesHtml(2, 3);
+                const dtCalificaciones = createDataTablesHtml(6, 3);
 
                 const sectionsData = {
                     libreta_de_pago: {
@@ -274,8 +279,8 @@ function getPortalTemplate() {
                               '<tr><td>Colegiatura Marzo/2026</td><td>072507</td><td></td><td>NO</td></tr>' +
                               '<tr><td>Colegiatura Febrero/2026</td><td>062506</td><td></td><td>NO</td></tr>' +
                               '<tr><td>Inscripción Semestral / Enero 2026</td><td>002500</td><td></td><td>NO</td></tr>' +
-                              searchCellsFooter(4, 5) + // Helper dinámico para colegiaturas con paginación real
-                              '</tbody></table>' + footerContainerText(5)
+                              dtColegiaturas.row +
+                              '</tbody></table>' + dtColegiaturas.footer
                     },
                     horario: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Horarios del alumno',
@@ -288,8 +293,8 @@ function getPortalTemplate() {
                               '<tr><td>ALGORITMOS</td><td></td><td>11-13</td><td></td><td></td><td>9-11</td><td></td></tr>' +
                               '<tr><td>CÁLCULO DIFERENCIAL</td><td>11-13</td><td></td><td>11-13</td><td></td><td>11-13</td><td></td></tr>' +
                               '<tr><td>FÍSICA APLICADA</td><td>9-11</td><td></td><td>9-11</td><td></td><td></td><td></td></tr>' +
-                              dt7.searchRow +
-                              '</tbody></table>' + dt7.footerControls
+                              dtHorarios.row +
+                              '</tbody></table>' + dtHorarios.footer
                     },
                     asignaturas: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas',
@@ -302,8 +307,8 @@ function getPortalTemplate() {
                               '<tr><td>ALGORITMOS</td><td>EDSON GEOVANNY ESTRADA LOPEZ</td></tr>' +
                               '<tr><td>CÁLCULO DIFERENCIAL</td><td>AYLIN GARCIA REYES</td></tr>' +
                               '<tr><td>FÍSICA APLICADA</td><td>ALBERTO GABRIEL VEGA POOT</td></tr>' +
-                              dt2.searchRow +
-                              '</tbody></table>' + dt2.footerControls
+                              dtAsignaturas.row +
+                              '</tbody></table>' + dtAsignaturas.footer
                     },
                     calificaciones: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Calificaciones',
@@ -316,8 +321,8 @@ function getPortalTemplate() {
                               '<tr><td>ALGORITMOS</td><td>8</td><td>8</td><td>8.0</td><td></td><td></td></tr>' +
                               '<tr><td>CÁLCULO DIFERENCIAL</td><td>8</td><td>8</td><td>8.0</td><td></td><td></td></tr>' +
                               '<tr><td>FÍSICA APLICADA</td><td>8</td><td>7</td><td>7.5</td><td></td><td></td></tr>' +
-                              dt6.searchRow +
-                              '</tbody></table>' + dt6.footerControls
+                              dtCalificaciones.row +
+                              '</tbody></table>' + dtCalificaciones.footer
                     },
                     ordinarios: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', html: "<h5>Exámenes Ordinarios</h5><p><i>La publicación oficial del rol de exámenes ordinarios está pendiente.</i></p>" },
                     adeudadas: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Adeudadas', html: "<h5>Asignaturas Adeudadas</h5><p style='color:green;'><b>Estatus Regular:</b> No se registran asignaturas reprobadas o adeudadas en este ciclo.</p>" },
@@ -328,16 +333,6 @@ function getPortalTemplate() {
                     documentos: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', html: "<h5>Documentos</h5><p>Expediente completo y debidamente digitalizado.</p>" },
                     eduvida: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> EduVida', html: "<h5>Educación para la Vida</h5><p>Talleres curriculares vigentes y acreditados.</p>" }
                 };
-
-                // Funciones auxiliares para la vista única de pagos
-                function searchCellsFooter(columns, totalEntries) {
-                    let cells = '';
-                    for(let i=0; i<columns; i++) { cells += '<td><input type="text" class="dt-search-input" placeholder="Buscar"></td>'; }
-                    return '<tr class="dt-search-row">' + cells + '</tr>';
-                }
-                function footerContainerText(totalEntries) {
-                    return '<div class="dt-footer-container"><div class="dt-info">Showing 1 to '+totalEntries+' of '+totalEntries+' entries</div><ul class="dt-pagination"><li class="disabled-page"><a>Previous</a></li><li class="active-page"><a>1</a></li><li class="disabled-page"><a>Next</a></li></ul></div>';
-                }
 
                 function showSection(sectionKey) {
                     const data = sectionsData[sectionKey];
@@ -391,7 +386,7 @@ function getPortalTemplate() {
                         else showSection($(this).val());
                     });
 
-                    // Por defecto te manda a Calificaciones para verificar el cambio de inmediato
+                    // Forzar carga de Calificaciones por defecto al iniciar sesión
                     showSection('calificaciones');
                 });
             </script>
