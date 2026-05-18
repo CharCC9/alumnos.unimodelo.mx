@@ -15,7 +15,7 @@ function getLoginTemplate(showAlert = false) {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Servicios Escolares - Universidad Modelo</title>
+            <title>Servicios Escolaras - Universidad Modelo</title>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
             <style>
@@ -134,7 +134,6 @@ function getPortalTemplate() {
                 .custom-menu-li.active-item a { color: #0d47a1 !important; font-weight: bold; }
                 .custom-menu-li.active-item a i.menu-arrow { color: #0d47a1; }
 
-                /* Estilos para el menú colapsable (Extraordinarios) */
                 .collapsible-header { background-color: transparent !important; border: none !important; padding: 14px 20px !important; font-size: 13px !important; font-weight: 500 !important; color: #444 !important; text-transform: uppercase; display: flex !important; align-items: center; justify-content: space-between; }
                 .collapsible-header:hover { background-color: #f0f0f0; }
                 .collapsible-header div { display: flex; align-items: center; }
@@ -186,7 +185,7 @@ function getPortalTemplate() {
                                     <a href="#" class="dropdown-trigger waves-effect waves-light" data-target="profile-dropdown" style="color: white; height: 64px; display: flex; align-items: center;">
                                         <i class="material-icons">more_vert</i>
                                     </a>
-                                    <ul id="profile-dropdown" class="dropdown-content">                    
+                                    <ul id="profile-dropdown" class="dropdown-content">                     
                                         <li><a onclick="showSection('micuenta')"><i class="material-icons">account_box</i>Mi cuenta</a></li>
                                         <li><a href="/"><i class="material-icons">keyboard_tab</i>Salir</a></li>
                                     </ul>
@@ -360,81 +359,59 @@ function getPortalTemplate() {
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
                               '<colgroup><col style="width:25%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Parcial 1</th><th class="dt-sort-icon">Parcial 2</th><th class="dt-sort-icon">Promedio</th><th class="dt-sort-icon">Ordinario</th><th class="dt-sort-icon">Calif. Final</th></tr></thead>' +
+                              '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Parcial 1</th><th class="dt-sort-icon">Parcial 2</th><th class="dt-sort-icon">Parcial 3</th><th class="dt-sort-icon">Prom. Parcial</th><th class="dt-sort-icon">Final</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td>0</td><td>0</td><td>0</td><td></td><td></td></tr>' +
-                              '<tr><td>CALCULO DIFERENCIAL</td><td>0</td><td>38</td><td>19</td><td></td><td></td></tr>' +
-                              '<tr><td>FISICA APLICADA</td><td>10</td><td></td><td></td><td></td><td></td></tr>' +
+                              '<tr><td>ALGORITMOS</td><td>85</td><td>90</td><td>92</td><td>89</td><td>90</td></tr>' +
+                              '<tr><td>CALCULO DIFERENCIAL</td><td>78</td><td>82</td><td>80</td><td>80</td><td>81</td></tr>' +
+                              '<tr><td>FISICA APLICADA</td><td>90</td><td>88</td><td>95</td><td>91</td><td>92</td></tr>' +
                               '</tbody></table>' + footerCalificaciones
-                    },
-                    ordinarios: { label:'Ordinarios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', html: "<h5>Exámenes Ordinarios</h5><p><i>La publicación oficial del rol de exámenes ordinarios está pendiente.</i></p>" },
-                    adeudadas: { label:'Asig. Adeudadas', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Adeudadas', html: "<h5>Asignaturas Adeudadas</h5><p style='color:green;'><b>Estatus Regular:</b> No se registran asignaturas reprobadas.</p>" },
-                    constancias: { label:'Constancias', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', html: "<h5>Trámite de Constancias</h5><button class='btn blue darken-4'>Solicitar Constancia</button>" },
-                    extra_inscritos: { label:'Exámenes Inscritos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Inscritos', html: "<h5>Exámenes Extraordinarios Inscritos</h5><p>No cuentas con exámenes extraordinarios inscritos en este periodo.</p>" },
-                    extra_calificaciones: { label:'Calificaciones', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Calificaciones', html: "<h5>Calificaciones de Extraordinarios</h5><p>No se registran calificaciones de exámenes extraordinarios históricos.</p>" },
-                    formularios: { label:'Formularios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2'>Evaluación Docente 2026</button>" },
-                    text: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
-                    biblioteca: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
-                    micuenta: { label:'Mi Cuenta', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', html: "<h5>Mi Cuenta</h5><p><b>Carrera:</b> Ingeniería en Sistemas Computacionales</p>" },
-                    documentos: { label:'Documentos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', html: "<h5>Documentos</h5><p>Expediente digital completo.</p>" },
-                    eduvida: { label:'EduVida', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> EduVida', html: "<h5>Educación para la Vida</h5><p>Talleres acreditados.</p>" }
+                    }
                 };
 
                 function showSection(sectionKey) {
-                    const data = sectionsData[sectionKey];
-                    if (data) {
-                        const card = $('#dynamicRenderCard');
-                        card.css('opacity', '0.3');
-                        
-                        setTimeout(function() {
-                            document.getElementById('breadcrumb-container').innerHTML = data.breadcrumb;
-                            document.getElementById('dynamicRenderCard').innerHTML = data.html;
-                            
-                            $('.custom-menu-li').removeClass('active-item');
-                            
-                            if(sectionKey === 'extra_inscritos' || sectionKey === 'extra_calificaciones') {
-                                $('#' + menuId).addClass('active-item');
-                            } else {
-                                $('#menu-' + sectionKey).addClass('active-item');
-                            }
-                            
-                            if (data.label) {
-                                document.getElementById('label-select-actual').innerHTML = data.label + ' <i class="material-icons">arrow_drop_down</i>';
-                            }
-                            
-                            if (typeof Waves !== 'undefined') {
-                                Waves.displayEffect();
-                            }
-                            card.css('opacity', '1');
-                        }, 80);
+                    const section = sectionsData[sectionKey];
+                    if (!section) return;
+
+                    // Cambiar activas en el menú lateral
+                    $('.custom-menu-li').removeClass('active-item active-subitem');
+                    $(\`#menu-\${sectionKey}\`).addClass('active-item');
+
+                    // Si es un subelemento de extraordinarios
+                    if(sectionKey.startsWith('extra_')) {
+                        $(\`#menu-\${sectionKey}\`).addClass('active-subitem').removeClass('active-item');
                     }
+
+                    // Actualizar contenido
+                    $('#breadcrumb-container').html(section.breadcrumb);
+                    $('#dynamicRenderCard').css('opacity', 0);
+                    
+                    setTimeout(() => {
+                        $('#dynamicRenderCard').html(section.html);
+                        $('#dynamicRenderCard').css('opacity', 1);
+                    }, 200);
+
+                    // Actualizar dropdown trigger del navbar superior
+                    $('#label-select-actual').html(section.label + ' <i class="material-icons">arrow_drop_down</i>');
                 }
 
-                $('.sidenav-trigger-toggle').on('click', function(e) {
-                    e.preventDefault();
-                    var sidebar = $('#left-sidebar-nav');
-                    var main = $('#main');
-                    if(sidebar.hasClass('side-nav-hidden')) {
-                        sidebar.removeClass('side-nav-hidden');
-                        main.removeClass('mainPaddingLeft').addClass('mainPaddingSidebar');
-                    } else {
-                        sidebar.addClass('side-nav-hidden');
-                        main.removeClass('mainPaddingSidebar').addClass('mainPaddingLeft');
-                    }
-                });
-
-                $(document).ready(function() {
+                $(document).ready(function(){
+                    // Inicializar los dropdowns y colapsables de Materialize
+                    $('.dropdown-trigger').dropdown({ constrainWidth: false, coverTrigger: false });
                     $('.collapsible').collapsible();
-                    
-                    $('.dropdown-trigger').dropdown({ 
-                        constrainWidth: false, 
-                        alignment: 'left', 
-                        coverTrigger: false,
-                        inDuration: 150,
-                        outDuration: 150
+
+                    // Comportamiento del botón de hamburguesa lateral (Toggle Sidebar)
+                    $('.sidenav-trigger-toggle').on('click', function(e) {
+                        e.preventDefault();
+                        $('#left-sidebar-nav').toggleClass('side-nav-hidden');
+                        if($('#left-sidebar-nav').hasClass('side-nav-hidden')) {
+                            $('#main').removeClass('mainPaddingSidebar').addClass('mainPaddingLeft');
+                        } else {
+                            $('#main').removeClass('mainPaddingLeft').addClass('mainPaddingSidebar');
+                        }
                     });
 
-                    showSection('calificaciones');
+                    // Mostrar por defecto la libreta de pago al cargar
+                    showSection('libreta_de_pago');
                 });
             </script>
         </body>
@@ -442,20 +419,31 @@ function getPortalTemplate() {
     `;
 }
 
-// ROUTING
+// ---- RUTAS EXPRESS ----
+
+// Ruta del Login
 app.get('/', (req, res) => {
-    res.send(getLoginTemplate(false));
+    res.send(getLoginTemplate());
 });
 
+// Procesamiento del formulario de login
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    if (username === "15246740" && password === "ARCOS") {
-        res.send(getPortalTemplate());
+    
+    // Simulación de credenciales válidas
+    if (username === 'santiago' && password === '12345') {
+        res.redirect('/portal');
     } else {
+        // Retorna la vista del login mostrando el mensaje de error
         res.send(getLoginTemplate(true));
     }
 });
 
+// Ruta del Portal de Alumno
+app.get('/portal', (req, res) => {
+    res.send(getPortalTemplate());
+});
+
 app.listen(PORT, () => {
-    console.log(`Servidor activo corriendo en el puerto ${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
