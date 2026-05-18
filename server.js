@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Logo Base64 para evitar dependencias de archivos externos
+// Logo Base64 para evitar dependencias externas
 const LOGO_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABY7eeBAAAASFBMVEUAAAD///8OnMEAnMAAnf8Anf4Anf0AnP8Anf8Anf4Anf8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf/7yG0WAAAAFnRSTlMA9g72DRb29vYWFvYWFhYW9vb2FhYWFhH3738AAAGpSURBVFjD7ZfZkoMgEEXb0BAsatT//7VpUAnSgG0m86SreS88CgciwS7L/id8tEw8U7Z+b10p368739q27z/HwE7UvXNtzD6r2X7P70ePId/bC6R7jB3w/H4Y8WW87Xp9gUwnXz3Yg79v98N8Z6+XN6R7M9+R/g6ZAn83H+b70vF9Y9G67X3vFpA/6+P7A7A/zPf1h+B7Hn4A0wNoGv4O03Uu6XofwHRbCHmD+T/InL3tXN0h8Z/08G7wK/6T6X/6L/ivX/Ffvw6H4L8eP2f3+G7wfY9D8Pf6Ew6Hw+FwOBwO99C4MbyTid279uC8C2N+F6yI5N0P68G4O7Euxv8mVsX+zZg7scgC+E203G9ihpL30EshTiyE/Cai96XkPRRi8pXEXBPy6X0l6wH4SszfF0ImIeaf9w6ZixmBf4M5u9Nf6Yv9GZitGZ9/gxlpX+x7MGMz7v4OplK+2PdgnAWDfwvGWTB07jVDP+96ZpB6ZpB6ZtDT09PT09PT09PT09PT08vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vL+/8ZfwD8yBv1RstbYwAAAABJRU5ErkJggg==";
 
 function getLoginTemplate(showAlert = false) {
@@ -73,7 +73,7 @@ function getPortalTemplate() {
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Calificaciones del alumno | SCEM</title>
+            <title>Portal de Alumnos | SCEM</title>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <link media="all" type="text/css" rel="stylesheet" href="https://alumnos.unimodelo.mx/css/materialize.css">
             <link media="all" type="text/css" rel="stylesheet" href="https://alumnos.unimodelo.mx/css/style.css">
@@ -81,10 +81,13 @@ function getPortalTemplate() {
             
             <style>
                 body { background-color: #f9f9f9; }
-                .mainPaddingSidebar { padding-left: 240px; transition: padding 0.3s ease; }
-                .mainPaddingLeft { padding-left: 0px; transition: padding 0.3s ease; }
-                #left-sidebar-nav { position: fixed; width: 240px; left: 0; top: 64px; height: calc(100vh - 64px); background: #fff; z-index: 999; box-shadow: 1px 0 5px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+                /* Animaciones suaves de transición para el menú y contenido */
+                .mainPaddingSidebar { padding-left: 240px; transition: padding 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+                .mainPaddingLeft { padding-left: 0px; transition: padding 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+                
+                #left-sidebar-nav { position: fixed; width: 240px; left: 0; top: 64px; height: calc(100vh - 64px); background: #fff; z-index: 999; box-shadow: 1px 0 5px rgba(0,0,0,0.1); transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
                 .side-nav-hidden { transform: translateX(-240px); }
+                
                 .brand-sidebar center img { background: transparent; padding: 5px; margin-top: 10px; }
                 .libreta-container { font-family: 'Segoe UI', Arial, sans-serif; color: #333333; font-size: 14.5px; line-height: 1.6; }
                 .libreta-blue-text { color: #0033cc; font-weight: bold; }
@@ -96,16 +99,27 @@ function getPortalTemplate() {
                 .libreta-indented-block { margin-left: 15px; margin-bottom: 15px; }
                 .libreta-red-note { color: #a30000; font-weight: bold; margin: 25px 0; font-size: 14.5px; text-transform: uppercase; }
                 .libreta-action-btn { background-color: #007bc4 !important; color: white !important; font-weight: 400; text-transform: uppercase; padding: 0 25px; height: 46px; line-height: 46px; border-radius: 4px; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-size: 14.5px; margin-top: 10px; }
+                
                 .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 14px; color: #333; }
                 .simulated-table th, .simulated-table td { border: 1px solid #cccccc; padding: 10px 12px; text-align: left; }
                 .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; }
                 .simulated-table tr:nth-child(even) { background-color: #fafafa; }
+                
                 header nav { background-color: #0d47a1 !important; height: 64px; }
-                .custom-menu-li a { color: #444 !important; display: flex !important; align-items: center; padding: 12px 20px; cursor: pointer; font-size: 13px; font-weight: 500; text-transform: uppercase; }
+                
+                /* Estilos del menú lateral con soporte completo para la animación Waves */
+                .custom-menu-li a { color: #444 !important; display: flex !important; align-items: center; padding: 14px 20px; cursor: pointer; font-size: 13px; font-weight: 500; text-transform: uppercase; position: relative; overflow: hidden; }
                 .custom-menu-li a:hover { background-color: #f0f0f0; }
-                .custom-menu-li a i { margin-right: 15px; color: #777; font-size: 20px; }
+                .custom-menu-li a i { margin-right: 15px; color: #777; font-size: 20px; pointer-events: none; }
+                .custom-menu-li.active-item { background-color: #e0e0e0; border-left: 4px solid #0d47a1; }
+                .custom-menu-li.active-item a { color: #0d47a1 !important; font-weight: bold; }
+                .custom-menu-li.active-item a i { color: #0d47a1; }
+                
                 #breadcrumb-container { font-size: 15px; color: #666; margin-bottom: 10px; display: flex; align-items: center; }
                 #breadcrumb-container i { font-size: 16px; margin: 0 8px; color: #999; }
+                
+                /* Transición sutil al cambiar de vista de sección */
+                #dynamicRenderCard { transition: opacity 0.2s ease-in-out; }
             </style>
         </head>
         <body>
@@ -114,7 +128,7 @@ function getPortalTemplate() {
                 <div class="navbar-fixed">
                     <nav class="navbar-color">
                         <div class="nav-wrapper">
-                            <a href="#" style="color:white; float:left; height: 64px; display: flex; align-items: center;" class="sidenav-trigger-toggle">
+                            <a href="#" style="color:white; float:left; height: 64px; display: flex; align-items: center;" class="sidenav-trigger-toggle waves-effect waves-light">
                                 <i class="material-icons" style="font-size:28px; margin-left: 20px;">menu</i>
                             </a>
                             <div style="display: inline-block; margin-left: 20px; padding-top: 12px;">
@@ -131,7 +145,9 @@ function getPortalTemplate() {
                             <ul class="right hide-on-med-and-down" style="margin-right: 20px;">
                                 <li style="color: white; font-size: 14px; display: inline-block; vertical-align: middle; margin-right: 10px;">SANTIAGO DE JESUS ARCOS GUZMAN</li>
                                 <li style="display: inline-block; vertical-align: middle;">
-                                    <a href="#" class="dropdown-trigger" data-target="profile-dropdown" style="color: white; height: 64px; display: block;"><i class="material-icons">more_vert</i></a>
+                                    <a href="#" class="dropdown-trigger waves-effect waves-light" data-target="profile-dropdown" style="color: white; height: 64px; display: flex; align-items: center;">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
                                     <ul id="profile-dropdown" class="dropdown-content">                    
                                         <li><a onclick="showSection('micuenta')"><i class="material-icons">account_box</i>Mi cuenta</a></li>
                                         <li><a href="/"><i class="material-icons">keyboard_tab</i>Salir</a></li>
@@ -147,20 +163,20 @@ function getPortalTemplate() {
                 <div class="wrapper">
                     <aside id="left-sidebar-nav">
                         <ul style="margin: 0; padding: 0; list-style: none;">
-                            <li class="custom-menu-li"><a onclick="showSection('libreta_de_pago')"><i class="material-icons">keyboard_arrow_right</i>LIBRETA DE PAGO</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('colegiaturas')"><i class="material-icons">keyboard_arrow_right</i>COLEGIATURAS / INSCR.</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('horario')"><i class="material-icons">keyboard_arrow_right</i>HORARIO</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('asignaturas')"><i class="material-icons">keyboard_arrow_right</i>ASIGNATURAS</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('calificaciones')"><i class="material-icons">keyboard_arrow_right</i>CALIFICACIONES</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('ordinarios')"><i class="material-icons">keyboard_arrow_right</i>ORDINARIOS</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('adeudadas')"><i class="material-icons">keyboard_arrow_right</i>ASIG.ADEUDADAS</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('constancias')"><i class="material-icons">keyboard_arrow_right</i>CONSTANCIAS</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('formularios')"><i class="material-icons">keyboard_arrow_right</i>FORMULARIOS</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('biblioteca')"><i class="material-icons">keyboard_arrow_right</i>BIBLIOTECA</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('micuenta')"><i class="material-icons">keyboard_arrow_right</i>MI CUENTA</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('documentos')"><i class="material-icons">keyboard_arrow_right</i>DOCUMENTOS</a></li>
-                            <li class="custom-menu-li"><a onclick="showSection('eduvida')"><i class="material-icons">keyboard_arrow_right</i>EDUCACION PARA LA VIDA</a></li>
-                            <li class="custom-menu-li"><a href="/"><i class="material-icons">keyboard_arrow_right</i>SALIR</a></li>
+                            <li class="custom-menu-li" id="menu-libreta_de_pago"><a onclick="showSection('libreta_de_pago')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>LIBRETA DE PAGO</a></li>
+                            <li class="custom-menu-li" id="menu-colegiaturas"><a onclick="showSection('colegiaturas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>COLEGIATURAS / INSCR.</a></li>
+                            <li class="custom-menu-li" id="menu-horario"><a onclick="showSection('horario')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>HORARIO</a></li>
+                            <li class="custom-menu-li" id="menu-asignaturas"><a onclick="showSection('asignaturas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ASIGNATURAS</a></li>
+                            <li class="custom-menu-li" id="menu-calificaciones"><a onclick="showSection('calificaciones')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>CALIFICACIONES</a></li>
+                            <li class="custom-menu-li" id="menu-ordinarios"><a onclick="showSection('ordinarios')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ORDINARIOS</a></li>
+                            <li class="custom-menu-li" id="menu-adeudadas"><a onclick="showSection('adeudadas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ASIG.ADEUDADAS</a></li>
+                            <li class="custom-menu-li" id="menu-constancias"><a onclick="showSection('constancias')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>CONSTANCIAS</a></li>
+                            <li class="custom-menu-li" id="menu-formularios"><a onclick="showSection('formularios')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>FORMULARIOS</a></li>
+                            <li class="custom-menu-li" id="menu-biblioteca"><a onclick="showSection('biblioteca')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>BIBLIOTECA</a></li>
+                            <li class="custom-menu-li" id="menu-micuenta"><a onclick="showSection('micuenta')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>MI CUENTA</a></li>
+                            <li class="custom-menu-li" id="menu-documentos"><a onclick="showSection('documentos')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>DOCUMENTOS</a></li>
+                            <li class="custom-menu-li" id="menu-eduvida"><a onclick="showSection('eduvida')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>EDUCACION PARA LA VIDA</a></li>
+                            <li class="custom-menu-li"><a href="/" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>SALIR</a></li>
                         </ul>
                     </aside>
 
@@ -202,7 +218,7 @@ function getPortalTemplate() {
                               '<p>II. DESDE OTRO BANCO A HSBC (SPEI), USAR LA CLABE INTERBANCARIA 021180550300090224</p>' +
                               '</div>' +
                               '<div class="libreta-red-note">NOTA: EN CUALQUIER OPERACIÓN DE PAGO DEBERÁ INGRESARSE LOS 26 DÍGITOS DEL CONCEPTO DE PAGO O REFERENCIA</div>' +
-                              '<div class="libreta-action-btn">Libreta de Pago</div>' +
+                              '<div class="libreta-action-btn waves-effect waves-light">Libreta de Pago</div>' +
                               '</div>'
                     },
                     colegiaturas: {
@@ -261,8 +277,8 @@ function getPortalTemplate() {
                     },
                     ordinarios: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', html: "<h5>Exámenes Ordinarios</h5><p><i>La publicación oficial del rol de exámenes ordinarios está pendiente.</i></p>" },
                     adeudadas: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Adeudadas', html: "<h5>Asignaturas Adeudadas</h5><p style='color:green;'><b>Estatus Regular:</b> No se registran asignaturas reprobadas o adeudadas en este ciclo.</p>" },
-                    constancias: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', html: "<h5>Trámite de Constancias</h5><button class='btn blue darken-4'>Solicitar Constancia Digital</button>" },
-                    formularios: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2'>Evaluación Docente 2026</button>" },
+                    constancias: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', html: "<h5>Trámite de Constancias</h5><button class='btn blue darken-4 waves-effect waves-light'>Solicitar Constancia Digital</button>" },
+                    formularios: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2 waves-effect waves-light'>Evaluación Docente 2026</button>" },
                     biblioteca: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Acceso verificado correctamente al catálogo digital.</p>" },
                     micuenta: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', html: "<h5>Mi Cuenta</h5><p><b>Alumno:</b> SANTIAGO DE JESUS ARCOS GUZMAN<br><b>Matrícula:</b> 15246740<br><b>Carrera:</b> Ingeniería en Sistemas Computacionales</p>" },
                     documentos: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', html: "<h5>Documentos</h5><p>Expediente completo y debidamente digitalizado.</p>" },
@@ -272,15 +288,33 @@ function getPortalTemplate() {
                 function showSection(sectionKey) {
                     const data = sectionsData[sectionKey];
                     if (data) {
-                        document.getElementById('breadcrumb-container').innerHTML = data.breadcrumb;
-                        document.getElementById('dynamicRenderCard').innerHTML = data.html;
+                        const card = $('#dynamicRenderCard');
                         
-                        if($('#menu-navegacion option[value="'+sectionKey+'"]').length > 0) {
-                            $('#menu-navegacion').val(sectionKey);
-                        }
+                        // Efecto suave de cambio de opacidad al renderizar nuevas vistas
+                        card.css('opacity', '0.3');
+                        
+                        setTimeout(function() {
+                            document.getElementById('breadcrumb-container').innerHTML = data.breadcrumb;
+                            document.getElementById('dynamicRenderCard').innerHTML = data.html;
+                            
+                            // Resaltar visualmente la pestaña seleccionada en el menú izquierdo
+                            $('.custom-menu-li').removeClass('active-item');
+                            $('#menu-' + sectionKey).addClass('active-item');
+                            
+                            // Re-inicializar el efecto Waves para elementos dinámicos
+                            if (typeof Waves !== 'undefined') {
+                                Waves.displayEffect();
+                            }
+
+                            if($('#menu-navegacion option[value="'+sectionKey+'"]').length > 0) {
+                                $('#menu-navegacion').val(sectionKey);
+                            }
+                            card.css('opacity', '1');
+                        }, 80);
                     }
                 }
 
+                // Animación fluida de colapso/expansión del menú lateral izquierdo (Slide-out)
                 $('.sidenav-trigger-toggle').on('click', function(e) {
                     e.preventDefault();
                     var sidebar = $('#left-sidebar-nav');
@@ -295,14 +329,21 @@ function getPortalTemplate() {
                 });
 
                 $(document).ready(function() {
-                    $('.dropdown-trigger').dropdown({ constrainWidth: false, alignment: 'right', coverTrigger: false });
+                    // Inicialización nativa del menú desplegable del perfil con animación original
+                    $('.dropdown-trigger').dropdown({ 
+                        constrainWidth: false, 
+                        alignment: 'right', 
+                        coverTrigger: false,
+                        inDuration: 250,
+                        outDuration: 200
+                    });
                     
                     $('#menu-navegacion').on('change', function() {
                         if($(this).val() === 'logout') window.location.href = '/';
                         else showSection($(this).val());
                     });
 
-                    // Carga la sección por defecto de Calificaciones directamente para revisar cambios
+                    // Carga la sección por defecto directamente con animaciones fluidas
                     showSection('calificaciones');
                 });
             </script>
