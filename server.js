@@ -105,7 +105,7 @@ function getPortalTemplate() {
                 .libreta-red-note { color: #a30000; font-weight: bold; margin: 25px 0; font-size: 14.5px; text-transform: uppercase; }
                 .libreta-action-btn { background-color: #007bc4 !important; color: white !important; font-weight: 400; text-transform: uppercase; padding: 0 25px; height: 46px; line-height: 46px; border-radius: 4px; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-size: 14.5px; margin-top: 10px; }
                 
-                /* Corrección de la tabla principal */
+                /* Tabla principal */
                 .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; color: #333; margin-bottom: 0px !important; table-layout: fixed; border: 1px solid #cccccc; }
                 .simulated-table th, .simulated-table td { border: 1px solid #cccccc; padding: 10px 12px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
                 .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; position: relative; border-bottom: 2px solid #cccccc; }
@@ -114,12 +114,12 @@ function getPortalTemplate() {
                 .dt-sort-icon::after { content: " ⇅"; font-size: 11px; color: #bbb; position: absolute; right: 8px; top: 12px; }
                 .dt-sort-icon-active::after { content: " ▲"; font-size: 10px; color: #0d47a1; position: absolute; right: 8px; top: 12px; }
 
-                /* Contenedor de búsquedas completamente fuera y separado del recuadro de la tabla */
+                /* Contenedor de búsquedas completamente fuera y separado de la tabla */
                 .dt-search-footer-container { display: flex; width: 100%; background: transparent; padding-top: 14px; padding-bottom: 5px; box-sizing: border-box; }
                 .dt-search-col-box { box-sizing: border-box; display: inline-block; padding-right: 10px; }
                 .dt-search-col-box:last-child { padding-right: 0px; }
                 
-                /* Estilo idéntico al input nativo de DataTables */
+                /* Inputs limpios con línea inferior gris */
                 .dt-search-input { width: 100% !important; height: 30px !important; margin: 0 !important; padding: 0 2px !important; font-size: 14px !important; color: #333 !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; display: block; }
                 .dt-search-input::placeholder { color: #bbb; font-weight: 400; }
                 .dt-search-input:focus { border-bottom: 1px solid #0d47a1 !important; box-shadow: none !important; }
@@ -170,7 +170,7 @@ function getPortalTemplate() {
                             
                             <div style="display: inline-block; margin-left: 20px; padding-top: 14px; vertical-align: top;">
                                 <a class="dropdown-trigger btn custom-select-trigger" href="#" data-target="dropdown-menu-nav" id="label-select-actual">
-                                    Calificaciones <i class="material-icons">arrow_drop_down</i>
+                                    Colegiaturas / Inscr. <i class="material-icons">arrow_drop_down</i>
                                 </a>
                                 <ul id="dropdown-menu-nav" class="dropdown-content dropdown-select-content">
                                     <li><a onclick="showSection('libreta_de_pago')">Libreta de pago</a></li>
@@ -182,7 +182,7 @@ function getPortalTemplate() {
                                     <li><a href="/">Salir</a></li>
                                 </ul>
 
-                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo 🏆</span>
+                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo</span>
                             </div>
                             <ul class="right hide-on-med-and-down" style="margin-right: 20px;">
                                 <li style="color: white; font-size: 14px; display: inline-block; vertical-align: middle; margin-right: 10px;">SANTIAGO DE JESUS ARCOS GUZMAN</li>
@@ -275,7 +275,7 @@ function getPortalTemplate() {
                     return searchBoxesHtml + paginationHtml;
                 }
 
-                const footerColegiaturas = generateExternalDataTablesFooter([25, 25, 25, 25], 5);
+                const footerColegiaturas = generateExternalDataTablesFooter([25, 25, 25, 25], 15);
                 const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3);
                 const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
                 const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3);
@@ -319,11 +319,21 @@ function getPortalTemplate() {
                               '<colgroup><col style="width:25%"><col style="width:25%"><col style="width:25%"><col style="width:25%"></colgroup>' +
                               '<thead><tr><th class="dt-sort-icon">Descripción</th><th class="dt-sort-icon">Concepto</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Adeudo vigente</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>Colegiatura Mayo/2026</td><td>092509</td><td></td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Abril/2026</td><td>082508</td><td></td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Marzo/2026</td><td>072507</td><td></td><td>NO</td></tr>' +
-                              '<tr><td>Colegiatura Febrero/2026</td><td>062506</td><td></td><td>NO</td></tr>' +
-                              '<tr><td>Inscripción Semestral / Enero 2026</td><td>002500</td><td></td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Mayo/2026</td><td>09</td><td>2509</td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Abril/2026</td><td>08</td><td>2508</td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Marzo/2026</td><td>07</td><td>2507</td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Febrero/2026</td><td>06</td><td>2506</td><td>NO</td></tr>' +
+                              '<tr><td>Inscripción Semestral / Enero 2026</td><td>00</td><td>2500</td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Octubre/2025</td><td>02</td><td></td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Septiembre/2025</td><td>01</td><td>2501</td><td>NO</td></tr>' +
+                              '<tr><td>Inscripción Anual o Semestral/ Agosto 2025</td><td>99</td><td>2599</td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Junio/2025</td><td>10</td><td>2410</td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Mayo/2025</td><td>09</td><td>2409</td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Abril/2025</td><td>08</td><td>2408</td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Marzo/2025</td><td>07</td><td>2407</td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Febrero/2025</td><td>06</td><td>2406</td><td>NO</td></tr>' +
+                              '<tr><td>Inscripción Semestral / Enero 2025</td><td>00</td><td>2400</td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Enero/2025</td><td>05</td><td>2405</td><td>NO</td></tr>' +
                               '</tbody></table>' + footerColegiaturas
                     },
                     horario: {
@@ -438,7 +448,8 @@ function getPortalTemplate() {
                         outDuration: 150
                     });
 
-                    showSection('calificaciones');
+                    // Por defecto, iniciamos directamente en Colegiaturas para ver los cambios
+                    showSection('colegiaturas');
                 });
             </script>
         </body>
