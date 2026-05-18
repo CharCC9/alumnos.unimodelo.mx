@@ -87,7 +87,7 @@ function getPortalTemplate() {
                 #left-sidebar-nav { position: fixed; width: 240px; left: 0; top: 64px; height: calc(100vh - 64px); background: #fff; z-index: 999; box-shadow: 1px 0 5px rgba(0,0,0,0.1); transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
                 .side-nav-hidden { transform: translateX(-240px); }
                 
-                /* ESTRUCTURA EXACTA DE LA BARRA SUPERIOR (HEADER) */
+                /* CABECERA CORREGIDA Y DIVIDIDA */
                 header nav { background-color: #0d47a1 !important; height: 64px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
                 .nav-brand-area { width: 240px; height: 64px; background-color: #0a3c8a; float: left; display: flex; align-items: center; padding-left: 15px; box-sizing: border-box; }
                 .nav-brand-area img { width: 44px; height: 44px; margin-left: 15px; object-fit: contain; }
@@ -103,18 +103,26 @@ function getPortalTemplate() {
                 .libreta-red-note { color: #a30000; font-weight: bold; margin: 25px 0; font-size: 14.5px; text-transform: uppercase; }
                 .libreta-action-btn { background-color: #007bc4 !important; color: white !important; font-weight: 400; text-transform: uppercase; padding: 0 25px; height: 46px; line-height: 46px; border-radius: 4px; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-size: 14.5px; margin-top: 10px; }
                 
+                /* TABLAS NATIVAS */
                 .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; color: #333; margin-bottom: 0px !important; }
                 .simulated-table th, .simulated-table td { border: 1px solid #cccccc; padding: 10px 12px; text-align: left; }
-                .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; }
+                .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; position: relative; }
                 .simulated-table tr:nth-child(even) { background-color: #fafafa; }
                 
-                /* PIE DE TABLA - DATATABLES SIMULADO */
-                .dt-search-row td { padding: 8px 12px !important; background-color: #ffffff; border: 1px solid #cccccc; }
-                .dt-search-input { width: 100% !important; height: 26px !important; margin: 0 !important; padding: 0 5px !important; font-size: 13px !important; border: 1px solid #ccc !important; box-sizing: border-box !important; background: #fff !important; font-family: 'Segoe UI', Arial, sans-serif; }
+                /* ICONOS DE ORDENAMIENTO EN ENCABEZADOS DE DATATABLES */
+                .dt-sort-icon::after { content: " ⇅"; font-size: 11px; color: #bbb; position: absolute; right: 8px; top: 12px; }
+                .dt-sort-icon-active::after { content: " ▲"; font-size: 10px; color: #0d47a1; position: absolute; right: 8px; top: 12px; }
+
+                /* --- NUEVO CONTENEDOR EXTERNO DE BÚSQUEDA (FUERA DE LA TABLA) --- */
+                .dt-search-footer-container { display: flex; width: 100%; background: transparent; padding-top: 10px; box-sizing: border-box; }
+                .dt-search-col-box { padding-right: 10px; box-sizing: border-box; }
+                .dt-search-col-box:last-child { padding-right: 0px; }
+                .dt-search-input { width: 100% !important; height: 28px !important; margin: 0 !important; padding: 0 5px !important; font-size: 13px !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; }
                 .dt-search-input::placeholder { color: #bbb; font-weight: 400; }
                 .dt-search-input:focus { border-bottom: 1px solid #0d47a1 !important; box-shadow: none !important; }
                 
-                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #333; }
+                /* CONTROLES DE PAGINACIÓN */
+                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #333; }
                 .dt-info { font-size: 13.5px; color: #333; }
                 .dt-pagination { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
                 .dt-pagination li { margin: 0 2px; }
@@ -210,16 +218,18 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                // Función global limpia para generar las celdas de DataTables sin errores
-                function createDataTablesHtml(columnCount, totalEntries) {
-                    let searchCells = '';
-                    for (let i = 0; i < columnCount; i++) {
-                        searchCells += '<td><input type="text" class="dt-search-input" placeholder="Buscar"></td>';
-                    }
+                // Función optimizada para generar los bloques de "Buscar" COMPLETAMENTE EXTERNOS con alineación perfecta por columnas
+                function generateExternalDataTablesFooter(columnWidthsArray, totalEntries) {
+                    let searchBoxesHtml = '<div class="dt-search-footer-container">';
                     
-                    let rowHtml = '<tr class="dt-search-row">' + searchCells + '</tr>';
+                    columnWidthsArray.forEach(function(widthPercentage) {
+                        searchBoxesHtml += '<div class="dt-search-col-box" style="width: ' + widthPercentage + '%;">' +
+                                                '<input type="text" class="dt-search-input" placeholder="Buscar">' +
+                                           '</div>';
+                    });
+                    searchBoxesHtml += '</div>';
                     
-                    let footerHtml = 
+                    let paginationHtml = 
                         '<div class="dt-footer-container">' +
                             '<div class="dt-info">Showing 1 to ' + totalEntries + ' of ' + totalEntries + ' entries</div>' +
                             '<ul class="dt-pagination">' +
@@ -229,14 +239,14 @@ function getPortalTemplate() {
                             '</ul>' +
                         '</div>';
                         
-                    return { row: rowHtml, footer: footerHtml };
+                    return searchBoxesHtml + paginationHtml;
                 }
 
-                // Definición estructurada de bloques de tablas
-                const dtColegiaturas = createDataTablesHtml(4, 5);
-                const dtHorarios = createDataTablesHtml(7, 3);
-                const dtAsignaturas = createDataTablesHtml(2, 3);
-                const dtCalificaciones = createDataTablesHtml(6, 3);
+                // Configuración exacta de porcentajes de columnas por sección para cuadrar perfectamente las cajas externas
+                const footerColegiaturas = generateExternalDataTablesFooter([25, 25, 25, 25], 5);
+                const footerHorarios = generateExternalDataTablesFooter([22, 13, 13, 13, 13, 13, 13], 3);
+                const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
+                const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3);
 
                 const sectionsData = {
                     libreta_de_pago: {
@@ -272,15 +282,14 @@ function getPortalTemplate() {
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
-                              '<thead><tr><th>Descripción</th><th>Concepto</th><th>Referencia</th><th>Adeudo vigente</th></tr></thead>' +
+                              '<thead><tr><th class="dt-sort-icon">Descripción</th><th class="dt-sort-icon">Concepto</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Adeudo vigente</th></tr></thead>' +
                               '<tbody>' +
                               '<tr><td>Colegiatura Mayo/2026</td><td>092509</td><td></td><td>NO</td></tr>' +
                               '<tr><td>Colegiatura Abril/2026</td><td>082508</td><td></td><td>NO</td></tr>' +
                               '<tr><td>Colegiatura Marzo/2026</td><td>072507</td><td></td><td>NO</td></tr>' +
                               '<tr><td>Colegiatura Febrero/2026</td><td>062506</td><td></td><td>NO</td></tr>' +
                               '<tr><td>Inscripción Semestral / Enero 2026</td><td>002500</td><td></td><td>NO</td></tr>' +
-                              dtColegiaturas.row +
-                              '</tbody></table>' + dtColegiaturas.footer
+                              '</tbody></table>' + footerColegiaturas
                     },
                     horario: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Horarios del alumno',
@@ -288,13 +297,12 @@ function getPortalTemplate() {
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
-                              '<thead><tr><th>Materia</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th><th>Sábado</th></tr></thead>' +
+                              '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Lunes</th><th class="dt-sort-icon">Martes</th><th class="dt-sort-icon">Miércoles</th><th class="dt-sort-icon">Jueves</th><th class="dt-sort-icon">Viernes</th><th class="dt-sort-icon">Sábado</th></tr></thead>' +
                               '<tbody>' +
                               '<tr><td>ALGORITMOS</td><td></td><td>11-13</td><td></td><td></td><td>9-11</td><td></td></tr>' +
-                              '<tr><td>CÁLCULO DIFERENCIAL</td><td>11-13</td><td></td><td>11-13</td><td></td><td>11-13</td><td></td></tr>' +
-                              '<tr><td>FÍSICA APLICADA</td><td>9-11</td><td></td><td>9-11</td><td></td><td></td><td></td></tr>' +
-                              dtHorarios.row +
-                              '</tbody></table>' + dtHorarios.footer
+                              '<tr><td>CALCULO DIFERENCIAL</td><td>11-13</td><td></td><td>11-13</td><td></td><td>11-13</td><td></td></tr>' +
+                              '<tr><td>FISICA APLICADA</td><td>9-11</td><td></td><td>9-11</td><td></td><td></td><td></td></tr>' +
+                              '</tbody></table>' + footerHorarios
                     },
                     asignaturas: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas',
@@ -302,27 +310,25 @@ function getPortalTemplate() {
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
-                              '<thead><tr><th>Materia</th><th>Maestro</th></tr></thead>' +
+                              '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Maestro</th></tr></thead>' +
                               '<tbody>' +
                               '<tr><td>ALGORITMOS</td><td>EDSON GEOVANNY ESTRADA LOPEZ</td></tr>' +
-                              '<tr><td>CÁLCULO DIFERENCIAL</td><td>AYLIN GARCIA REYES</td></tr>' +
-                              '<tr><td>FÍSICA APLICADA</td><td>ALBERTO GABRIEL VEGA POOT</td></tr>' +
-                              dtAsignaturas.row +
-                              '</tbody></table>' + dtAsignaturas.footer
+                              '<tr><td>CALCULO DIFERENCIAL</td><td>AYLIN GARCIA REYES</td></tr>' +
+                              '<tr><td>FISICA APLICADA</td><td>ALBERTO GABRIEL VEGA POOT</td></tr>' +
+                              '</tbody></table>' + footerAsignaturas
                     },
                     calificaciones: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Calificaciones',
-                        html: '<h5 style="font-weight: 400; color: #222;">Calificaciones del alumno</h5>' +
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Calificaciones del Alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
-                              '<thead><tr><th>Materia</th><th>Parcial 1</th><th>Parcial 2</th><th>Promedio</th><th>Ordinario</th><th>Calif. Final</th></tr></thead>' +
+                              '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Parcial 1</th><th class="dt-sort-icon">Parcial 2</th><th class="dt-sort-icon">Promedio</th><th class="dt-sort-icon">Ordinario</th><th class="dt-sort-icon">Calif. Final</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td>8</td><td>8</td><td>8.0</td><td></td><td></td></tr>' +
-                              '<tr><td>CÁLCULO DIFERENCIAL</td><td>8</td><td>8</td><td>8.0</td><td></td><td></td></tr>' +
-                              '<tr><td>FÍSICA APLICADA</td><td>8</td><td>7</td><td>7.5</td><td></td><td></td></tr>' +
-                              dtCalificaciones.row +
-                              '</tbody></table>' + dtCalificaciones.footer
+                              '<tr><td>ALGORITMOS</td><td>0</td><td>0</td><td>0</td><td></td><td></td></tr>' +
+                              '<tr><td>CALCULO DIFERENCIAL</td><td>0</td><td>38</td><td>19</td><td></td><td></td></tr>' +
+                              '<tr><td>FISICA APLICADA</td><td>10</td><td></td><td></td><td></td><td></td></tr>' +
+                              '</tbody></table>' + footerCalificaciones
                     },
                     ordinarios: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', html: "<h5>Exámenes Ordinarios</h5><p><i>La publicación oficial del rol de exámenes ordinarios está pendiente.</i></p>" },
                     adeudadas: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Adeudadas', html: "<h5>Asignaturas Adeudadas</h5><p style='color:green;'><b>Estatus Regular:</b> No se registran asignaturas reprobadas o adeudadas en este ciclo.</p>" },
@@ -386,7 +392,6 @@ function getPortalTemplate() {
                         else showSection($(this).val());
                     });
 
-                    // Forzar carga de Calificaciones por defecto al iniciar sesión
                     showSection('calificaciones');
                 });
             </script>
