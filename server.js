@@ -136,7 +136,6 @@ function getPortalTemplate() {
                 .custom-menu-li.active-item a { color: #0d47a1 !important; font-weight: bold; }
                 .custom-menu-li.active-item a i.menu-arrow { color: #0d47a1; }
 
-                /* Estilos para el menú colapsable */
                 .collapsible-header { background-color: transparent !important; border: none !important; padding: 14px 20px !important; font-size: 13px !important; font-weight: 500 !important; color: #444 !important; text-transform: uppercase; display: flex !important; align-items: center; justify-content: space-between; }
                 .collapsible-header:hover { background-color: #f0f0f0; }
                 .collapsible-header div { display: flex; align-items: center; }
@@ -152,7 +151,6 @@ function getPortalTemplate() {
                 
                 #dynamicRenderCard { transition: opacity 0.2s ease-in-out; }
 
-                /* Estilos para Mi Cuenta */
                 .mc-header-container { border-bottom: none; margin-bottom: 20px; }
                 .mc-title { font-size: 22px; color: #333; font-weight: 400; text-transform: uppercase; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; }
                 .mc-banner-blue { background-color: #025fa4; color: white; padding: 10px 15px; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 30px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -167,7 +165,6 @@ function getPortalTemplate() {
                 .mc-btn-save:hover { background-color: #006aa9; }
                 .mc-btn-save i { font-size: 18px; margin-right: 8px; }
 
-                /* Estilos de la sección Documentos */
                 .doc-main-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; font-family: 'Segoe UI', Arial, sans-serif; gap: 40px; }
                 .doc-left-panel { flex: 1; max-width: 550px; }
                 .doc-banner-blue { background-color: #025fa4; height: 42px; width: 100%; margin-bottom: 25px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
@@ -296,10 +293,10 @@ function getPortalTemplate() {
                     if (isZeroEntries) {
                         return searchBoxesHtml + 
                             '<div class="dt-footer-container">' +
-                                '<div class="dt-info">Showing 0 to 0 of 0 entries</div>' +
+                                '<div class="dt-info">Mostrando 0 a 0 de 0 registros</div>' +
                                 '<ul class="dt-pagination">' +
-                                    '<li class="disabled-page"><a>Previous</a></li>' +
-                                    '<li class="disabled-page"><a>Next</a></li>' +
+                                    '<li class="disabled-page"><a>Anterior</a></li>' +
+                                    '<li class="disabled-page"><a>Siguiente</a></li>' +
                                 '</ul>' +
                             '</div>';
                     }
@@ -315,12 +312,12 @@ function getPortalTemplate() {
                     
                     return searchBoxesHtml + 
                         '<div class="dt-footer-container">' +
-                            '<div class="dt-info">Showing ' + startEntry + ' to ' + endEntry + ' of ' + totalEntries + ' entries</div>' +
+                            '<div class="dt-info">Mostrando ' + startEntry + ' a ' + endEntry + ' de ' + totalEntries + ' registros</div>' +
                             '<ul class="dt-pagination">' +
-                                '<li class="' + prevClass + '"><a onclick="changeColegiaturasPage(1)">Previous</a></li>' +
+                                '<li class="' + prevClass + '"><a onclick="changeColegiaturasPage(1)">Anterior</a></li>' +
                                 '<li class="' + p1Class + '"><a onclick="changeColegiaturasPage(1)">1</a></li>' +
                                 '<li class="' + p2Class + '"><a onclick="changeColegiaturasPage(2)">2</a></li>' +
-                                '<li class="' + nextClass + '"><a onclick="changeColegiaturasPage(2)">Next</a></li>' +
+                                '<li class="' + nextClass + '"><a onclick="changeColegiaturasPage(2)">Siguiente</a></li>' +
                             '</ul>' +
                         '</div>';
                 }
@@ -362,264 +359,201 @@ function getPortalTemplate() {
                         }
                         
                         let baseHtml = 
-                              '<h5 style="font-weight: 400; color: #222;">Pagos del alumno</h5>' +
-                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
-                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
-                              '<table class="simulated-table">' +
-                              '<colgroup><col style="width:40%"><col style="width:15%"><col style="width:25%"><col style="width:20%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon">Descripción</th><th class="dt-sort-icon">Concepto</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Adeudo vigente</th></tr></thead>' +
-                              '<tbody>' + tbodyHtml + '</tbody></table>' + footerHtml;
-                              
-                        document.getElementById('dynamicRenderCard').innerHTML = baseHtml;
+                            '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Estado de Cuenta Financiero</h5>' +
+                            '<p style="margin: 5px 0;"><b>Matrícula:</b> 15246740</p>' +
+                            '<table class="simulated-table">' +
+                            '<colgroup><col style="width:40%"><col style="width:15%"><col style="width:25%"><col style="width:20%"></colgroup>' +
+                            '<thead><tr><th class="dt-sort-icon-active">Concepto</th><th class="dt-sort-icon">Mes</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Pagado</th></tr></thead>' +
+                            '<tbody>' + tbodyHtml + '</tbody></table>' + footerHtml;
+                        
+                        container.html(baseHtml);
                         container.css('opacity', '1');
-                    }, 60);
-                }
-
-                function togglePasswordVisibility() {
-                    const cb = document.getElementById('mc_show_pass');
-                    const t1 = document.getElementById('mc_curr_pass');
-                    const t2 = document.getElementById('mc_new_pass');
-                    const t3 = document.getElementById('mc_conf_pass');
-                    const type = cb.checked ? 'text' : 'password';
-                    if(t1) t1.type = type;
-                    if(t2) t2.type = type;
-                    if(t3) t3.type = type;
+                    }, 200);
                 }
 
                 const sectionsData = {
                     libreta_de_pago: {
                         label: 'Libreta de pago',
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Libreta de pago',
-                        html: '<h5 style="font-weight: 400; color: #222; margin-bottom: 25px;">LIBRETA DE PAGO</h5>' +
-                              '<div class="libreta-container">' +
-                              '<p><b>Estimado(a) alumno(a):</b> Aquí puedes descargar tu libreta de pago acorde a tu plan de pago previamente registrado: <span class="libreta-blue-text">Colegiatura Diez Meses, y la Inscripción de Enero a pagarse el monto total en el mes de Enero.</span></p>' +
-                              '<p style="font-style: italic; margin-top: 15px;">Cualquier duda ó aclaración, favor de comunicarte a la Coordinación Administrativa de la Universidad Modelo.</p>' +
-                              '<p style="font-size: 13.5px; color: #555; margin-top: 10px;">Coordinación administrativa | Tel.: 999 - 9301900 ext. 1151 o al celular 999 135 6225 | Email: coordinacion.administrativa@modelo.edu.mx</p>' +
+                        breadcrumb: 'Inicio > Pago > Libreta de Pago',
+                        html: '<div class="libreta-container">' +
+                              '<div class="libreta-subtitle-large">Libreta de Pago Electrónica</div>' +
+                              '<p>Para realizar tu pago de inscripción o colegiatura en ventanilla bancaria, descarga tu Libreta de Pago en formato PDF usando el botón de abajo:</p>' +
+                              '<div class="libreta-action-btn"><i class="material-icons left">file_download</i>Descargar Libreta (PDF)</div>' +
                               '<hr class="libreta-divider">' +
-                              '<div class="libreta-subtitle-large">IMPORTANTE: Favor de descargar la libreta:</div>' +
-                              '<div class="libreta-title-ins">INSTRUCCIONES DE PAGO.</div>' +
-                              '<div class="libreta-bank-header">BBVA:</div>' +
-                              '<div class="libreta-indented-block">' +
-                              '<p><b>I. PAGO DIRECTO EN SUCURSAL BANCARIA BBVA:</b></p>' +
-                              '<p style="color: #0020c2; font-weight: 500; margin-left: 10px;">1-SI PAGA EN VENTANILLA O CAJERO AUTOMÁTICO DE SUCURSAL BANCARIA BBVA, SELECCIONE PAGO DE SERVICIO CON EL CONVENIO 1852132</p>' +
-                              '<p style="margin-top: 10px;"><b>II. PAGO EN LÍNEA (APLICACIÓN Ó PORTAL WEB BANCARIO):</b></p>' +
-                              '<p style="color: #0020c2; font-weight: 500; margin-left: 10px;">A) SI PAGA DE BBVA A BBVA (DESDE SU PORTAL BANCARIO BBVA), UTILICE PAGO DE SERVICIO CON EL CONVENIO 1852132</p>' +
-                              '<p style="color: #0020c2; font-weight: 500; margin-left: 10px;">B) DESDE OTRO BANCO A BBVA (SPEI), USAR LA CLABE INTERBANCARIA 012914002018521323</p>' +
-                              '</div>' +
-                              '<div class="libreta-bank-header-hsbc">HSBC</div>' +
-                              '<div class="libreta-indented-block" style="color: #990000; font-weight: 500;">' +
-                              '<p>I. SI PAGA DE HSBC A HSBC, PAGAR COMO SERVICIO 9022</p>' +
-                              '<p>II. DESDE OTRO BANCO A HSBC (SPEI), USAR LA CLABE INTERBANCARIA 021180550300090224</p>' +
-                              '</div>' +
-                              '<div class="libreta-red-note">NOTA: EN CUALQUIER OPERACIÓN DE PAGO DEBERÁ INGRESARSE LOS 26 DÍGITOS DEL CONCEPTO DE PAGO O REFERENCIA</div>' +
-                              '<div class="libreta-action-btn waves-effect waves-light">Libreta de Pago</div>' +
+                              '<div class="libreta-title-ins">INSTRUCCIONES DE PAGO BANCARIO:</div>' +
+                              '<div class="libreta-bank-header">BANCO BANAMEX:</div>' +
+                              '<div class="libreta-indented-block">Efectuar el depósito mencionando el número de cuenta institucional asignado y la clave de referencia personal visible en tu libreta impresa o digital.</div>' +
+                              '<div class="libreta-bank-header-hsbc">BANCO HSBC:</div>' +
+                              '<div class="libreta-indented-block">Realizar transferencia SPEI o depósito utilizando la clave RAP indicada en el cuerpo del documento.</div>' +
+                              '<div class="libreta-red-note">Nota Importante: Los pagos tardan de 24 a 48 horas hábiles en verse reflejados en el sistema de la universidad.</div>' +
                               '</div>'
                     },
                     colegiaturas: {
                         label: 'Colegiaturas / Inscr.',
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Pagos del Alumno',
-                        html: 'TRIGGER_PAGE_1'
+                        breadcrumb: 'Inicio > Financiero > Colegiaturas',
+                        html: '<div id="colegiaturas-base-placeholder"></div>'
                     },
                     horario: {
                         label: 'Horario',
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Horarios del alumno',
-                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Horarios del Alumno</h5>' +
-                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
-                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
+                        breadcrumb: 'Inicio > Académico > Horario de Clases',
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Mi Horario de Clases</h5>' +
                               '<table class="simulated-table">' +
-                              '<colgroup><col style="width:25%"><col style="width:12.5%"><col style="width:12.5%"><col style="width:12.5%"><col style="width:12.5%"><col style="width:12.5%"><col style="width:12.5%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Lunes</th><th class="dt-sort-icon">Martes</th><th class="dt-sort-icon">Miércoles</th><th class="dt-sort-icon">Jueves</th><th class="dt-sort-icon">Viernes</th><th class="dt-sort-icon">Sábado</th></tr></thead>' +
+                              '<thead><tr><th>Materia</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td></td><td>11-13</td><td></td><td></td><td>9-11</td><td></td></tr>' +
-                              '<tr><td>CALCULO DIFERENCIAL</td><td>11-13</td><td></td><td>11-13</td><td></td><td>11-13</td><td></td></tr>' +
-                              '<tr><td>FISICA APLICADA</td><td>9-11</td><td></td><td>9-11</td><td></td><td></td><td></td></tr>' +
+                              '<tr><td>ALGORITMOS</td><td>07:00-09:00</td><td></td><td>07:00-09:00</td><td></td><td></td></tr>' +
+                              '<tr><td>CALCULO DIFERENCIAL</td><td></td><td>09:00-11:00</td><td></td><td>09:00-11:00</td><td></td></tr>' +
+                              '<tr><td>FISICA APLICADA</td><td>11:00-13:00</td><td></td><td>11:00-13:00</td><td></td><td>11:00-13:00</td></tr>' +
                               '</tbody></table>' + footerHorarios
                     },
                     asignaturas: {
                         label: 'Asignaturas',
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas',
-                        html: '<h5 style="font-weight: 400; color: #222;">Asignaturas del alumno</h5>' +
-                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
-                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
+                        breadcrumb: 'Inicio > Académico > Carga Académica',
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Asignaturas Inscritas</h5>' +
                               '<table class="simulated-table">' +
-                              '<colgroup><col style="width:50%"><col style="width:50%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Maestro</th></tr></thead>' +
+                              '<thead><tr><th>Clave - Nombre de la Materia</th><th>Profesor Titular</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td>EDSON GEOVANNY ESTRADA LOPEZ</td></tr>' +
-                              '<tr><td>CALCULO DIFERENCIAL</td><td>AYLIN GARCIA REYES</td></tr>' +
-                              '<tr><td>FISICA APLICADA</td><td>ALBERTO GABRIEL VEGA POOT</td></tr>' +
+                              '<tr><td>INF-101 ALGORITMOS</td><td>ING. CARLOS RAMIREZ</td></tr>' +
+                              '<tr><td>MAT-203 CALCULO DIFERENCIAL</td><td>MA. ELENA GOMEZ</td></tr>' +
+                              '<tr><td>FIS-302 FISICA APLICADA</td><td>DR. JORGE ALVAREZ</td></tr>' +
                               '</tbody></table>' + footerAsignaturas
                     },
                     calificaciones: {
                         label: 'Calificaciones',
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Calificaciones',
+                        breadcrumb: 'Inicio > Calificaciones',
                         html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Calificaciones del Alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
-                              '<colgroup><col style="width:25%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Parcial 1</th><th class="dt-sort-icon">Parcial 2</th><th class="dt-sort-icon">Promedio</th><th class="dt-sort-icon">Ordinario</th><th class="dt-sort-icon">Calif. Final</th></tr></thead>' +
+                              '<thead><tr><th>Materia</th><th>Parcial 1</th><th>Parcial 2</th><th>Promedio</th><th>Ordinario</th><th>Calif. Final</th></tr></thead>' +
                               '<tbody>' +
                               '<tr><td>ALGORITMOS</td><td>0</td><td>8</td><td>4</td><td></td><td></td></tr>' +
                               '<tr><td>CALCULO DIFERENCIAL</td><td>0</td><td>8</td><td>4</td><td></td><td></td></tr>' +
                               '<tr><td>FISICA APLICADA</td><td>10</td><td>7</td><td>8.5</td><td></td><td></td></tr>' +
                               '</tbody></table>' + footerCalificaciones
                     },
-                    ordinarios: { 
-                        label:'Ordinarios', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', 
-                        html: '<h5>Exámenes Ordinarios</h5>' +
-                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
-                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
-                              '<table class="simulated-table">' +
-                              '<thead><tr><th>Materia</th><th>Fecha</th><th>Hora</th><th>Maestro</th><th>Apellido paterno</th><th>Apellido materno</th></tr></thead>' +
-                              '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td>05-06-2026</td><td>11:00:00</td><td>EDSON GEOVANNY</td><td>ESTRADA</td><td>LOPEZ</td></tr>' +
-                              '<tr><td>CALCULO DIFERENCIAL</td><td>10-06-2026</td><td>11:00:00</td><td>AYLIN</td><td>GARCIA</td><td>REYES</td></tr>' +
-                              '<tr><td>FISICA APLICADA</td><td>03-06-2026</td><td>09:00:00</td><td>ALBERTO GABRIEL</td><td>VEGA</td><td>POOT</td></tr>' +
-                              '</tbody></table>'
+                    ordinarios: {
+                        label: 'Calificaciones',
+                        breadcrumb: 'Inicio > Exámenes > Ordinarios',
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Fechas de Exámenes Ordinarios</h5>' +
+                              '<table class="simulated-table"><thead><tr><th>Materia</th><th>Fecha</th><th>Hora</th><th>Salón</th></tr></thead>' +
+                              '<tbody><tr class="no-records-row"><td colspan="4">No se encontraron exámenes ordinarios programados.</td></tr></tbody></table>'
                     },
-                    adeudadas: { 
-                        label: 'Asig. Adeudadas', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas Adeudadas', 
-                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Asignaturas Adeudadas</h5>' +
-                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
-                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
-                              '<table class="simulated-table">' +
-                              '<colgroup><col style="width:50%"><col style="width:25%"><col style="width:25%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon">Materia</th><th class="dt-sort-icon">Oportunidad</th><th class="dt-sort-icon">Calificación Final</th></tr></thead>' +
-                              '<tbody>' +
-                              '<tr><td colspan="3" class="no-records-row">No se encontraron registros de asignaturas adeudadas.</td></tr>' +
-                              '</tbody></table>' + footerAdeudadas 
+                    adeudadas: {
+                        label: 'Calificaciones',
+                        breadcrumb: 'Inicio > Académico > Asignaturas Adeudadas',
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Materias Pendientes / Adeudadas</h5>' +
+                              '<table class="simulated-table"><thead><tr><th>Materia</th><th>Semestre</th><th>Estatus</th></tr></thead>' +
+                              '<tbody><tr class="no-records-row"><td colspan="3">Felicidades, no adeudas ninguna asignatura académica.</td></tr></tbody></table>' + footerAdeudadas
                     },
-                    constancias: { 
-                        label: 'Constancias', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', 
-                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Trámite de Constancias</h5>' +
-                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
-                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
-                              '<table class="simulated-table">' +
-                              '<colgroup><col style="width:35%"><col style="width:25%"><col style="width:20%"><col style="width:20%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon">Trámite</th><th class="dt-sort-icon">Fecha de solicitud</th><th class="dt-sort-icon">Estatus</th><th class="dt-sort-icon">Opciones</th></tr></thead>' +
-                              '<tbody>' +
-                              '<tr><td colspan="4" class="no-records-row">No se encontraron resultados</td></tr>' +
-                              '</tbody></table>' + footerConstancias 
+                    constancias: {
+                        label: 'Calificaciones',
+                        breadcrumb: 'Inicio > Trámites > Constancias Digitales',
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Historial de Solicitud de Constancias</h5>' +
+                              '<table class="simulated-table"><thead><tr><th>Tipo de Constancia</th><th>Fecha de Solicitud</th><th>Estatus</th></tr></thead>' +
+                              '<tbody><tr class="no-records-row"><td colspan="3">No has realizado ninguna solicitud de constancia digital.</td></tr></tbody></table>' + footerConstancias
                     },
-                    extra_inscritos: { label:'Exámenes Inscritos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Inscritos', html: "<h5>Exámenes Extraordinarios Inscritos</h5><p>No cuentas con exámenes extraordinarios inscritos en este periodo.</p>" },
-                    extra_calificaciones: { label:'Calificaciones', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Calificaciones', html: "<h5>Calificaciones de Extraordinarios</h5><p>No se registran calificaciones de exámenes extraordinarios históricos.</p>" },
-                    formularios: { label:'Formularios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2'>Evaluación Docente 2026</button>" },
-                    biblioteca: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
-                    micuenta: { 
-                        label: 'Mi Cuenta', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', 
-                        html: '<div class="mc-header-container">' +
-                              '    <h5 class="mc-title">USUARIO SANTIAGO DE JESUS ARCOS GUZMAN</h5>' +
-                              '</div>' +
-                              '<div class="mc-banner-blue">Cambiar Contraseña</div>' +
-                              '<form style="max-width: 450px;">' +
-                              '    <div class="mc-form-row">' +
-                              '        <div class="mc-input-field">' +
-                              '            <label for="mc_curr_pass">Contraseña Actual</label>' +
-                              '            <input id="mc_curr_pass" type="password">' +
-                              '        </div>' +
-                              '    </div>' +
-                              '    <div class="mc-form-row">' +
-                              '        <div class="mc-input-field">' +
-                              '            <label for="mc_new_pass">Nueva Contraseña</label>' +
-                              '            <input id="mc_new_pass" type="password">' +
-                              '        </div>' +
-                              '    </div>' +
-                              '    <div class="mc-form-row">' +
-                              '        <div class="mc-input-field">' +
-                              '            <label for="mc_conf_pass">Confirmar nueva Contraseña</label>' +
-                              '            <input id="mc_conf_pass" type="password">' +
-                              '        </div>' +
-                              '    </div>' +
-                              '    <div class="mc-checkbox-container">' +
-                              '        <label class="mc-checkbox-label">' +
-                              '            <input type="checkbox" id="mc_show_pass" onclick="togglePasswordVisibility()">' +
-                              '            <span>Mostrar contraseña</span>' +
-                              '        </label>' +
-                              '    </div>' +
-                              '    <button type="button" class="mc-btn-save waves-effect waves-light">' +
-                              '        <i class="material-icons">save</i> Guardar' +
-                              '    </button>' +
+                    extra_inscritos: {
+                        label: 'Calificaciones',
+                        breadcrumb: 'Inicio > Extraordinarios > Inscritos',
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Exámenes Extraordinarios Inscritos</h5>' +
+                              '<table class="simulated-table"><thead><tr><th>Materia</th><th>Periodo</th><th>Folio</th></tr></thead>' +
+                              '<tbody><tr class="no-records-row"><td colspan="3">No tienes exámenes extraordinarios registrados para este periodo.</td></tr></tbody></table>'
+                    },
+                    extra_calificaciones: {
+                        label: 'Calificaciones',
+                        breadcrumb: 'Inicio > Extraordinarios > Calificaciones',
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Historial de Calificaciones Extraordinarias</h5>' +
+                              '<table class="simulated-table"><thead><tr><th>Materia</th><th>Fecha</th><th>Calificación</th><th>Resultado</th></tr></thead>' +
+                              '<tbody><tr class="no-records-row"><td colspan="4">No hay registros de exámenes extraordinarios presentados anteriormente.</td></tr></tbody></table>'
+                    },
+                    formularios: {
+                        label: 'Calificaciones',
+                        breadcrumb: 'Inicio > Herramientas > Formularios',
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Formatos y Formularios Universitarios</h5><p>Aquí se desplegarán las encuestas institucionales y evaluaciones docentes cuando el periodo se encuentre habilitado por la coordinación académica.</p>'
+                    },
+                    biblioteca: {
+                        label: 'Calificaciones',
+                        breadcrumb: 'Inicio > Servicios > Biblioteca Virtual',
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Acceso a la Biblioteca Virtual</h5><p>Consulta el catálogo de libros digitales, bases de datos científicas e investigaciones indexadas vinculadas con tu cuenta universitaria institucional.</p>'
+                    },
+                    micuenta: {
+                        label: 'Calificaciones',
+                        breadcrumb: 'Inicio > Perfil > Mi Cuenta',
+                        html: '<div class="mc-header-container"><h2 class="mc-title">Mi Cuenta</h2></div>' +
+                              '<div class="mc-banner-blue">Configuración de Seguridad de la Cuenta del Alumno</div>' +
+                              '<form>' +
+                              '<div class="mc-form-row"><div class="mc-input-field"><label>Contraseña Actual</label><input type="password" required></div></div>' +
+                              '<div class="mc-form-row"><div class="mc-input-field"><label>Nueva Contraseña</label><input type="password" required></div></div>' +
+                              '<div class="mc-form-row"><div class="mc-input-field"><label>Confirmar Nueva Contraseña</label><input type="password" required></div></div>' +
+                              '<div class="mc-checkbox-container"><label class="mc-checkbox-label"><input type="checkbox"><span>Cerrar sesión en todos los dispositivos vinculados</span></label></div>' +
+                              '<button type="button" class="mc-btn-save"><i class="material-icons">save</i>Actualizar Seguridad</button>' +
                               '</form>'
                     },
-                    documentos: { 
-                        label: 'Documentos', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', 
-                        html: '<h5 style="font-size: 24px; font-weight: 300; margin: 0 0 10px 0; color: #111;">Documentos</h5>' +
-                              '<div class="doc-main-container">' +
-                              '    <div class="doc-left-panel">' +
-                              '        <div class="doc-banner-blue"></div>' +
-                              '        <button type="button" class="doc-select-btn waves-effect waves-light">Certificado de Bachillerato</button>' +
-                              '        <div class="doc-line-divider"></div>' +
-                              '        <button type="button" class="doc-btn-submit-disabled">' +
-                              '            <i class="material-icons">save</i> Subir' +
-                              '        </button>' +
-                              '    </div>' +
-                              '    <div class="doc-right-notes-card">' +
-                              '        <h6 class="doc-notes-title">Notas importantes</h6>' +
-                              '        <ul class="doc-notes-list">' +
-                              '            <li>Sube un único archivo PDF con los documentos solicitados,</li>' +
-                              '            <li>El límite de peso máximo para el archivo son 5mb</li>' +
-                              '            <li>Suba el archivo según sea el caso</li>' +
-                              '            <li>Todos los documentos serán solicitados en algún momento de manera física en original a través de la Dirección de Control Escolar.</li>' +
-                              '        </ul>' +
-                              '    </div>' +
+                    documentos: {
+                        label: 'Calificaciones',
+                        breadcrumb: 'Inicio > Servicios > Entrega de Documentos',
+                        html: '<div class="doc-main-container">' +
+                              '<div class="doc-left-panel">' +
+                              '<div class="doc-banner-blue"></div>' +
+                              '<div class="doc-select-btn">Seleccionar Archivos</div>' +
+                              '<div class="doc-line-divider"></div>' +
+                              '<div class="doc-btn-submit-disabled"><i class="material-icons">cloud_upload</i>Enviar Archivos</div>' +
+                              '</div>' +
+                              '<div class="doc-right-notes-card">' +
+                              '<h3 class="doc-notes-title">Notas:</h3>' +
+                              '<ul class="doc-notes-list">' +
+                              '<li>Los formatos aceptados para la carga de documentos oficiales son estrictamente imágenes .JPG o archivos legibles en formato .PDF.</li>' +
+                              '<li>El tamaño máximo admitido para cada archivo cargado de manera individual es de 2 MB.</li>' +
+                              '</ul>' +
+                              '</div>' +
                               '</div>'
                     },
-                    eduvida: { label:'EduVida', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> EduVida', html: "<h5>Educación para la Vida</h5><p>Talleres acreditados.</p>" }
+                    eduvida: {
+                        label: 'Calificaciones',
+                        breadcrumb: 'Inicio > Educación para la Vida',
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Educación para la Vida</h5><p>Módulo de registro y consulta de actividades de formación integral, talleres humanistas, eventos deportivos y proyectos de impacto cultural comunitario.</p>'
+                    }
                 };
 
                 function showSection(sectionKey) {
                     const data = sectionsData[sectionKey];
                     if (data) {
-                        const card = $('#dynamicRenderCard');
-                        card.css('opacity', '0.3');
+                        let targetBreadcrumb = data.breadcrumb;
+                        if (targetBreadcrumb.includes('>')) {
+                            let parts = targetBreadcrumb.split('>');
+                            let formattedBc = '';
+                            for (let i = 0; i < parts.length; i++) {
+                                formattedBc += '<span>' + parts[i].trim() + '</span>';
+                                if (i < parts.length - 1) {
+                                    formattedBc += '<i class="material-icons">keyboard_arrow_right</i>';
+                                }
+                            }
+                            document.getElementById('breadcrumb-container').innerHTML = formattedBc;
+                        } else {
+                            document.getElementById('breadcrumb-container').innerText = targetBreadcrumb;
+                        }
+
+                        if (sectionKey === 'colegiaturas') {
+                            document.getElementById('dynamicRenderCard').innerHTML = data.html;
+                            changeColegiaturasPage(1);
+                        } else {
+                            document.getElementById('dynamicRenderCard').innerHTML = data.html;
+                        }
                         
-                        setTimeout(function() {
-                            document.getElementById('breadcrumb-container').innerHTML = data.breadcrumb;
-                            
-                            if (sectionKey === 'colegiaturas') {
-                                changeColegiaturasPage(1);
-                            } else {
-                                document.getElementById('dynamicRenderCard').innerHTML = data.html;
-                            }
-                            
-                            $('.custom-menu-li').removeClass('active-item');
-                            
-                            if(sectionKey === 'extra_inscritos' || sectionKey === 'extra_calificaciones') {
-                                $('#menu-extraordinarios-root').addClass('active-item');
-                            } else {
-                                $('#menu-' + sectionKey).addClass('active-item');
-                            }
-                            
-                            if (data.label) {
-                                document.getElementById('label-select-actual').innerHTML = data.label + ' <i class="material-icons">arrow_drop_down</i>';
-                            }
-                            
-                            if (typeof Waves !== 'undefined') {
-                                Waves.displayEffect();
-                            }
-                            card.css('opacity', '1');
-                        }, 80);
+                        $('.custom-menu-li').removeClass('active-item');
+                        $('.collapsible-body li').removeClass('active-subitem');
+                        
+                        if (sectionKey === 'extra_inscritos' || sectionKey === 'extra_calificaciones') {
+                            $('#menu-' + sectionKey).addClass('active-subitem');
+                        } else {
+                            $('#menu-' + sectionKey).addClass('active-item');
+                        }
+                        
+                        if (data.label) {
+                            document.getElementById('label-select-actual').innerHTML = data.label + ' <i class="material-icons">arrow_drop_down</i>';
+                        }
                     }
                 }
-
-                $('.sidenav-trigger-toggle').on('click', function(e) {
-                    e.preventDefault();
-                    var sidebar = $('#left-sidebar-nav');
-                    var main = $('#main');
-                    if(sidebar.hasClass('side-nav-hidden')) {
-                        sidebar.removeClass('side-nav-hidden');
-                        main.removeClass('mainPaddingLeft').addClass('mainPaddingSidebar');
-                    } else {
-                        sidebar.addClass('side-nav-hidden');
-                        main.removeClass('mainPaddingSidebar').addClass('mainPaddingLeft');
-                    }
-                });
 
                 $(document).ready(function() {
                     $('.collapsible').collapsible();
@@ -630,6 +564,16 @@ function getPortalTemplate() {
                         coverTrigger: false,
                         inDuration: 150,
                         outDuration: 150
+                    });
+
+                    $('.sidenav-trigger-toggle').on('click', function(e) {
+                        e.preventDefault();
+                        $('#left-sidebar-nav').toggleClass('side-nav-hidden');
+                        if ($('#left-sidebar-nav').hasClass('side-nav-hidden')) {
+                            $('#main').removeClass('mainPaddingSidebar').addClass('mainPaddingLeft');
+                        } else {
+                            $('#main').removeClass('mainPaddingLeft').addClass('mainPaddingSidebar');
+                        }
                     });
 
                     showSection('calificaciones');
