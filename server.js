@@ -110,6 +110,8 @@ function getPortalTemplate() {
                 .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; position: relative; }
                 .simulated-table tr:nth-child(even) { background-color: #fafafa; }
                 
+                .no-records-row { text-align: center !important; color: #666; background-color: #fbfbfb !important; font-style: italic; }
+
                 .dt-sort-icon::after { content: " ⇅"; font-size: 11px; color: #bbb; position: absolute; right: 8px; top: 12px; }
                 .dt-sort-icon-active::after { content: " ▲"; font-size: 10px; color: #0d47a1; position: absolute; right: 8px; top: 12px; }
 
@@ -134,7 +136,7 @@ function getPortalTemplate() {
                 .custom-menu-li.active-item a { color: #0d47a1 !important; font-weight: bold; }
                 .custom-menu-li.active-item a i.menu-arrow { color: #0d47a1; }
 
-                /* Estilos para el menú colapsable (Extraordinarios) */
+                /* Estilos para el menú colapsable */
                 .collapsible-header { background-color: transparent !important; border: none !important; padding: 14px 20px !important; font-size: 13px !important; font-weight: 500 !important; color: #444 !important; text-transform: uppercase; display: flex !important; align-items: center; justify-content: space-between; }
                 .collapsible-header:hover { background-color: #f0f0f0; }
                 .collapsible-header div { display: flex; align-items: center; }
@@ -149,6 +151,34 @@ function getPortalTemplate() {
                 #breadcrumb-container i { font-size: 16px; margin: 0 8px; color: #999; }
                 
                 #dynamicRenderCard { transition: opacity 0.2s ease-in-out; }
+
+                /* Estilos para Mi Cuenta */
+                .mc-header-container { border-bottom: none; margin-bottom: 20px; }
+                .mc-title { font-size: 22px; color: #333; font-weight: 400; text-transform: uppercase; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+                .mc-banner-blue { background-color: #025fa4; color: white; padding: 10px 15px; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 30px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+                .mc-form-row { margin-bottom: 25px; }
+                .mc-input-field input[type=password], .mc-input-field input[type=text] { width: 100%; height: 36px; border: none; border-bottom: 1px solid #ccc; font-size: 14px; margin-bottom: 0; box-sizing: border-box; background: transparent; transition: border-bottom 0.2s; }
+                .mc-input-field input[type=password]:focus, .mc-input-field input[type=text]:focus { border-bottom: 1px solid #025fa4; box-shadow: none; outline: none; }
+                .mc-input-field label { display: block; font-size: 13.5px; color: #9e9e9e; margin-bottom: 5px; font-weight: 400; }
+                .mc-checkbox-container { margin-top: 15px; margin-bottom: 30px; }
+                .mc-checkbox-label { display: flex; align-items: center; cursor: pointer; user-select: none; font-size: 14px; color: #666; }
+                .mc-checkbox-label input[type=checkbox] { margin-right: 10px; width: 16px; height: 16px; accent-color: #025fa4; cursor: pointer; }
+                .mc-btn-save { background-color: #007bc4; color: white; border: none; border-radius: 3px; height: 38px; line-height: 38px; padding: 0 20px; font-size: 13.5px; font-weight: 500; text-transform: uppercase; display: inline-flex; align-items: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); transition: background-color 0.2s; }
+                .mc-btn-save:hover { background-color: #006aa9; }
+                .mc-btn-save i { font-size: 18px; margin-right: 8px; }
+
+                /* Estilos de la sección Documentos */
+                .doc-main-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; font-family: 'Segoe UI', Arial, sans-serif; gap: 40px; }
+                .doc-left-panel { flex: 1; max-width: 550px; }
+                .doc-banner-blue { background-color: #025fa4; height: 42px; width: 100%; margin-bottom: 25px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+                .doc-select-btn { background-color: #007bc4; color: white; border: none; border-radius: 4px; height: 40px; line-height: 40px; padding: 0 20px; font-size: 13px; font-weight: 500; text-transform: uppercase; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); margin-bottom: 20px; }
+                .doc-line-divider { border: none; border-bottom: 1px solid #e0e0e0; margin-bottom: 20px; width: 100%; }
+                .doc-btn-submit-disabled { background-color: #e0e0e0; color: #a6a6a6; border: none; border-radius: 4px; height: 36px; line-height: 36px; padding: 0 18px; font-size: 13px; font-weight: 500; text-transform: uppercase; display: inline-flex; align-items: center; cursor: not-allowed; box-shadow: none; pointer-events: none; }
+                .doc-btn-submit-disabled i { font-size: 18px; margin-right: 8px; color: #a6a6a6; }
+                .doc-right-notes-card { width: 320px; background-color: #e8f4fd; border-radius: 4px; padding: 25px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+                .doc-notes-title { font-size: 20px; color: #333; font-weight: 300; margin: 0 0 15px 0; }
+                .doc-notes-list { margin: 0; padding-left: 20px; list-style-type: disc; }
+                .doc-notes-list li { font-size: 13.5px; color: #444; margin-bottom: 12px; line-height: 1.5; font-weight: 400; }
             </style>
         </head>
         <body>
@@ -248,15 +278,31 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                function generateExternalDataTablesFooter(columnWidthsArray, totalEntries, showPageTwo = false) {
+                function generateExternalDataTablesFooter(columnWidthsArray, totalEntries, showPageTwo = false, isZeroEntries = false, searchFieldsCount = null) {
                     let searchBoxesHtml = '<div class="dt-search-footer-container">';
+                    let limit = searchFieldsCount !== null ? searchFieldsCount : columnWidthsArray.length;
                     
-                    columnWidthsArray.forEach(function(widthPercentage) {
-                        searchBoxesHtml += '<div class="dt-search-col-box" style="width: ' + widthPercentage + '%;">' +
-                                                '<input type="text" class="dt-search-input" placeholder="Buscar">' +
-                                           '</div>';
-                    });
+                    for (let i = 0; i < columnWidthsArray.length; i++) {
+                        if (i < limit) {
+                            searchBoxesHtml += '<div class="dt-search-col-box" style="width: ' + columnWidthsArray[i] + '%;">' +
+                                                    '<input type="text" class="dt-search-input" placeholder="Buscar">' +
+                                               '</div>';
+                        } else {
+                            searchBoxesHtml += '<div class="dt-search-col-box" style="width: ' + columnWidthsArray[i] + '%; background: transparent;"></div>';
+                        }
+                    }
                     searchBoxesHtml += '</div>';
+                    
+                    if (isZeroEntries) {
+                        return searchBoxesHtml + 
+                            '<div class="dt-footer-container">' +
+                                '<div class="dt-info">Showing 0 to 0 of 0 entries</div>' +
+                                '<ul class="dt-pagination">' +
+                                    '<li class="disabled-page"><a>Previous</a></li>' +
+                                    '<li class="disabled-page"><a>Next</a></li>' +
+                                '</ul>' +
+                            '</div>';
+                    }
                     
                     let startEntry = showPageTwo ? 11 : 1;
                     let endEntry = showPageTwo ? totalEntries : 10;
@@ -267,7 +313,7 @@ function getPortalTemplate() {
                     let p1Class = showPageTwo ? "" : "active-page";
                     let p2Class = showPageTwo ? "active-page" : "";
                     
-                    let paginationHtml = 
+                    return searchBoxesHtml + 
                         '<div class="dt-footer-container">' +
                             '<div class="dt-info">Showing ' + startEntry + ' to ' + endEntry + ' of ' + totalEntries + ' entries</div>' +
                             '<ul class="dt-pagination">' +
@@ -277,13 +323,13 @@ function getPortalTemplate() {
                                 '<li class="' + nextClass + '"><a onclick="changeColegiaturasPage(2)">Next</a></li>' +
                             '</ul>' +
                         '</div>';
-                        
-                    return searchBoxesHtml + paginationHtml;
                 }
 
                 const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3);
                 const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
                 const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3);
+                const footerAdeudadas = generateExternalDataTablesFooter([50, 25, 25], 0, false, true);
+                const footerConstancias = generateExternalDataTablesFooter([35, 25, 20, 20], 0, false, true, 3);
 
                 function changeColegiaturasPage(pageNumber) {
                     const container = $('#dynamicRenderCard');
@@ -327,6 +373,17 @@ function getPortalTemplate() {
                         document.getElementById('dynamicRenderCard').innerHTML = baseHtml;
                         container.css('opacity', '1');
                     }, 60);
+                }
+
+                function togglePasswordVisibility() {
+                    const cb = document.getElementById('mc_show_pass');
+                    const t1 = document.getElementById('mc_curr_pass');
+                    const t2 = document.getElementById('mc_new_pass');
+                    const t3 = document.getElementById('mc_conf_pass');
+                    const type = cb.checked ? 'text' : 'password';
+                    if(t1) t1.type = type;
+                    if(t2) t2.type = type;
+                    if(t3) t3.type = type;
                 }
 
                 const sectionsData = {
@@ -403,9 +460,9 @@ function getPortalTemplate() {
                               '<colgroup><col style="width:25%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"></colgroup>' +
                               '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Parcial 1</th><th class="dt-sort-icon">Parcial 2</th><th class="dt-sort-icon">Promedio</th><th class="dt-sort-icon">Ordinario</th><th class="dt-sort-icon">Calif. Final</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td>0</td><td>0</td><td>0</td><td></td><td></td></tr>' +
-                              '<tr><td>CALCULO DIFERENCIAL</td><td>0</td><td>38</td><td>19</td><td></td><td></td></tr>' +
-                              '<tr><td>FISICA APLICADA</td><td>10</td><td></td><td></td><td></td><td></td></tr>' +
+                              '<tr><td>ALGORITMOS</td><td>0</td><td>8</td><td>4</td><td></td><td></td></tr>' +
+                              '<tr><td>CALCULO DIFERENCIAL</td><td>0</td><td>8</td><td>4</td><td></td><td></td></tr>' +
+                              '<tr><td>FISICA APLICADA</td><td>10</td><td>7</td><td>8.5</td><td></td><td></td></tr>' +
                               '</tbody></table>' + footerCalificaciones
                     },
                     ordinarios: { 
@@ -422,14 +479,97 @@ function getPortalTemplate() {
                               '<tr><td>FISICA APLICADA</td><td>03-06-2026</td><td>09:00:00</td><td>ALBERTO GABRIEL</td><td>VEGA</td><td>POOT</td></tr>' +
                               '</tbody></table>'
                     },
-                    adeudadas: { label:'Asig. Adeudadas', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Adeudadas', html: "<h5>Asignaturas Adeudadas</h5><p style='color:green;'><b>Estatus Regular:</b> No se registran asignaturas reprobadas.</p>" },
-                    constancias: { label:'Constancias', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', html: "<h5>Trámite de Constancias</h5><button class='btn blue darken-4'>Solicitar Constancia</button>" },
+                    adeudadas: { 
+                        label: 'Asig. Adeudadas', 
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas Adeudadas', 
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Asignaturas Adeudadas</h5>' +
+                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
+                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
+                              '<table class="simulated-table">' +
+                              '<colgroup><col style="width:50%"><col style="width:25%"><col style="width:25%"></colgroup>' +
+                              '<thead><tr><th class="dt-sort-icon">Materia</th><th class="dt-sort-icon">Oportunidad</th><th class="dt-sort-icon">Calificación Final</th></tr></thead>' +
+                              '<tbody>' +
+                              '<tr><td colspan="3" class="no-records-row">No se encontraron registros de asignaturas adeudadas.</td></tr>' +
+                              '</tbody></table>' + footerAdeudadas 
+                    },
+                    constancias: { 
+                        label: 'Constancias', 
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', 
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Trámite de Constancias</h5>' +
+                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
+                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
+                              '<table class="simulated-table">' +
+                              '<colgroup><col style="width:35%"><col style="width:25%"><col style="width:20%"><col style="width:20%"></colgroup>' +
+                              '<thead><tr><th class="dt-sort-icon">Trámite</th><th class="dt-sort-icon">Fecha de solicitud</th><th class="dt-sort-icon">Estatus</th><th class="dt-sort-icon">Opciones</th></tr></thead>' +
+                              '<tbody>' +
+                              '<tr><td colspan="4" class="no-records-row">No se encontraron resultados</td></tr>' +
+                              '</tbody></table>' + footerConstancias 
+                    },
                     extra_inscritos: { label:'Exámenes Inscritos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Inscritos', html: "<h5>Exámenes Extraordinarios Inscritos</h5><p>No cuentas con exámenes extraordinarios inscritos en este periodo.</p>" },
                     extra_calificaciones: { label:'Calificaciones', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Calificaciones', html: "<h5>Calificaciones de Extraordinarios</h5><p>No se registran calificaciones de exámenes extraordinarios históricos.</p>" },
                     formularios: { label:'Formularios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2'>Evaluación Docente 2026</button>" },
                     biblioteca: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
-                    micuenta: { label:'Mi Cuenta', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', html: "<h5>Mi Cuenta</h5><p><b>Carrera:</b> Ingeniería en Sistemas Computacionales</p>" },
-                    documentos: { label:'Documentos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', html: "<h5>Documentos</h5><p>Expediente digital completo.</p>" },
+                    micuenta: { 
+                        label: 'Mi Cuenta', 
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', 
+                        html: '<div class="mc-header-container">' +
+                              '    <h5 class="mc-title">USUARIO SANTIAGO DE JESUS ARCOS GUZMAN</h5>' +
+                              '</div>' +
+                              '<div class="mc-banner-blue">Cambiar Contraseña</div>' +
+                              '<form style="max-width: 450px;">' +
+                              '    <div class="mc-form-row">' +
+                              '        <div class="mc-input-field">' +
+                              '            <label for="mc_curr_pass">Contraseña Actual</label>' +
+                              '            <input id="mc_curr_pass" type="password">' +
+                              '        </div>' +
+                              '    </div>' +
+                              '    <div class="mc-form-row">' +
+                              '        <div class="mc-input-field">' +
+                              '            <label for="mc_new_pass">Nueva Contraseña</label>' +
+                              '            <input id="mc_new_pass" type="password">' +
+                              '        </div>' +
+                              '    </div>' +
+                              '    <div class="mc-form-row">' +
+                              '        <div class="mc-input-field">' +
+                              '            <label for="mc_conf_pass">Confirmar nueva Contraseña</label>' +
+                              '            <input id="mc_conf_pass" type="password">' +
+                              '        </div>' +
+                              '    </div>' +
+                              '    <div class="mc-checkbox-container">' +
+                              '        <label class="mc-checkbox-label">' +
+                              '            <input type="checkbox" id="mc_show_pass" onclick="togglePasswordVisibility()">' +
+                              '            <span>Mostrar contraseña</span>' +
+                              '        </label>' +
+                              '    </div>' +
+                              '    <button type="button" class="mc-btn-save waves-effect waves-light">' +
+                              '        <i class="material-icons">save</i> Guardar' +
+                              '    </button>' +
+                              '</form>'
+                    },
+                    documentos: { 
+                        label: 'Documentos', 
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', 
+                        html: '<h5 style="font-size: 24px; font-weight: 300; margin: 0 0 10px 0; color: #111;">Documentos</h5>' +
+                              '<div class="doc-main-container">' +
+                              '    <div class="doc-left-panel">' +
+                              '        <div class="doc-banner-blue"></div>' +
+                              '        <button type="button" class="doc-select-btn waves-effect waves-light">Certificado de Bachillerato</button>' +
+                              '        <div class="doc-line-divider"></div>' +
+                              '        <button type="button" class="doc-btn-submit-disabled">' +
+                              '            <i class="material-icons">save</i> Subir' +
+                              '        </button>' +
+                              '    </div>' +
+                              '    <div class="doc-right-notes-card">' +
+                              '        <h6 class="doc-notes-title">Notas importantes</h6>' +
+                              '        <ul class="doc-notes-list">' +
+                              '            <li>Sube un único archivo PDF con los documentos solicitados,</li>' +
+                              '            <li>El límite de peso máximo para el archivo son 5mb</li>' +
+                              '            <li>Suba el archivo según sea el caso</li>' +
+                              '            <li>Todos los documentos serán solicitados en algún momento de manera física en original a través de la Dirección de Control Escolar.</li>' +
+                              '        </ul>' +
+                              '    </div>' +
+                              '</div>'
+                    },
                     eduvida: { label:'EduVida', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> EduVida', html: "<h5>Educación para la Vida</h5><p>Talleres acreditados.</p>" }
                 };
 
