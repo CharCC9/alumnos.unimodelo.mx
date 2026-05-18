@@ -248,96 +248,9 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                // Base de datos completa simulada para Colegiaturas
-                const historialColegiaturas = [
-                    // Página 1
-                    { desc: "Colegiatura Mayo/2026", comp: "092509", ref: "", deudor: "NO" },
-                    { desc: "Colegiatura Abril/2026", comp: "082508", ref: "", deudor: "NO" },
-                    { desc: "Colegiatura Marzo/2026", comp: "072507", ref: "", deudor: "NO" },
-                    { desc: "Colegiatura Febrero/2026", comp: "062506", ref: "", deudor: "NO" },
-                    { desc: "Inscripción Semestral / Enero 2026", comp: "002500", ref: "", deudor: "NO" },
-                    
-                    // Página 2
-                    { desc: "Colegiatura Octubre/2025", comp: "02", ref: "", deudor: "NO" },
-                    { desc: "Colegiatura Septiembre/2025", comp: "01", ref: "2501", deudor: "NO" },
-                    { desc: "Inscripción Anual o Semestral/ Agosto 2025", comp: "99", ref: "2599", deudor: "NO" },
-                    { desc: "Colegiatura Junio/2025", comp: "10", ref: "2410", deudor: "NO" },
-                    { desc: "Colegiatura Mayo/2025", comp: "09", ref: "2409", deudor: "NO" },
-                    
-                    // Página 3
-                    { desc: "Colegiatura Abril/2025", comp: "08", ref: "2408", deudor: "NO" },
-                    { desc: "Colegiatura Marzo/2025", comp: "07", ref: "2407", deudor: "NO" },
-                    { desc: "Colegiatura Febrero/2025", comp: "06", ref: "2406", deudor: "NO" },
-                    { desc: "Inscripción Semestral / Enero 2025", comp: "00", ref: "2400", deudor: "NO" },
-                    { desc: "Colegiatura Enero/2025", comp: "05", ref: "2405", deudor: "NO" },
-                    
-                    // Página 4
-                    { desc: "Colegiatura Diciembre/2024", comp: "04", ref: "2404", deudor: "NO" },
-                    { desc: "Colegiatura Noviembre/2024", comp: "03", ref: "2403", deudor: "NO" },
-                    { desc: "Colegiatura Octubre/2024", comp: "02", ref: "2402", deudor: "NO" },
-                    { desc: "Colegiatura Septiembre/2024", comp: "01", ref: "2401", deudor: "NO" },
-                    { desc: "Inscripción Anual o Semestral/ Agosto 2024", comp: "99", ref: "2499", deudor: "NO" }
-                ];
-
-                let currentPageColegiaturas = 1;
-                const rowsPerPage = 5;
-
-                function renderColegiaturasTable(page) {
-                    currentPageColegiaturas = page;
-                    const startIndex = (page - 1) * rowsPerPage;
-                    const endIndex = startIndex + rowsPerPage;
-                    const pageData = historialColegiaturas.slice(startIndex, endIndex);
-
-                    let tableHtml = '<h5 style="font-weight: 400; color: #222;">Pagos del alumno</h5>' +
-                                  '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
-                                  '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
-                                  '<table class="simulated-table">' +
-                                  '<colgroup><col style="width:35%"><col style="width:20%"><col style="width:25%"><col style="width:20%"></colgroup>' +
-                                  '<thead><tr><th class="dt-sort-icon">Descripción</th><th class="dt-sort-icon">Concepto</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Adeudo vigente</th></tr></thead>' +
-                                  '<tbody>';
-
-                    pageData.forEach(row => {
-                        tableHtml += `<tr>
-                            <td>${row.desc}</td>
-                            <td>${row.comp}</td>
-                            <td>${row.ref}</td>
-                            <td>${row.deudor}</td>
-                        </tr>`;
-                    });
-
-                    tableHtml += '</tbody></table>';
-
-                    tableHtml += '<div class="dt-search-footer-container">';
-                    for(let i=0; i<4; i++) {
-                        tableHtml += '<div class="dt-search-col-box" style="width: 25%;"><input type="text" class="dt-search-input" placeholder="Buscar"></div>';
-                    }
-                    tableHtml += '</div>';
-
-                    const totalEntries = historialColegiaturas.length;
-                    const totalPages = Math.ceil(totalEntries / rowsPerPage);
-                    const currentShowingStart = startIndex + 1;
-                    const currentShowingEnd = Math.min(endIndex, totalEntries);
-
-                    tableHtml += `
-                        <div class="dt-footer-container">
-                            <div class="dt-info">Showing ${currentShowingStart} to ${currentShowingEnd} of ${totalEntries} entries</div>
-                            <ul class="dt-pagination">
-                                <li class="${page === 1 ? 'disabled-page' : ''}"><a ${page > 1 ? `onclick="renderColegiaturasTable(${page - 1})"` : ''}>Previous</a></li>`;
-                    
-                    for(let p=1; p<=totalPages; p++) {
-                        tableHtml += `<li class="${page === p ? 'active-page' : ''}"><a onclick="renderColegiaturasTable(${p})">${p}</a></li>`;
-                    }
-
-                    tableHtml += `
-                                <li class="${page === totalPages ? 'disabled-page' : ''}"><a ${page < totalPages ? `onclick="renderColegiaturasTable(${page + 1})"` : ''}>Next</a></li>
-                            </ul>
-                        </div>`;
-
-                    document.getElementById('dynamicRenderCard').innerHTML = tableHtml;
-                }
-
                 function generateExternalDataTablesFooter(columnWidthsArray, totalEntries) {
                     let searchBoxesHtml = '<div class="dt-search-footer-container">';
+                    
                     columnWidthsArray.forEach(function(widthPercentage) {
                         searchBoxesHtml += '<div class="dt-search-col-box" style="width: ' + widthPercentage + '%;">' +
                                                 '<input type="text" class="dt-search-input" placeholder="Buscar">' +
@@ -358,6 +271,7 @@ function getPortalTemplate() {
                     return searchBoxesHtml + paginationHtml;
                 }
 
+                const footerColegiaturas = generateExternalDataTablesFooter([25, 25, 25, 25], 5);
                 const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3);
                 const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
                 const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3);
@@ -394,7 +308,19 @@ function getPortalTemplate() {
                     colegiaturas: {
                         label: 'Colegiaturas / Inscr.',
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Pagos del Alumno',
-                        isDynamic: true
+                        html: '<h5 style="font-weight: 400; color: #222;">Pagos del alumno</h5>' +
+                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
+                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
+                              '<table class="simulated-table">' +
+                              '<colgroup><col style="width:25%"><col style="width:25%"><col style="width:25%"><col style="width:25%"></colgroup>' +
+                              '<thead><tr><th class="dt-sort-icon">Descripción</th><th class="dt-sort-icon">Concepto</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Adeudo vigente</th></tr></thead>' +
+                              '<tbody>' +
+                              '<tr><td>Colegiatura Mayo/2026</td><td>092509</td><td></td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Abril/2026</td><td>082508</td><td></td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Marzo/2026</td><td>072507</td><td></td><td>NO</td></tr>' +
+                              '<tr><td>Colegiatura Febrero/2026</td><td>062506</td><td></td><td>NO</td></tr>' +
+                              '<tr><td>Inscripción Semestral / Enero 2026</td><td>002500</td><td></td><td>NO</td></tr>' +
+                              '</tbody></table>' + footerColegiaturas
                     },
                     horario: {
                         label: 'Horario',
@@ -436,31 +362,18 @@ function getPortalTemplate() {
                               '<colgroup><col style="width:25%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"></colgroup>' +
                               '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Parcial 1</th><th class="dt-sort-icon">Parcial 2</th><th class="dt-sort-icon">Promedio</th><th class="dt-sort-icon">Ordinario</th><th class="dt-sort-icon">Calif. Final</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td>0</td><td>8</td><td>4</td><td></td><td></td></tr>' +
-                              '<tr><td>CALCULO DIFERENCIAL</td><td>0</td><td>8</td><td>4</td><td></td><td></td></tr>' +
-                              '<tr><td>FISICA APLICADA</td><td>10</td><td>7</td><td>8.5</td><td></td><td></td></tr>' +
+                              '<tr><td>ALGORITMOS</td><td>0</td><td>0</td><td>0</td><td></td><td></td></tr>' +
+                              '<tr><td>CALCULO DIFERENCIAL</td><td>0</td><td>38</td><td>19</td><td></td><td></td></tr>' +
+                              '<tr><td>FISICA APLICADA</td><td>10</td><td></td><td></td><td></td><td></td></tr>' +
                               '</tbody></table>' + footerCalificaciones
                     },
-                    ordinarios: { 
-                        label: 'Ordinarios', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', 
-                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Exámenes Ordinarios</h5>' +
-                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
-                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
-                              '<table class="simulated-table">' +
-                              '<colgroup><col style="width:30%"><col style="width:20%"><col style="width:15%"><col style="width:35%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Fecha</th><th class="dt-sort-icon">Hora</th><th class="dt-sort-icon">Maestro</th></tr></thead>' +
-                              '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td>05-06-2026</td><td>11:00:00</td><td>EDSON GEOVANNY ESTRADA LOPEZ</td></tr>' +
-                              '<tr><td>CALCULO DIFERENCIAL</td><td>10-06-2026</td><td>11:00:00</td><td>AYLIN GARCIA REYES</td></tr>' +
-                              '<tr><td>FISICA APLICADA</td><td>03-06-2026</td><td>09:00:00</td><td>ALBERTO GABRIEL VEGA POOT</td></tr>' +
-                              '</tbody></table>' + generateExternalDataTablesFooter([30, 20, 15, 35], 3)
-                    },
+                    ordinarios: { label:'Ordinarios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', html: "<h5>Exámenes Ordinarios</h5><p><i>La publicación oficial del rol de exámenes ordinarios está pendiente.</i></p>" },
                     adeudadas: { label:'Asig. Adeudadas', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Adeudadas', html: "<h5>Asignaturas Adeudadas</h5><p style='color:green;'><b>Estatus Regular:</b> No se registran asignaturas reprobadas.</p>" },
                     constancias: { label:'Constancias', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', html: "<h5>Trámite de Constancias</h5><button class='btn blue darken-4'>Solicitar Constancia</button>" },
                     extra_inscritos: { label:'Exámenes Inscritos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Inscritos', html: "<h5>Exámenes Extraordinarios Inscritos</h5><p>No cuentas con exámenes extraordinarios inscritos en este periodo.</p>" },
                     extra_calificaciones: { label:'Calificaciones', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Calificaciones', html: "<h5>Calificaciones de Extraordinarios</h5><p>No se registran calificaciones de exámenes extraordinarios históricos.</p>" },
                     formularios: { label:'Formularios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2'>Evaluación Docente 2026</button>" },
+                    text: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
                     biblioteca: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
                     micuenta: { label:'Mi Cuenta', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', html: "<h5>Mi Cuenta</h5><p><b>Carrera:</b> Ingeniería en Sistemas Computacionales</p>" },
                     documentos: { label:'Documentos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', html: "<h5>Documentos</h5><p>Expediente digital completo.</p>" },
@@ -475,12 +388,7 @@ function getPortalTemplate() {
                         
                         setTimeout(function() {
                             document.getElementById('breadcrumb-container').innerHTML = data.breadcrumb;
-                            
-                            if (data.isDynamic) {
-                                renderColegiaturasTable(1);
-                            } else {
-                                document.getElementById('dynamicRenderCard').innerHTML = data.html;
-                            }
+                            document.getElementById('dynamicRenderCard').innerHTML = data.html;
                             
                             $('.custom-menu-li').removeClass('active-item');
                             
@@ -517,7 +425,15 @@ function getPortalTemplate() {
 
                 $(document).ready(function() {
                     $('.collapsible').collapsible();
-                    $('.dropdown-trigger').dropdown({ constrainWidth: false, coverTrigger: false });
+                    
+                    $('.dropdown-trigger').dropdown({ 
+                        constrainWidth: false, 
+                        alignment: 'left', 
+                        coverTrigger: false,
+                        inDuration: 150,
+                        outDuration: 150
+                    });
+
                     showSection('calificaciones');
                 });
             </script>
