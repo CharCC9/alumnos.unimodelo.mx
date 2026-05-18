@@ -73,7 +73,7 @@ function getPortalTemplate() {
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Horarios del alumno | SCEM</title>
+            <title>Calificaciones del alumno | SCEM</title>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <link media="all" type="text/css" rel="stylesheet" href="https://alumnos.unimodelo.mx/css/materialize.css">
             <link media="all" type="text/css" rel="stylesheet" href="https://alumnos.unimodelo.mx/css/style.css">
@@ -121,9 +121,9 @@ function getPortalTemplate() {
                                 <select id="menu-navegacion" class="browser-default" style="width: 180px; display: inline-block; height: 36px; vertical-align: middle; background: white; border: 1px solid #ccc; border-radius:3px;">
                                     <option value="libreta_de_pago">Libreta de pago</option>
                                     <option value="colegiaturas">Colegiaturas / Inscr.</option>
-                                    <option value="horario" selected>Horario</option>
+                                    <option value="horario">Horario</option>
                                     <option value="asignaturas">Asignaturas</option>
-                                    <option value="calificaciones">Calificaciones</option>
+                                    <option value="calificaciones" selected>Calificaciones</option>
                                     <option value="logout">Salir</option>
                                 </select>
                                 <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300;">Universidad Modelo</span>
@@ -177,7 +177,6 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                // Estructura segura con strings tradicionales para evitar caídas del servidor en Railway
                 const sectionsData = {
                     libreta_de_pago: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Libreta de pago',
@@ -255,9 +254,9 @@ function getPortalTemplate() {
                               '<table class="simulated-table">' +
                               '<thead><tr><th>Materia</th><th>Parcial 1</th><th>Parcial 2</th><th>Promedio</th><th>Ordinario</th><th>Calif. Final</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td></td><td></td><td></td><td></td><td></td></tr>' +
-                              '<tr><td>CÁLCULO DIFERENCIAL</td><td></td><td></td><td></td><td></td><td></td></tr>' +
-                              '<tr><td>FÍSICA APLICADA</td><td></td><td></td><td></td><td></td><td></td></tr>' +
+                              '<tr><td>ALGORITMOS</td><td>8</td><td>8</td><td>8.0</td><td></td><td></td></tr>' +
+                              '<tr><td>CÁLCULO DIFERENCIAL</td><td>8</td><td>8</td><td>8.0</td><td></td><td></td></tr>' +
+                              '<tr><td>FÍSICA APLICADA</td><td>8</td><td>7</td><td>7.5</td><td></td><td></td></tr>' +
                               '</tbody></table>'
                     },
                     ordinarios: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', html: "<h5>Exámenes Ordinarios</h5><p><i>La publicación oficial del rol de exámenes ordinarios está pendiente.</i></p>" },
@@ -303,8 +302,8 @@ function getPortalTemplate() {
                         else showSection($(this).val());
                     });
 
-                    // Sección inicial por defecto
-                    showSection('horario');
+                    // Carga la sección por defecto de Calificaciones directamente para revisar cambios
+                    showSection('calificaciones');
                 });
             </script>
         </body>
