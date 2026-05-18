@@ -113,13 +113,18 @@ function getPortalTemplate() {
                 .dt-sort-icon::after { content: " ⇅"; font-size: 11px; color: #bbb; position: absolute; right: 8px; top: 12px; }
                 .dt-sort-icon-active::after { content: " ▲"; font-size: 10px; color: #0d47a1; position: absolute; right: 8px; top: 12px; }
 
-                .dt-search-footer-container { display: flex; width: 100%; background: transparent; padding-top: 8px; box-sizing: border-box; }
-                .dt-search-col-box { padding-right: 0px; box-sizing: border-box; display: inline-block; }
-                .dt-search-input { width: 96% !important; height: 28px !important; margin: 0 auto !important; padding: 0 4px !important; font-size: 13px !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; display: block; }
+                /* Estructura externa de DataTables corregida */
+                .dt-search-footer-container { display: flex; width: 100%; background: transparent; padding-top: 12px; padding-bottom: 5px; box-sizing: border-box; border: none !important; }
+                .dt-search-col-box { padding: 0 6px; box-sizing: border-box; display: inline-block; }
+                .dt-search-col-box:first-child { padding-left: 0; }
+                .dt-search-col-box:last-child { padding-right: 0; }
+                
+                /* Estilo exacto para las cajas de búsqueda limpias */
+                .dt-search-input { width: 100% !important; height: 34px !important; margin: 0 !important; padding: 0 5px !important; font-size: 14px !important; color: #333 !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; display: block; }
                 .dt-search-input::placeholder { color: #bbb; font-weight: 400; }
                 .dt-search-input:focus { border-bottom: 1px solid #0d47a1 !important; box-shadow: none !important; }
                 
-                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #333; }
+                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #333; }
                 .dt-info { font-size: 13.5px; color: #333; }
                 .dt-pagination { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
                 .dt-pagination li { margin: 0 2px; }
@@ -134,7 +139,6 @@ function getPortalTemplate() {
                 .custom-menu-li.active-item a { color: #0d47a1 !important; font-weight: bold; }
                 .custom-menu-li.active-item a i.menu-arrow { color: #0d47a1; }
 
-                /* Estilos para el menú colapsable (Extraordinarios) */
                 .collapsible-header { background-color: transparent !important; border: none !important; padding: 14px 20px !important; font-size: 13px !important; font-weight: 500 !important; color: #444 !important; text-transform: uppercase; display: flex !important; align-items: center; justify-content: space-between; }
                 .collapsible-header:hover { background-color: #f0f0f0; }
                 .collapsible-header div { display: flex; align-items: center; }
@@ -178,7 +182,7 @@ function getPortalTemplate() {
                                     <li><a href="/">Salir</a></li>
                                 </ul>
 
-                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo</span>
+                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo 🏆</span>
                             </div>
                             <ul class="right hide-on-med-and-down" style="margin-right: 20px;">
                                 <li style="color: white; font-size: 14px; display: inline-block; vertical-align: middle; margin-right: 10px;">SANTIAGO DE JESUS ARCOS GUZMAN</li>
@@ -248,6 +252,7 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
+                // Función corregida: Genera las barras de búsqueda limpias fuera de la tabla 
                 function generateExternalDataTablesFooter(columnWidthsArray, totalEntries) {
                     let searchBoxesHtml = '<div class="dt-search-footer-container">';
                     
