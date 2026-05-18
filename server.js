@@ -12,12 +12,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Procesar el inicio de sesión, cargar datos y mostrar el panel de alumno real
+// Procesar el inicio de sesión y renderizar el portal completo con Navbar y Sidenav
 app.post('/login', (req, res) => {
     const { username } = req.body;
     console.log(`Usuario autenticado con éxito - ID: ${username}`);
     
-    // Enviamos la interfaz del portal con el menú que proveíste
     res.send(`
         <!DOCTYPE html>
         <html lang="es">
@@ -33,7 +32,8 @@ app.post('/login', (req, res) => {
                     font-family: 'Segoe UI', sans-serif;
                     margin: 0;
                 }
-                /* Contenedor de carga en pantalla completa */
+                
+                /* Pantalla de transición / carga */
                 #loadingView {
                     position: fixed;
                     top: 0; left: 0; width: 100%; height: 100%;
@@ -51,23 +51,46 @@ app.post('/login', (req, res) => {
                     font-weight: 500;
                     letter-spacing: 0.5px;
                 }
+
                 /* Contenedor del panel principal */
                 #portalView {
                     display: none;
-                    padding-left: 310px; /* Espacio para el menú lateral fijo */
+                    padding-left: 300px; /* Alineación con el Sidenav fijo */
+                    padding-top: 20px;
                 }
-                @media only screen and (max-width : 992px) {
-                    #portalView { padding-left: 0; }
+                
+                /* Barra de navegación superior fija estilo institucional */
+                .navbar-color {
+                    background-color: #0d2c54 !important; /* Azul oscuro Unimodelo */
                 }
-                /* Estilos personalizados para clonar el menú institucional */
+                .nav-wrapper {
+                    padding: 0 20px;
+                }
+                .header-search-wrapper {
+                    display: inline-block;
+                    width: 60%;
+                    margin-left: 20px;
+                }
+                /* Ajuste para el selector nativo dentro del navbar */
+                #menu-navegacion {
+                    background-color: rgba(255, 255, 255, 0.9);
+                    border: none;
+                    border-radius: 4px;
+                    height: 34px;
+                    color: #333;
+                    display: inline-block;
+                }
+
+                /* Menú lateral fijo de Materialize */
                 .side-nav.fixed {
                     width: 300px;
                     background-color: #ffffff;
                     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
                     position: fixed;
-                    height: 100vh;
-                    top: 0; left: 0;
+                    height: calc(100vh - 64px);
+                    top: 64px; left: 0;
                     overflow-y: auto;
+                    z-index: 996;
                 }
                 .side-nav li a {
                     color: #444444;
@@ -79,7 +102,6 @@ app.post('/login', (req, res) => {
                     height: 48px;
                     line-height: 48px;
                     text-decoration: none;
-                    transition: background-color 0.2s;
                 }
                 .side-nav li a:hover {
                     background-color: #f5f5f5;
@@ -88,14 +110,10 @@ app.post('/login', (req, res) => {
                     margin-right: 16px;
                     color: #757575;
                 }
-                .collapsible-body {
-                    background-color: #fafafa;
-                }
-                .collapsible-body li a {
-                    padding-left: 54px;
-                }
+                
+                /* Contenido Principal */
                 .main-content {
-                    padding: 30px;
+                    padding: 20px;
                 }
                 .welcome-card {
                     background: white;
@@ -107,6 +125,12 @@ app.post('/login', (req, res) => {
                     margin: 0 0 10px 0;
                     color: #1a365d;
                     font-size: 24px;
+                }
+
+                /* Ajustes adaptables para pantallas medianas o pequeñas */
+                @media only screen and (max-width : 992px) {
+                    #portalView { padding-left: 0; }
+                    .side-nav.fixed { top: 56px; height: calc(100vh - 56px); }
                 }
             </style>
         </head>
@@ -125,162 +149,81 @@ app.post('/login', (req, res) => {
 
             <div id="portalView">
                 
+                <div class="navbar-fixed" bis_skin_checked="1">
+                    <nav class="navbar-color darken-4">
+                        <div class="nav-wrapper" bis_skin_checked="1">
+                            
+                            <a href="javascript:void(0);" style="color:white; float:left;" class="sidenav-trigger-show" bis_skin_checked="1">
+                                <i class="material-icons waves-effect waves-light" style="font-size:40px; margin: -4px 0 0 20px; position: fixed;">menu</i>
+                            </a>
+                            
+                            <div class="header-search-wrapper hide-on-med-and-down sideNav-lock" bis_skin_checked="1">
+                                <select id="menu-navegacion" class="browser-default validate" required="" name="menu-navegacion" style="width: 30%; position: relative!important; margin-top: 15px;">
+                                    <option value="https://alumnos.unimodelo.mx/libreta_de_pago" selected="">Libreta de pago</option>
+                                    <option value="https://alumnos.unimodelo.mx/logout">Salir</option>
+                                </select>
+                                <span style="font-size: 25px; position: relative; top: 5px; text-align:center; left: 3em; color: white;">Universidad Modelo</span>
+                            </div>
+                            
+                            <ul class="right hide-on-med-and-down">
+                                <li>SANTIAGO DE JESUS ARCOS GUZMAN</li>
+                                <li>
+                                    <a href="javascript:void(0);" class="dropdown-trigger" data-target="profile-dropdown" bis_skin_checked="1">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul id="profile-dropdown" class="dropdown-content">                   
+                                        <li>
+                                            <a href="https://alumnos.unimodelo.mx/micuenta" class="grey-text text-darken-1" bis_skin_checked="1">
+                                                <i class="material-icons">account_box</i>Mi cuenta
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://alumnos.unimodelo.mx/logout" class="grey-text text-darken-1" bis_skin_checked="1">
+                                                <i class="material-icons">keyboard_tab</i>Salir
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                        </div>
+                    </nav>
+                </div>
+
                 <ul id="slide-out" class="side-nav fixed leftside-navigation sidenav ps-container ps-active-y" style="transform: translateX(0%);">
                     <li class="no-padding">
                         <ul class="collapsible" data-collapsible="accordion">
-                            
                             <li class="bold">
                                 <a href="https://alumnos.unimodelo.mx/libreta_de_pago">
                                     <i class="material-icons">keyboard_arrow_right</i>
                                     <span>LIBRETA DE PAGO</span>
                                 </a>
                             </li>
-                            
                             <li class="bold">
                                 <a href="https://alumnos.unimodelo.mx/alumno_pagos/15246740">
                                     <i class="material-icons">keyboard_arrow_right</i>
                                     <span>COLEGIATURAS / INSCR.</span>
                                 </a>
                             </li>
-                            
                             <li class="bold">
                                 <a href="https://alumnos.unimodelo.mx/horario">
                                     <i class="material-icons">keyboard_arrow_right</i>
                                     <span>HORARIO</span>
                                 </a>
                             </li>
-                            
                             <li class="bold">
                                 <a href="https://alumnos.unimodelo.mx/asignaturas">
                                     <i class="material-icons">keyboard_arrow_right</i>
                                     <span>ASIGNATURAS</span>
                                 </a>
                             </li>
-                            
                             <li class="bold">
                                 <a href="https://alumnos.unimodelo.mx/calificaciones">
                                     <i class="material-icons">keyboard_arrow_right</i>
                                     <span>CALIFICACIONES</span>
                                 </a>
                             </li>
-                            
                             <li class="bold">
                                 <a href="https://alumnos.unimodelo.mx/ordinarios">
                                     <i class="material-icons">keyboard_arrow_right</i>
-                                    <span>ORDINARIOS</span>
-                                </a>
-                            </li>
-                            
-                            <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/adeudadas">
-                                    <i class="material-icons">keyboard_arrow_right</i>
-                                    <span>ASIG.ADEUDADAS</span>
-                                </a>
-                            </li>
-                            
-                            <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/constancias">
-                                    <i class="material-icons">keyboard_arrow_right</i>
-                                    <span>CONSTANCIAS</span>
-                                </a>
-                            </li>
-                            
-                            <li class="bold">
-                                <a class="collapsible-header waves-effect waves-cyan">
-                                    <i class="material-icons">dashboard</i>
-                                    <span class="nav-text">EXTRAORDINARIOS</span>
-                                </a>
-                                <div class="collapsible-body">
-                                    <ul>
-                                        <li>
-                                            <a href="https://alumnos.unimodelo.mx/extraordinarios">
-                                                <i class="material-icons">keyboard_arrow_right</i>
-                                                <span>Exámenes Inscritos</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="https://alumnos.unimodelo.mx/calificaciones_extraordinarios">
-                                                <i class="material-icons">keyboard_arrow_right</i>
-                                                <span>Calificaciones</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            
-                            <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/tutorias_encuestas/encuestas_disponibles/15246740/278528">
-                                    <i class="material-icons">keyboard_arrow_right</i>
-                                    <span>FORMULARIOS</span>
-                                </a>
-                            </li>
-                            
-                            <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/biblioteca">
-                                    <i class="material-icons">keyboard_arrow_right</i>
-                                    <span>BIBLIOTECA</span>
-                                </a>
-                            </li>
-                            
-                            <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/micuenta">
-                                    <i class="material-icons">keyboard_arrow_right</i>
-                                    <span>MI CUENTA</span>
-                                </a>
-                            </li>
-                            
-                            <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/documentos2">
-                                    <i class="material-icons">keyboard_arrow_right</i>
-                                    <span>DOCUMENTOS</span>
-                                </a>
-                            </li>
-                            
-                            <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/eduvida">
-                                    <i class="material-icons">keyboard_arrow_right</i>
-                                    <span>EDUCACIÓN PARA LA VIDA</span>
-                                </a>
-                            </li>
-                            
-                            <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/logout">
-                                    <i class="material-icons">keyboard_arrow_right</i>
-                                    <span>SALIR</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <div class="main-content">
-                    <div class="welcome-card">
-                        <h4>Bienvenido al Sistema</h4>
-                        <p>Has iniciado sesión correctamente en el portal institucional. Selecciona una opción del menú de la izquierda para comenzar.</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-            <script>
-                $(document).ready(function(){
-                    // Inicializar el acordeón desplegable del menú
-                    $('.collapsible').collapsible();
-                    
-                    // Simular la carga por 2.5 segundos y revelar la interfaz real
-                    setTimeout(() => {
-                        document.getElementById('loadingView').style.display = 'none';
-                        document.getElementById('portalView').style.display = 'block';
-                    }, 2500);
-                });
-            </script>
-        </body>
-        </html>
-    `);
-});
-
-app.listen(PORT, () => {
-    console.log(`Servidor activo en el puerto ${PORT}`);
-});
+                                    <span>
