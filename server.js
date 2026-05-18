@@ -7,6 +7,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Servir archivos estáticos (imágenes, estilos, etc.) desde la carpeta 'public'
+app.use(express.static(path.join(__dirname, 'public')));
+
 // 1. RUTA DEL LOGIN (Pantalla limpia al principio)
 app.get('/', (req, res) => {
     res.send(`
@@ -38,7 +41,7 @@ app.get('/', (req, res) => {
                     text-align: center;
                 }
                 .logo-container img {
-                    width: 120px;
+                    width: 150px; /* Ajustado el tamaño para que luzca imponente como en tu captura */
                     height: auto;
                     margin-bottom: 10px;
                 }
@@ -91,7 +94,7 @@ app.get('/', (req, res) => {
 
             <div class="login-card">
                 <div class="logo-container">
-                    <img src="https://i.ibb.co/L8b6g6r/Escuela-Modelo-Logo.png" alt="Logo Universidad Modelo">
+                    <img src="/logo.png" alt="Logo Universidad Modelo">
                 </div>
                 <div class="system-title">SERVICIOS</div>
                 <div class="system-subtitle">ESCOLARES</div>
@@ -111,7 +114,7 @@ app.get('/', (req, res) => {
 
                     <button type="submit" class="btn btn-custom waves-effect waves-light">Entrar</button>
                     <a href="#" class="btn btn-custom waves-effect waves-light">Servicio Social</a>
-                    <a href="#" class="btn btn-custom waves-effect waves-light">Nuevo Ingreso</a>
+                    <a href="#" class="btn btn-custom waves-effect waves-light">Nuevo Ingresó</a>
                     
                     <a href="#" class="forgot-password">Olvide mi contraseña</a>
                 </form>
