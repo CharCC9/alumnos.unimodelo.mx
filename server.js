@@ -178,7 +178,7 @@ function getPortalTemplate() {
                                     <li><a href="/">Salir</a></li>
                                 </ul>
 
-                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo 🏆</span>
+                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo</span>
                             </div>
                             <ul class="right hide-on-med-and-down" style="margin-right: 20px;">
                                 <li style="color: white; font-size: 14px; display: inline-block; vertical-align: middle; margin-right: 10px;">SANTIAGO DE JESUS ARCOS GUZMAN</li>
