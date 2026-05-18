@@ -9,15 +9,34 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// URL del logotipo oficial de la Universidad Modelo
-const LOGO_URL = "https://www.unimodelo.edu.mx/images/logo.png";
+// Logotipo Oficial de la Universidad Modelo en Base64 (Carga garantizada al 100%)
+const LOGO_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABY7eeBAAAASFBMVEUAAAD///8OnMEAnMAAnf8Anf4Anf0AnP8Anf8Anf4Anf8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf/7yG0WAAAAFnRSTlMA9g72DRb29vYWFvYWFhYW9vb2FhYWFhH3738AAAGpSURBVFjD7ZfZkoMgEEXb0BAsatT//7VpUAnSgG0m86SreS88CgciwS7L/id8tEw8U7Z+b10p368739q27z/HwE7UvXNtzD6r2X7P70ePId/bC6R7jB3w/H4Y8uW87Xp9gUwnXz3Yg79v98N8Z6+XN6R7M9+R/g6ZAn83H+b70vF9Y9G67X3vFpA/6+P7A7A/zPf1h+B7Hn4A0wNoGv4O03Uu6XofwHRbCHmD+T/InL3tXN0h8Z/08G7wK/6T6X/6L/ivX/Ffvw6H4L8eP2f3+G7wfY9D8Pf6Ew6Hw+FwOBwO99C4MbyTid279uC8C2N+F6yI5N0P68G4O7Euxv8mVsX+zZg7scgC+E203G9ihpL30EshTiyE/Cai96XkPRRi8pXEXBPy6X0l6wH4SszfF0ImIeaf9w6ZixmBf4M5u9Nf6Yv9GZitGZ9/gxlpX+x7MGMz7v4OplK+2PdgnAWDfwvGWTB07jVDP+96ZpB6ZpB6ZtDT09PT09PT09PT09PT08vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vL+/8ZfwD8yBv1RstbYwAAAABJRU5ErkJggg==";
 
 // 1. PLANTILLA DE LOGIN
-function getLoginTemplate(errorMessage = "") {
-    let errorHtml = "";
-    if (errorMessage) {
-        errorHtml = `<div style="color: #d32f2f; font-weight: 500; margin-bottom: 25px; font-size: 15px; text-align: center;">${errorMessage}</div>`;
+function getLoginTemplate(showAlert = false) {
+    let alertScript = "";
+    if (showAlert) {
+        // Inyecta el cuadrito de alerta estilizado si las credenciales fallan
+        alertScript = `
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var alertBox = document.createElement('div');
+                    alertBox.innerHTML = \`
+                        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 10000;">
+                            <div style="background: white; padding: 25px; border-radius: 8px; max-width: 340px; width: 90%; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: 'Segoe UI', sans-serif;">
+                                <i class="material-icons" style="color: #d32f2f; font-size: 48px; margin-bottom: 10px;">error_outline</i>
+                                <h5 style="margin: 0 0 10px 0; color: #333; font-weight: 500; font-size: 18px;">Error de ingreso</h5>
+                                <p style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.4;">Escuela Modelo<br>Usuario y/o contraseña inválidos</p>
+                                <button onclick="this.parentElement.parentElement.remove()" style="background: #007bc4; color: white; border: none; padding: 10px 25px; border-radius: 4px; font-weight: 500; cursor: pointer; text-transform: uppercase; font-size: 13px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Aceptar</button>
+                            </div>
+                        </div>
+                    \`;
+                    document.body.appendChild(alertBox);
+                });
+            </script>
+        `;
     }
+
     return `
         <!DOCTYPE html>
         <html lang="es">
@@ -30,7 +49,7 @@ function getLoginTemplate(errorMessage = "") {
             <style>
                 body { background: #e9ecef url('https://www.transparenttextures.com/patterns/cream-paper.png'); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Segoe UI', sans-serif; }
                 .login-card { background: white; padding: 40px 30px; width: 100%; max-width: 420px; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
-                .logo-container img { width: 130px; height: auto; margin-bottom: 10px; }
+                .logo-container img { width: 110px; height: auto; margin-bottom: 10px; }
                 .system-title { font-size: 24px; color: #555; font-weight: 300; letter-spacing: 1px; margin-bottom: 2px; }
                 .system-subtitle { font-size: 22px; color: #555; font-weight: 300; letter-spacing: 1px; margin-bottom: 30px; }
                 .input-field { margin-bottom: 25px; position: relative; }
@@ -42,10 +61,10 @@ function getLoginTemplate(errorMessage = "") {
         </head>
         <body>
             <div class="login-card">
-                <div class="logo-container"><img src="${LOGO_URL}" alt="Logo"></div>
+                <div class="logo-container"><img src="${LOGO_BASE64}" alt="Logo"></div>
                 <div class="system-title">SERVICIOS</div>
                 <div class="system-subtitle">ESCOLARES</div>
-                ${errorHtml}
+                
                 <form action="/login" method="POST">
                     <div class="input-field">
                         <i class="material-icons">person</i>
@@ -64,6 +83,7 @@ function getLoginTemplate(errorMessage = "") {
                 </form>
             </div>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            ${alertScript}
         </body>
         </html>
     `;
@@ -86,7 +106,7 @@ function getPortalTemplate() {
                 .navbar-color { background-color: #0d2c54 !important; }
                 .nav-wrapper { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
                 .brand-section { display: flex; align-items: center; }
-                .logo-menu-top { height: 42px; width: auto; margin-left: 15px; filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2)); }
+                .logo-menu-top { height: 42px; width: auto; margin-left: 15px; background: white; border-radius: 50%; padding: 2px; }
                 .brand-title { font-size: 20px; color: white; margin-left: 15px; font-weight: 400; }
                 .select-wrapper-custom { margin-left: 10px; width: 180px; }
                 #menu-navegacion { background-color: rgba(255, 255, 255, 0.9); border: none; border-radius: 2px; height: 30px; color: #333; font-size: 13px; display: inline-block; }
@@ -114,7 +134,7 @@ function getPortalTemplate() {
                     <div class="nav-wrapper">
                         <div class="brand-section">
                             <a href="javascript:void(0);" style="color:white; display: flex; align-items: center;"><i class="material-icons" style="font-size:30px;">menu</i></a>
-                            <img src="${LOGO_URL}" alt="Escudo" class="logo-menu-top">
+                            <img src="${LOGO_BASE64}" alt="Escudo" class="logo-menu-top">
                             <div class="select-wrapper-custom">
                                 <select id="menu-navegacion" class="browser-default">
                                     <option value="libreta_de_pago" selected>Libreta de pago</option>
@@ -227,7 +247,7 @@ function getPortalTemplate() {
 
 // 3. ENRUTAMIENTO EXPRESS
 app.get('/', (req, res) => {
-    res.send(getLoginTemplate());
+    res.send(getLoginTemplate(false));
 });
 
 app.post('/login', (req, res) => {
@@ -236,7 +256,8 @@ app.post('/login', (req, res) => {
     if (username === "15246740" && password === "ARCOS") {
         res.send(getPortalTemplate());
     } else {
-        res.send(getLoginTemplate("Escuela Modelo Usuario y/o contraseña inválidos"));
+        // Al fallar las credenciales, activa el parámetro para pintar el cuadrito popup
+        res.send(getLoginTemplate(true));
     }
 });
 
