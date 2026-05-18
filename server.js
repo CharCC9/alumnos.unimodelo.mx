@@ -298,7 +298,7 @@ function getPortalTemplate() {
                                 '<ul class="dt-pagination">' +
                                     '<li class="disabled-page"><a>Previous</a></li>' +
                                     '<li class="disabled-page"><a>Next</a></li>' +
-                                ]' +
+                                '</ul>' +
                             '</div>';
                     }
                     
@@ -370,336 +370,45 @@ function getPortalTemplate() {
                     const container = $('#dynamicRenderCard');
                     const breadcrumb = $('#breadcrumb-container');
                     
-                    // Actualizar estado del menú lateral
-                    $('.custom-menu-li').removeClass('active-item active-subitem');
+                    // Quitar clase activa previa
+                    $('.custom-menu-li').removeClass('active-item');
                     $('#menu-' + sectionId).addClass('active-item');
                     
-                    // Si pertenece al submenú extraordinarios
-                    if(sectionId.startsWith('extra_')) {
-                        $('#menu-extraordinarios-root').addClass('active');
-                        $('#menu-' + sectionId).addClass('active-subitem').removeClass('active-item');
+                    let contentHtml = "";
+                    let breadcrumbHtml = `<span>Portal</span><i class="material-icons">keyboard_arrow_right</i><span>${sectionId.toUpperCase().replace('_', ' ')}</span>`;
+                    
+                    if (sectionId === 'micuenta') {
+                        contentHtml = `
+                            <div class="mc-header-container">
+                                <h2 class="mc-title">Mi Cuenta</h2>
+                            </div>
+                            <div class="mc-banner-blue">Actualizar Contraseña</div>
+                            <div class="row mc-form-row">
+                                <div class="col s12 m6 mc-input-field">
+                                    <label>Contraseña Actual</label>
+                                    <input type="password" placeholder="••••••••">
+                                </div>
+                            </div>
+                            <div class="row mc-form-row">
+                                <div class="col s12 m6 mc-input-field">
+                                    <label>Nueva Contraseña</label>
+                                    <input type="password">
+                                </div>
+                            </div>
+                            <button class="mc-btn-save"><i class="material-icons">save</i>Guardar</button>
+                        `;
+                    } else {
+                        contentHtml = `<p>Contenido de la sección: ${sectionId}</p>`;
                     }
-
-                    let contentHtml = '';
-                    let breadcrumbHtml = '<span>Inicio</span>';
-
-                    switch(sectionId) {
-                        case 'libreta_de_pago':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Libreta de Pago</span>';
-                            contentHtml = \`
-                                <div class="libreta-container">
-                                    <div class="libreta-subtitle-large">Libreta de Pago Electrónica</div>
-                                    <p>Estimado alumno, a continuación se detallan las instrucciones para realizar tu pago bancario:</p>
-                                    <div class="libreta-divider"></div>
-                                    <div class="libreta-title-ins">Pago en Ventanilla Banamex:</div>
-                                    <div class="libreta-indented-block">
-                                        Estructura de la Cuenta Línea de Captura. <br>
-                                        <span class="libreta-bank-header">Banco Nacional de México, S.A. (Banamex)</span><br>
-                                        CBR: <span class="libreta-blue-text">0423</span> / Cuenta: <span class="libreta-blue-text">7654321</span>
-                                    </div>
-                                    <div class="libreta-title-ins">Pago Interbancario (CLABE):</div>
-                                    <div class="libreta-indented-block">
-                                        CLABE de la Universidad: <span class="libreta-blue-text">0021 8004 2376 5432 18</span>
-                                    </div>
-                                    <div class="libreta-red-note">Nota: Es indispensable colocar de forma exacta tu referencia personal al pagar.</div>
-                                    <div class="libreta-action-btn">Descargar PDF de Instrucciones</div>
-                                </div>
-                            \`;
-                            break;
-
-                        case 'colegiaturas':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Colegiaturas</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400; color:#333;">Colegiaturas e Inscripciones</h5>
-                                <table class="simulated-table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:40%;">Concepto <span class="dt-sort-icon-active"></span></th>
-                                            <th style="width:15%;">Mes</th>
-                                            <th style="width:25%;">Referencia Bancaria</th>
-                                            <th style="width:20%;">Pagado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="colegiaturasTableBody"></tbody>
-                                </table>
-                                <div id="colegiaturasTableFooter"></div>
-                            \`;
-                            break;
-
-                        case 'horario':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Horario</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Mi Horario de Clases</h5>
-                                <table class="simulated-table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:25%;">Asignatura</th>
-                                            <th style="width:12.5%;">Lunes</th>
-                                            <th style="width:12.5%;">Martes</th>
-                                            <th style="width:12.5%;">Miércoles</th>
-                                            <th style="width:12.5%;">Jueves</th>
-                                            <th style="width:12.5%;">Viernes</th>
-                                            <th style="width:12.5%;">Profesor</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>Desarrollo Web Fullstack</td><td>07:00-09:00</td><td>-</td><td>07:00-09:00</td><td>-</td><td>07:00-09:00</td><td>Mtro. Alejandro Silva</td></tr>
-                                        <tr><td>Arquitectura de Software</td><td>-</td><td>09:00-11:00</td><td>-</td><td>09:00-11:00</td><td>-</td><td>Ing. Roberto Méndez</td></tr>
-                                        <tr><td>Inteligencia Artificial</td><td>11:00-13:00</td><td>-</td><td>11:00-13:00</td><td>-</td><td>11:00-13:00</td><td>Dr. Carlos Canto</td></tr>
-                                    </tbody>
-                                </table>
-                                \${footerHorarios}
-                            \`;
-                            break;
-
-                        case 'asignaturas':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Asignaturas</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Asignaturas Inscritas</h5>
-                                <table class="simulated-table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:50%;">Clave y Nombre de la Materia</th>
-                                            <th style="width:50%;">Créditos / Estado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>[IF-401] Desarrollo Web Fullstack</td><td>8 Créditos - Regular</td></tr>
-                                        <tr><td>[IF-402] Arquitectura de Software</td><td>7 Créditos - Regular</td></tr>
-                                        <tr><td>[IF-403] Inteligencia Artificial</td><td>8 Créditos - Regular</td></tr>
-                                    </tbody>
-                                </table>
-                                \${footerAsignaturas}
-                            \`;
-                            break;
-
-                        case 'calificaciones':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Calificaciones</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Calificaciones Parciales</h5>
-                                <table class="simulated-table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:25%;">Materia</th>
-                                            <th style="width:15%;">Parcial 1</th>
-                                            <th style="width:15%;">Parcial 2</th>
-                                            <th style="width:15%;">Parcial 3</th>
-                                            <th style="width:15%;">Tareas/Asig.</th>
-                                            <th style="width:15%;">Promedio</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>Desarrollo Web Fullstack</td><td>95</td><td>88</td><td>92</td><td>100</td><td>93.7</td></tr>
-                                        <tr><td>Arquitectura de Software</td><td>80</td><td>85</td><td>90</td><td>85</td><td>85.0</td></tr>
-                                        <tr><td>Inteligencia Artificial</td><td>75</td><td>90</td><td>82</td><td>90</td><td>84.2</td></tr>
-                                    </tbody>
-                                </table>
-                                \${footerCalificaciones}
-                            \`;
-                            break;
-
-                        case 'ordinarios':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Ordinarios</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Exámenes Ordinarios Finales</h5>
-                                <table class="simulated-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Materia</th>
-                                            <th>Fecha Examen</th>
-                                            <th>Calificación Final</th>
-                                            <th>Resultado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="no-records-row"><td colspan="4">No se han asentado periodos u operaciones de exámenes ordinarios finales vigentes.</td></tr>
-                                    </tbody>
-                                </table>
-                            \`;
-                            break;
-
-                        case 'adeudadas':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Asignaturas Adeudadas</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Asignaturas Adeudadas / Arrastres</h5>
-                                <table class="simulated-table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:50%;">Materia</th>
-                                            <th style="width:25%;">Semestre correspondiente</th>
-                                            <th style="width:25%;">Tipo de Adeudo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="no-records-row"><td colspan="3">Felicidades, no cuentas con asignaturas adeudadas registradas.</td></tr>
-                                    </tbody>
-                                </table>
-                                \${footerAdeudadas}
-                            \`;
-                            break;
-
-                        case 'constancias':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Constancias</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Solicitud de Constancias de Estudio</h5>
-                                <table class="simulated-table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:35%;">Tipo de Constancia</th>
-                                            <th style="width:25%;">Fecha Solicitud</th>
-                                            <th style="width:20%;">Costo</th>
-                                            <th style="width:20%;">Estatus</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="no-records-row"><td colspan="4">No has realizado ninguna solicitud de constancia digital recientemente.</td></tr>
-                                    </tbody>
-                                </table>
-                                \${footerConstancias}
-                            \`;
-                            break;
-
-                        case 'extra_inscritos':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Extraordinarios</span> <i class="material-icons">keyboard_arrow_right</i> <span>Inscritos</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Exámenes Extraordinarios Inscritos</h5>
-                                <div class="card-panel yellow lighten-4 black-text" style="box-shadow:none; border-left:4px solid #fbc02d;">
-                                    No te encuentras inscrito a ningún examen extraordinario o de regularización en este periodo actual.
-                                </div>
-                            \`;
-                            break;
-
-                        case 'extra_calificaciones':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Extraordinarios</span> <i class="material-icons">keyboard_arrow_right</i> <span>Calificaciones</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Historial de Calificaciones de Extraordinarios</h5>
-                                <table class="simulated-table">
-                                    <thead>
-                                        <tr><th>Materia</th><th>Periodo</th><th>Folio Acta</th><th>Calificación</th></tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="no-records-row"><td colspan="4">No se registran calificaciones de exámenes extraordinarios en tu historial.</td></tr>
-                                    </tbody>
-                                </table>
-                            \`;
-                            break;
-
-                        case 'formularios':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Formularios</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Formatos y Formularios Descargables</h5>
-                                <div class="collection" style="border-radius:4px; box-shadow:none;">
-                                    <a href="#" class="collection-item" style="color:#007bc4;"><i class="material-icons left">insert_drive_file</i> Formato de Solicitud de Beca Semestral</a>
-                                    <a href="#" class="collection-item" style="color:#007bc4;"><i class="material-icons left">insert_drive_file</i> Formato de Alta de Seguro Facultativo (IMSS)</a>
-                                    <a href="#" class="collection-item" style="color:#007bc4;"><i class="material-icons left">insert_drive_file</i> Carta de Liberación de Servicio Social</a>
-                                </div>
-                            \`;
-                            break;
-
-                        case 'biblioteca':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Biblioteca</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Acceso a Recursos Digitales de Biblioteca</h5>
-                                <p>Ingresa con tus credenciales institucionales a nuestros repositorios y catálogos en línea:</p>
-                                <div class="row" style="margin-top:20px;">
-                                    <div class="col s12 m6"><div class="card-panel center blue lighten-5" style="cursor:pointer; font-weight:500; color:#0d47a1;">Biblioteca Virtual E-Libro</div></div>
-                                    <div class="col s12 m6"><div class="card-panel center blue lighten-5" style="cursor:pointer; font-weight:500; color:#0d47a1;">Catálogo Físico Universidad Modelo</div></div>
-                                </div>
-                            \`;
-                            break;
-
-                        case 'micuenta':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Mi Cuenta</span>';
-                            contentHtml = `
-                                <div class="mc-header-container">
-                                    <div class="mc-title">Mi Cuenta</div>
-                                </div>
-                                <div class="mc-banner-blue">Cambio de Contraseña</div>
-                                <form>
-                                    <div class="row mc-form-row">
-                                        <div class="col s12 m4 mc-input-field">
-                                            <label for="curr_pass">Contraseña Actual</label>
-                                            <input id="curr_pass" type="password" required>
-                                        </div>
-                                        <div class="col s12 m4 mc-input-field">
-                                            <label for="new_pass">Nueva Contraseña</label>
-                                            <input id="new_pass" type="password" required>
-                                        </div>
-                                        <div class="col s12 m4 mc-input-field">
-                                            <label for="conf_pass">Confirmar Contraseña</label>
-                                            <input id="conf_pass" type="password" required>
-                                        </div>
-                                    </div>
-                                    <div class="mc-checkbox-container">
-                                        <label class="mc-checkbox-label">
-                                            <input type="checkbox"/>
-                                            <span>Cerrar sesión en todos los demás dispositivos</span>
-                                        </label>
-                                    </div>
-                                    <button class="mc-btn-save" type="button"><i class="material-icons">save</i>Guardar Cambios</button>
-                                </form>
-                            `;
-                            break;
-
-                        case 'documentos':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Documentos Digitales</span>';
-                            contentHtml = `
-                                <div class="mc-title" style="margin-bottom:20px;">Recepción de Documentos</div>
-                                <div class="doc-main-container">
-                                    <div class="doc-left-panel">
-                                        <div class="doc-banner-blue"></div>
-                                        <div class="doc-select-btn">Seleccionar Archivos</div>
-                                        <div class="doc-line-divider"></div>
-                                        <div class="doc-btn-submit-disabled">
-                                            <i class="material-icons">cloud_upload</i> Enviar Documentos
-                                        </div>
-                                    </div>
-                                    <div class="doc-right-notes-card">
-                                        <div class="doc-notes-title">Notas:</div>
-                                        <ul class="doc-notes-list">
-                                            <li>Los documentos deberán ser digitalizados en formato PDF, legibles y el archivo no deberá pesar más de 2MB.</li>
-                                            <li>El formato de imagen no es válido para documentos oficiales.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            `;
-                            break;
-
-                        case 'eduvida':
-                            breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Educación para la Vida</span>';
-                            contentHtml = \`
-                                <h5 style="margin-top:0; font-weight:400;">Educación para la Vida</h5>
-                                <p>Talleres, asignaturas complementarias y conferencias orientadas al desarrollo integral:</p>
-                                <div class="card-panel" style="box-shadow:none; border:1px solid #ccc;">
-                                    <strong>Estatus de Horas Obligatorias:</strong> 45 / 60 Horas completadas. <br>
-                                    <div class="progress grey lighten-3" style="margin-top:10px;"><div class="determinate blue" style="width: 75%"></div></div>
-                                </div>
-                            \`;
-                            break;
-                    }
-
+                    
                     breadcrumb.html(breadcrumbHtml);
                     container.html(contentHtml);
-                    
-                    // Si seleccionamos la sección colegiaturas, cargamos la paginación inicial por defecto
-                    if (sectionId === 'colegiaturas') {
-                        changeColegiaturasPage(1);
-                    }
                 }
 
                 $(document).ready(function(){
                     $('.collapsible').collapsible();
-                    $('.dropdown-trigger').dropdown({ constrainWidth: false, coverTrigger: false });
-                    
-                    // Cargar sección por defecto al entrar
-                    showSection('libreta_de_pago');
-                    
-                    // Toggle del Sidebar izquierdo
-                    $('.sidenav-trigger-toggle').click(function(e){
-                        e.preventDefault();
-                        $('#left-sidebar-nav').toggleClass('side-nav-hidden');
-                        $('#main').toggleClass('mainPaddingSidebar mainPaddingLeft');
-                    });
+                    $('.dropdown-trigger').dropdown({ constrainWidth: false });
+                    showSection('micuenta'); // Carga inicial por defecto
                 });
             </script>
         </body>
@@ -707,15 +416,15 @@ function getPortalTemplate() {
     `;
 }
 
-// --- RUTAS DE EXPRESS ---
+// --- ENDPOINTS / RUTAS ---
 app.get('/', (req, res) => {
     res.send(getLoginTemplate());
 });
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    // Simulación simple de login
-    if (username === 'santiago' && password === '1234') {
+    // Simulación simple de Login escolar
+    if (username && password) {
         res.send(getPortalTemplate());
     } else {
         res.send(getLoginTemplate(true));
@@ -723,5 +432,5 @@ app.post('/login', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(\`Servidor corriendo en http://localhost:${PORT}\`);
+    console.log(`Servidor simulador corriendo en http://localhost:${PORT}`);
 });
