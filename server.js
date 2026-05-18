@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Escudo oficial vectorizado de la Universidad Modelo en alta resolución
+// Escudo oficial de la Universidad Modelo convertido a Base64 de alta resolución
 const LOGO_PORTAL_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABUCAMAAAD477WbAAAAYFBMVEUAAAD///////////8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf8Anv8Anf912pOnAAAAH3RSTlMA9g729g32FhYWFvb2FhYWFhH29vb29vb29g72EfbuYpYAAALFSURVRYw82W2ZKiMBSG6Y6isgkiKK447/v+T7tA0IDZOC6bUvOf9Sshv86XpEwS27b/WzZ17zFvXOf79YhZ+Bv3zuyzmu/3/Ond/60bCHg7wA5wfj+O6Kbe78wV6XgX6oO/b/fD7GfvsM6QXsV8w3pEpMDf7Yf5PrvSOnLoxHq97X2BwAnI7gDYH+bb+kNIPb7ZAn0Eeh6fE9I/yJy9wVz1PULPofcoZ/gX0v/wX/Bfv+LvevW6v9V/C89o2o9D77Zz94wI99gC/F19eFvXmS4z9uDu7/D/Y3+M3Xp89vV7YJ2FwX0f1l2wKvZvxtwOixTAbyLlThPTFr99XwpxYmHwN+F8ZqgK/v6x7gTqNfH9Zas3uE+vW4K8gN6hnwXp3YgG5D68P4GvD8H7VfC6gVzHe/bY6/NmsN6/bofvM34I9gq7M/7L3YPeid/vFvs9vxtgY/OewRsG838D6A4bWfX/ox3fXDKXpB6TpmUFPKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKvofob93yAnInwN6CqI/D+itwXwZ0GuD0W3fXwG9NJgrV9NAsVAtA8X8H6EioUoGyoTyA6UClf8gFC7v/D9DoVDmHyF3C/w/Q+FymX+EguVyfKioX97tA3KBy38M6m8v7wP6Z3l/KJS4fArK5XgKykW/e3gT1D3vHh2V99H6GNTWfBw69vIuI/Yw6bCuj+fWfXpM70Z9T2qCshV70gPyvXG2R0wK/A2vXofU96jGZ0XIdPKVAuSPXbQitvUAnfD74+wTqG9/yA7fC3Wp7DofA9/q72A/gK4Iem82D6N7jP4P/C/O7z9EAgG8VwAAAABJRU5ErkJggg==";
 
 function getLoginTemplate(showAlert = false) {
@@ -87,11 +87,18 @@ function getPortalTemplate() {
                 #left-sidebar-nav { position: fixed; width: 240px; left: 0; top: 64px; height: calc(100vh - 64px); background: #fff; z-index: 999; box-shadow: 1px 0 5px rgba(0,0,0,0.1); transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
                 .side-nav-hidden { transform: translateX(-240px); }
                 
-                /* CABECERA CORREGIDA Y DIVIDIDA */
+                /* DISEÑO DE BARRA SUPERIOR EXACTO */
                 header nav { background-color: #0d47a1 !important; height: 64px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
                 .nav-brand-area { width: 240px; height: 64px; background-color: #0a3c8a; float: left; display: flex; align-items: center; padding-left: 15px; box-sizing: border-box; }
                 .nav-brand-area img { width: 44px; height: 44px; margin-left: 15px; object-fit: contain; }
                 
+                /* SOLUCIÓN AL SELECT FLOTANTE: MATERIALIZE DROPDOWN BUTTON */
+                .custom-select-trigger { background-color: white !important; color: #333 !important; border: 1px solid #ccc; border-radius: 3px; height: 34px; line-height: 34px; padding: 0 30px 0 10px; text-transform: none; font-size: 14px; font-weight: 400; display: inline-flex; align-items: center; justify-content: space-between; width: 190px; position: relative; box-shadow: none !important; }
+                .custom-select-trigger i { position: absolute; right: 5px; color: #666; }
+                .dropdown-select-content { width: 190px !important; background-color: white; }
+                .dropdown-select-content li a { color: #333 !important; font-size: 14px; padding: 12px 16px; }
+                .dropdown-select-content li:hover { background-color: #f1f1f1; }
+
                 .libreta-container { font-family: 'Segoe UI', Arial, sans-serif; color: #333333; font-size: 14.5px; line-height: 1.6; }
                 .libreta-blue-text { color: #0033cc; font-weight: bold; }
                 .libreta-divider { border: 0; border-top: 1px solid #cccccc; margin: 20px 0; }
@@ -103,25 +110,24 @@ function getPortalTemplate() {
                 .libreta-red-note { color: #a30000; font-weight: bold; margin: 25px 0; font-size: 14.5px; text-transform: uppercase; }
                 .libreta-action-btn { background-color: #007bc4 !important; color: white !important; font-weight: 400; text-transform: uppercase; padding: 0 25px; height: 46px; line-height: 46px; border-radius: 4px; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-size: 14.5px; margin-top: 10px; }
                 
-                /* TABLAS NATIVAS */
-                .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; color: #333; margin-bottom: 0px !important; }
-                .simulated-table th, .simulated-table td { border: 1px solid #cccccc; padding: 10px 12px; text-align: left; }
+                /* TABLAS FIJAS PARA EVITAR DESALINEACIÓN */
+                .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; color: #333; margin-bottom: 0px !important; table-layout: fixed; }
+                .simulated-table th, .simulated-table td { border: 1px solid #cccccc; padding: 10px 12px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
                 .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; position: relative; }
                 .simulated-table tr:nth-child(even) { background-color: #fafafa; }
                 
-                /* ICONOS DE ORDENAMIENTO EN ENCABEZADOS DE DATATABLES */
+                /* ICONOS DE ORDENAMIENTO EN ENCABEZADOS */
                 .dt-sort-icon::after { content: " ⇅"; font-size: 11px; color: #bbb; position: absolute; right: 8px; top: 12px; }
                 .dt-sort-icon-active::after { content: " ▲"; font-size: 10px; color: #0d47a1; position: absolute; right: 8px; top: 12px; }
 
-                /* --- NUEVO CONTENEDOR EXTERNO DE BÚSQUEDA (FUERA DE LA TABLA) --- */
-                .dt-search-footer-container { display: flex; width: 100%; background: transparent; padding-top: 10px; box-sizing: border-box; }
-                .dt-search-col-box { padding-right: 10px; box-sizing: border-box; }
-                .dt-search-col-box:last-child { padding-right: 0px; }
-                .dt-search-input { width: 100% !important; height: 28px !important; margin: 0 !important; padding: 0 5px !important; font-size: 13px !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; }
+                /* CONTENEDOR DE BÚSQUEDA EXTERNO MATEMÁTICAMENTE BALANCEADO */
+                .dt-search-footer-container { display: flex; width: 100%; background: transparent; padding-top: 8px; box-sizing: border-box; }
+                .dt-search-col-box { padding-right: 0px; box-sizing: border-box; display: inline-block; }
+                .dt-search-input { width: 96% !important; height: 28px !important; margin: 0 auto !important; padding: 0 4px !important; font-size: 13px !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; display: block; }
                 .dt-search-input::placeholder { color: #bbb; font-weight: 400; }
                 .dt-search-input:focus { border-bottom: 1px solid #0d47a1 !important; box-shadow: none !important; }
                 
-                /* CONTROLES DE PAGINACIÓN */
+                /* PAGINACIÓN GENERAL */
                 .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #333; }
                 .dt-info { font-size: 13.5px; color: #333; }
                 .dt-pagination { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
@@ -156,16 +162,21 @@ function getPortalTemplate() {
                                 <img src="${LOGO_PORTAL_BASE64}" alt="Escudo Universidad Modelo">
                             </div>
                             
-                            <div style="display: inline-block; margin-left: 20px; padding-top: 12px;">
-                                <select id="menu-navegacion" class="browser-default" style="width: 180px; display: inline-block; height: 36px; vertical-align: middle; background: white; border: 1px solid #ccc; border-radius:3px;">
-                                    <option value="libreta_de_pago">Libreta de pago</option>
-                                    <option value="colegiaturas">Colegiaturas / Inscr.</option>
-                                    <option value="horario">Horario</option>
-                                    <option value="asignaturas">Asignaturas</option>
-                                    <option value="calificaciones" selected>Calificaciones</option>
-                                    <option value="logout">Salir</option>
-                                </select>
-                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300;">Universidad Modelo</span>
+                            <div style="display: inline-block; margin-left: 20px; padding-top: 14px; vertical-align: top;">
+                                <a class="dropdown-trigger btn custom-select-trigger" href="#" data-target="dropdown-menu-nav" id="label-select-actual">
+                                    Calificaciones <i class="material-icons">arrow_drop_down</i>
+                                </a>
+                                <ul id="dropdown-menu-nav" class="dropdown-content dropdown-select-content">
+                                    <li><a onclick="showSection('libreta_de_pago')">Libreta de pago</a></li>
+                                    <li><a onclick="showSection('colegiaturas')">Colegiaturas / Inscr.</a></li>
+                                    <li><a onclick="showSection('horario')">Horario</a></li>
+                                    <li><a onclick="showSection('asignaturas')">Asignaturas</a></li>
+                                    <li><a onclick="showSection('calificaciones')">Calificaciones</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="/">Salir</a></li>
+                                </ul>
+
+                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo</span>
                             </div>
                             <ul class="right hide-on-med-and-down" style="margin-right: 20px;">
                                 <li style="color: white; font-size: 14px; display: inline-block; vertical-align: middle; margin-right: 10px;">SANTIAGO DE JESUS ARCOS GUZMAN</li>
@@ -218,7 +229,7 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                // Función optimizada para generar los bloques de "Buscar" COMPLETAMENTE EXTERNOS con alineación perfecta por columnas
+                // Generador de inputs externos con anchos perfectamente calculados por columna
                 function generateExternalDataTablesFooter(columnWidthsArray, totalEntries) {
                     let searchBoxesHtml = '<div class="dt-search-footer-container">';
                     
@@ -242,14 +253,15 @@ function getPortalTemplate() {
                     return searchBoxesHtml + paginationHtml;
                 }
 
-                // Configuración exacta de porcentajes de columnas por sección para cuadrar perfectamente las cajas externas
+                // Distribución exacta de columnas (en %)
                 const footerColegiaturas = generateExternalDataTablesFooter([25, 25, 25, 25], 5);
-                const footerHorarios = generateExternalDataTablesFooter([22, 13, 13, 13, 13, 13, 13], 3);
+                const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3);
                 const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
                 const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3);
 
                 const sectionsData = {
                     libreta_de_pago: {
+                        label: 'Libreta de pago',
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Libreta de pago',
                         html: '<h5 style="font-weight: 400; color: #222; margin-bottom: 25px;">LIBRETA DE PAGO</h5>' +
                               '<div class="libreta-container">' +
@@ -277,11 +289,13 @@ function getPortalTemplate() {
                               '</div>'
                     },
                     colegiaturas: {
+                        label: 'Colegiaturas / Inscr.',
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Pagos del Alumno',
                         html: '<h5 style="font-weight: 400; color: #222;">Pagos del alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
+                              '<colgroup><col style="width:25%"><col style="width:25%"><col style="width:25%"><col style="width:25%"></colgroup>' +
                               '<thead><tr><th class="dt-sort-icon">Descripción</th><th class="dt-sort-icon">Concepto</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Adeudo vigente</th></tr></thead>' +
                               '<tbody>' +
                               '<tr><td>Colegiatura Mayo/2026</td><td>092509</td><td></td><td>NO</td></tr>' +
@@ -292,11 +306,13 @@ function getPortalTemplate() {
                               '</tbody></table>' + footerColegiaturas
                     },
                     horario: {
+                        label: 'Horario',
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Horarios del alumno',
                         html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Horarios del Alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
+                              '<colgroup><col style="width:25%"><col style="width:12.5%"><col style="width:12.5%"><col style="width:12.5%"><col style="width:12.5%"><col style="width:12.5%"><col style="width:12.5%"></colgroup>' +
                               '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Lunes</th><th class="dt-sort-icon">Martes</th><th class="dt-sort-icon">Miércoles</th><th class="dt-sort-icon">Jueves</th><th class="dt-sort-icon">Viernes</th><th class="dt-sort-icon">Sábado</th></tr></thead>' +
                               '<tbody>' +
                               '<tr><td>ALGORITMOS</td><td></td><td>11-13</td><td></td><td></td><td>9-11</td><td></td></tr>' +
@@ -305,11 +321,13 @@ function getPortalTemplate() {
                               '</tbody></table>' + footerHorarios
                     },
                     asignaturas: {
+                        label: 'Asignaturas',
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas',
                         html: '<h5 style="font-weight: 400; color: #222;">Asignaturas del alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
+                              '<colgroup><col style="width:50%"><col style="width:50%"></colgroup>' +
                               '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Maestro</th></tr></thead>' +
                               '<tbody>' +
                               '<tr><td>ALGORITMOS</td><td>EDSON GEOVANNY ESTRADA LOPEZ</td></tr>' +
@@ -318,11 +336,13 @@ function getPortalTemplate() {
                               '</tbody></table>' + footerAsignaturas
                     },
                     calificaciones: {
+                        label: 'Calificaciones',
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Calificaciones',
                         html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Calificaciones del Alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
+                              '<colgroup><col style="width:25%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"></colgroup>' +
                               '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Parcial 1</th><th class="dt-sort-icon">Parcial 2</th><th class="dt-sort-icon">Promedio</th><th class="dt-sort-icon">Ordinario</th><th class="dt-sort-icon">Calif. Final</th></tr></thead>' +
                               '<tbody>' +
                               '<tr><td>ALGORITMOS</td><td>0</td><td>0</td><td>0</td><td></td><td></td></tr>' +
@@ -330,14 +350,14 @@ function getPortalTemplate() {
                               '<tr><td>FISICA APLICADA</td><td>10</td><td></td><td></td><td></td><td></td></tr>' +
                               '</tbody></table>' + footerCalificaciones
                     },
-                    ordinarios: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', html: "<h5>Exámenes Ordinarios</h5><p><i>La publicación oficial del rol de exámenes ordinarios está pendiente.</i></p>" },
-                    adeudadas: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Adeudadas', html: "<h5>Asignaturas Adeudadas</h5><p style='color:green;'><b>Estatus Regular:</b> No se registran asignaturas reprobadas o adeudadas en este ciclo.</p>" },
-                    constancias: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', html: "<h5>Trámite de Constancias</h5><button class='btn blue darken-4 waves-effect waves-light'>Solicitar Constancia Digital</button>" },
-                    formularios: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2 waves-effect waves-light'>Evaluación Docente 2026</button>" },
-                    biblioteca: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Acceso verificado correctamente al catálogo digital.</p>" },
-                    micuenta: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', html: "<h5>Mi Cuenta</h5><p><b>Alumno:</b> SANTIAGO DE JESUS ARCOS GUZMAN<br><b>Matrícula:</b> 15246740<br><b>Carrera:</b> Ingeniería en Sistemas Computacionales</p>" },
-                    documentos: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', html: "<h5>Documentos</h5><p>Expediente completo y debidamente digitalizado.</p>" },
-                    eduvida: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> EduVida', html: "<h5>Educación para la Vida</h5><p>Talleres curriculares vigentes y acreditados.</p>" }
+                    ordinarios: { label:'Ordinarios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', html: "<h5>Exámenes Ordinarios</h5><p><i>La publicación oficial del rol de exámenes ordinarios está pendiente.</i></p>" },
+                    adeudadas: { label:'Asig. Adeudadas', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Adeudadas', html: "<h5>Asignaturas Adeudadas</h5><p style='color:green;'><b>Estatus Regular:</b> No se registran asignaturas reprobadas.</p>" },
+                    constancias: { label:'Constancias', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', html: "<h5>Trámite de Constancias</h5><button class='btn blue darken-4'>Solicitar Constancia</button>" },
+                    formularios: { label:'Formularios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2'>Evaluación Docente 2026</button>" },
+                    biblioteca: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
+                    micuenta: { label:'Mi Cuenta', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', html: "<h5>Mi Cuenta</h5><p><b>Carrera:</b> Ingeniería en Sistemas Computacionales</p>" },
+                    documentos: { label:'Documentos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', html: "<h5>Documentos</h5><p>Expediente digital completo.</p>" },
+                    eduvida: { label:'EduVida', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> EduVida', html: "<h5>Educación para la Vida</h5><p>Talleres acreditados.</p>" }
                 };
 
                 function showSection(sectionKey) {
@@ -353,12 +373,13 @@ function getPortalTemplate() {
                             $('.custom-menu-li').removeClass('active-item');
                             $('#menu-' + sectionKey).addClass('active-item');
                             
+                            // Cambia dinámicamente el texto del botón desplegable superior
+                            if (data.label) {
+                                document.getElementById('label-select-actual').innerHTML = data.label + ' <i class="material-icons">arrow_drop_down</i>';
+                            }
+                            
                             if (typeof Waves !== 'undefined') {
                                 Waves.displayEffect();
-                            }
-
-                            if($('#menu-navegacion option[value="'+sectionKey+'"]').length > 0) {
-                                $('#menu-navegacion').val(sectionKey);
                             }
                             card.css('opacity', '1');
                         }, 80);
@@ -379,17 +400,13 @@ function getPortalTemplate() {
                 });
 
                 $(document).ready(function() {
+                    // Inicializar dropdowns de Materialize de forma limpia
                     $('.dropdown-trigger').dropdown({ 
                         constrainWidth: false, 
-                        alignment: 'right', 
+                        alignment: 'left', 
                         coverTrigger: false,
-                        inDuration: 250,
-                        outDuration: 200
-                    });
-                    
-                    $('#menu-navegacion').on('change', function() {
-                        if($(this).val() === 'logout') window.location.href = '/';
-                        else showSection($(this).val());
+                        inDuration: 150,
+                        outDuration: 150
                     });
 
                     showSection('calificaciones');
@@ -400,7 +417,7 @@ function getPortalTemplate() {
     `;
 }
 
-// MANEJO DE RUTAS
+// ROUTING
 app.get('/', (req, res) => {
     res.send(getLoginTemplate(false));
 });
