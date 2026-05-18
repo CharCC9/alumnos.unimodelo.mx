@@ -84,16 +84,34 @@ function getPortalTemplate() {
                 #left-sidebar-nav { position: fixed; width: 240px; left: 0; top: 64px; height: calc(100vh - 64px); background: #fff; z-index: 999; box-shadow: 1px 0 5px rgba(0,0,0,0.1); transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); overflow-y: auto; }
                 .side-nav-hidden { transform: translateX(-240px); }
                 
-                header nav { background-color: #0d47a1 !important; height: 64px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-                .nav-brand-area { width: 240px; height: 64px; background-color: #0a3c8a; float: left; display: flex; align-items: center; padding-left: 15px; box-sizing: border-box; }
-                .nav-brand-area img { width: 44px; height: 44px; margin-left: 15px; object-fit: contain; }
+                /* HEADER ESTILO EXACTO A LAS CAPTURAS */
+                header nav { background-color: #025fa4 !important; height: 64px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+                .nav-wrapper { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 64px; }
                 
-                .custom-select-trigger { background-color: white !important; color: #333 !important; border: 1px solid #ccc; border-radius: 3px; height: 34px; line-height: 34px; padding: 0 30px 0 10px; text-transform: none; font-size: 14px; font-weight: 400; display: inline-flex; align-items: center; justify-content: space-between; width: 190px; position: relative; box-shadow: none !important; }
-                .custom-select-trigger i { position: absolute; right: 5px; color: #666; }
-                .dropdown-select-content { width: 190px !important; background-color: white; }
-                .dropdown-select-content li a { color: #333 !important; font-size: 14px; padding: 12px 16px; }
-                .dropdown-select-content li:hover { background-color: #f1f1f1; }
+                /* Título Central */
+                .brand-logo-center { position: absolute; left: 50%; transform: translateX(-50%); font-size: 24px; font-weight: 400; color: white; white-space: nowrap; }
 
+                /* Selector Izquierdo Dropdown Blanco */
+                .custom-select-container { width: 220px; height: 34px; background: white; border-radius: 2px; position: relative; cursor: pointer; display: flex; align-items: center; padding: 0 10px; border: 1px solid #ccc; box-sizing: border-box; }
+                .custom-select-container span { color: #333; font-size: 14px; flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+                .custom-select-container i { color: #777; }
+                
+                #dropdown-left-nav { width: 220px !important; background-color: white; }
+                #dropdown-left-nav li a { color: #333 !important; font-size: 14px; padding: 12px 16px; }
+                #dropdown-left-nav li:hover { background-color: #f1f1f1; }
+
+                /* Lado Derecho */
+                .user-info-right { display: flex; align-items: center; color: white; }
+                .user-name-text { font-size: 14px; margin-right: 15px; font-weight: 400; text-transform: uppercase; }
+                .more-btn-trigger { cursor: pointer; color: white; display: flex; align-items: center; }
+                #profile-dropdown { background-color: white; }
+                #profile-dropdown li a { color: #333 !important; font-size: 14px; }
+
+                /* Botones de acción arriba de tablas */
+                .section-action-btn { background-color: #007bc4; color: white; border: none; border-radius: 4px; height: 40px; line-height: 40px; padding: 0 20px; font-size: 13px; font-weight: 500; text-transform: uppercase; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); margin-bottom: 20px; }
+                .section-line-divider { border: none; border-bottom: 1px solid #e0e0e0; margin-bottom: 20px; width: 100%; }
+
+                /* Estilos Generales de Contenido */
                 .libreta-container { font-family: 'Segoe UI', Arial, sans-serif; color: #333333; font-size: 14.5px; line-height: 1.6; }
                 .libreta-blue-text { color: #0033cc; font-weight: bold; }
                 .libreta-divider { border: 0; border-top: 1px solid #cccccc; margin: 20px 0; }
@@ -117,11 +135,11 @@ function getPortalTemplate() {
 
                 .dt-search-footer-container { display: flex; width: 100%; background: transparent; padding-top: 8px; box-sizing: border-box; }
                 .dt-search-col-box { padding-right: 0px; box-sizing: border-box; display: inline-block; }
-                .dt-search-input { width: 96% !important; height: 28px !important; margin: 0 auto !important; padding: 0 4px !important; font-size: 13px !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; display: block; }
+                .dt-search-input { width: 96% !important; height: 28px !important; margin: 0 auto !important; padding: 0 4px !important; font-size: 13px !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; display: block; }
                 .dt-search-input::placeholder { color: #bbb; font-weight: 400; }
-                .dt-search-input:focus { border-bottom: 1px solid #0d47a1 !important; box-shadow: none !important; }
+                .dt-search-input:focus { border-bottom: 1px solid #025fa4 !important; box-shadow: none !important; outline: none; }
                 
-                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #333; }
+                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; font-size: 13px; color: #333; }
                 .dt-info { font-size: 13.5px; color: #333; }
                 .dt-pagination { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
                 .dt-pagination li { margin: 0 2px; }
@@ -129,43 +147,25 @@ function getPortalTemplate() {
                 .dt-pagination li.active-page a { background-color: #e0e0e0; font-weight: bold; border: 1px solid #ccc; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
                 .dt-pagination li.disabled-page a { color: #bbb; cursor: default; }
                 
-                .custom-menu-li a { color: #444 !important; display: flex !important; align-items: center; padding: 14px 20px; cursor: pointer; font-size: 13px; font-weight: 500; text-transform: uppercase; position: relative; overflow: hidden; }
+                .custom-menu-li a { color: #444 !important; display: flex !important; align-items: center; padding: 14px 20px; cursor: pointer; font-size: 13px; font-weight: 500; text-transform: uppercase; position: relative; }
                 .custom-menu-li a:hover { background-color: #f0f0f0; }
-                .custom-menu-li a i.menu-arrow { margin-right: 15px; color: #777; font-size: 18px; font-weight: bold; }
-                .custom-menu-li.active-item { background-color: #e0e0e0; border-left: 4px solid #0d47a1; }
-                .custom-menu-li.active-item a { color: #0d47a1 !important; font-weight: bold; }
-                .custom-menu-li.active-item a i.menu-arrow { color: #0d47a1; }
+                .custom-menu-li a i { margin-right: 15px; color: #777; font-size: 18px; }
+                .custom-menu-li.active-item { background-color: #e0e0e0; border-left: 4px solid #025fa4; }
+                .custom-menu-li.active-item a { color: #025fa4 !important; font-weight: bold; }
+                .custom-menu-li.active-item a i { color: #025fa4; }
 
-                /* Estilos para el menú colapsable */
-                .collapsible-header { background-color: transparent !important; border: none !important; padding: 14px 20px !important; font-size: 13px !important; font-weight: 500 !important; color: #444 !important; text-transform: uppercase; display: flex !important; align-items: center; justify-content: space-between; }
-                .collapsible-header:hover { background-color: #f0f0f0; }
-                .collapsible-header div { display: flex; align-items: center; }
-                .collapsible-header i.main-icon { margin-right: 15px; color: #777; font-size: 20px; }
-                .collapsible-header i.arrow-indicator { font-size: 18px; color: #777; transition: transform 0.2s; }
-                li.active .collapsible-header i.arrow-indicator { transform: rotate(180deg); }
-                .collapsible-body { padding: 0 !important; border: none !important; background-color: #fafafa; }
-                .collapsible-body li a { padding-left: 54px !important; font-size: 13px !important; text-transform: none !important; font-weight: 400 !important; color: #555 !important; }
-                .collapsible-body li.active-subitem a { color: #0d47a1 !important; font-weight: bold !important; background-color: #e0e0e0; }
-                
-                #breadcrumb-container { font-size: 15px; color: #666; margin-bottom: 10px; display: flex; align-items: center; }
-                #breadcrumb-container i { font-size: 16px; margin: 0 8px; color: #999; }
-                
-                #dynamicRenderCard { transition: opacity 0.2s ease-in-out; }
-
-                /* Estilos para Mi Cuenta */
-                .mc-header-container { border-bottom: none; margin-bottom: 20px; }
-                .mc-title { font-size: 22px; color: #333; font-weight: 400; text-transform: uppercase; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-                .mc-banner-blue { background-color: #025fa4; color: white; padding: 10px 15px; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 30px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+                /* Estilos Mi Cuenta */
+                .mc-header-container { margin-bottom: 20px; }
+                .mc-title { font-size: 22px; color: #333; font-weight: 400; text-transform: uppercase; margin: 0; }
+                .mc-banner-blue { background-color: #025fa4; color: white; padding: 10px 15px; font-size: 14px; font-weight: 500; text-transform: uppercase; margin-bottom: 30px; border-radius: 2px; }
                 .mc-form-row { margin-bottom: 25px; }
-                .mc-input-field input[type=password], .mc-input-field input[type=text] { width: 100%; height: 36px; border: none; border-bottom: 1px solid #ccc; font-size: 14px; margin-bottom: 0; box-sizing: border-box; background: transparent; transition: border-bottom 0.2s; }
-                .mc-input-field input[type=password]:focus, .mc-input-field input[type=text]:focus { border-bottom: 1px solid #025fa4; box-shadow: none; outline: none; }
-                .mc-input-field label { display: block; font-size: 13.5px; color: #9e9e9e; margin-bottom: 5px; font-weight: 400; }
+                .mc-input-field label { display: block; font-size: 13.5px; color: #9e9e9e; margin-bottom: 5px; }
+                .mc-input-field input { width: 100%; height: 36px; border: none; border-bottom: 1px solid #ccc; font-size: 14px; box-sizing: border-box; background: transparent; }
+                .mc-input-field input:focus { border-bottom: 1px solid #025fa4; outline: none; }
                 .mc-checkbox-container { margin-top: 15px; margin-bottom: 30px; }
-                .mc-checkbox-label { display: flex; align-items: center; cursor: pointer; user-select: none; font-size: 14px; color: #666; }
-                .mc-checkbox-label input[type=checkbox] { margin-right: 10px; width: 16px; height: 16px; accent-color: #025fa4; cursor: pointer; }
-                .mc-btn-save { background-color: #007bc4; color: white; border: none; border-radius: 3px; height: 38px; line-height: 38px; padding: 0 20px; font-size: 13.5px; font-weight: 500; text-transform: uppercase; display: inline-flex; align-items: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); transition: background-color 0.2s; }
-                .mc-btn-save:hover { background-color: #006aa9; }
-                .mc-btn-save i { font-size: 18px; margin-right: 8px; }
+                .mc-checkbox-label { display: flex; align-items: center; cursor: pointer; font-size: 14px; color: #666; }
+                .mc-checkbox-label input { margin-right: 10px; width: 16px; height: 16px; accent-color: #025fa4; }
+                .mc-btn-save { background-color: #007bc4; color: white; border: none; border-radius: 3px; height: 38px; padding: 0 20px; font-size: 13.5px; text-transform: uppercase; display: inline-flex; align-items: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
 
                 /* Estilos de la sección Documentos */
                 .doc-main-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; font-family: 'Segoe UI', Arial, sans-serif; gap: 40px; }
@@ -173,101 +173,72 @@ function getPortalTemplate() {
                 .doc-banner-blue { background-color: #025fa4; height: 42px; width: 100%; margin-bottom: 25px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
                 .doc-select-btn { background-color: #007bc4; color: white; border: none; border-radius: 4px; height: 40px; line-height: 40px; padding: 0 20px; font-size: 13px; font-weight: 500; text-transform: uppercase; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); margin-bottom: 20px; }
                 .doc-line-divider { border: none; border-bottom: 1px solid #e0e0e0; margin-bottom: 20px; width: 100%; }
-                .doc-btn-submit-disabled { background-color: #e0e0e0; color: #a6a6a6; border: none; border-radius: 4px; height: 36px; line-height: 36px; padding: 0 18px; font-size: 13px; font-weight: 500; text-transform: uppercase; display: inline-flex; align-items: center; cursor: not-allowed; box-shadow: none; pointer-events: none; }
+                .doc-btn-submit-disabled { background-color: #e0e0e0; color: #a6a6a6; border: none; border-radius: 4px; height: 36px; line-height: 36px; padding: 0 18px; font-size: 13px; font-weight: 500; text-transform: uppercase; display: inline-flex; align-items: center; cursor: not-allowed; }
                 .doc-btn-submit-disabled i { font-size: 18px; margin-right: 8px; color: #a6a6a6; }
                 .doc-right-notes-card { width: 320px; background-color: #e8f4fd; border-radius: 4px; padding: 25px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
                 .doc-notes-title { font-size: 20px; color: #333; font-weight: 300; margin: 0 0 15px 0; }
                 .doc-notes-list { margin: 0; padding-left: 20px; list-style-type: disc; }
                 .doc-notes-list li { font-size: 13.5px; color: #444; margin-bottom: 12px; line-height: 1.5; font-weight: 400; }
+                
+                #dynamicRenderCard { transition: opacity 0.2s ease-in-out; }
             </style>
         </head>
         <body>
 
-            <header id="header" class="page-topbar">
-                <div class="navbar-fixed">
-                    <nav class="navbar-color">
-                        <div class="nav-wrapper">
-                            <div class="nav-brand-area">
-                                <a href="#" style="color:white; display: flex; align-items: center;" class="sidenav-trigger-toggle waves-effect waves-light">
-                                    <i class="material-icons" style="font-size:28px;">menu</i>
-                                </a>
-                                <img src="/el-otro-logo.png" alt="Escudo Universidad Modelo">
-                            </div>
-                            
-                            <div style="display: inline-block; margin-left: 20px; padding-top: 14px; vertical-align: top;">
-                                <a class="dropdown-trigger btn custom-select-trigger" href="#" data-target="dropdown-menu-nav" id="label-select-actual">
-                                    Calificaciones <i class="material-icons">arrow_drop_down</i>
-                                </a>
-                                <ul id="dropdown-menu-nav" class="dropdown-content dropdown-select-content">
-                                    <li><a onclick="showSection('libreta_de_pago')">Libreta de pago</a></li>
-                                    <li><a onclick="showSection('colegiaturas')">Colegiaturas / Inscr.</a></li>
-                                    <li><a onclick="showSection('horario')">Horario</a></li>
-                                    <li><a onclick="showSection('asignaturas')">Asignaturas</a></li>
-                                    <li><a onclick="showSection('calificaciones')">Calificaciones</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="/">Salir</a></li>
-                                </ul>
-
-                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo 🏆</span>
-                            </div>
-                            <ul class="right hide-on-med-and-down" style="margin-right: 20px;">
-                                <li style="color: white; font-size: 14px; display: inline-block; vertical-align: middle; margin-right: 10px;">SANTIAGO DE JESUS ARCOS GUZMAN</li>
-                                <li style="display: inline-block; vertical-align: middle;">
-                                    <a href="#" class="dropdown-trigger waves-effect waves-light" data-target="profile-dropdown" style="color: white; height: 64px; display: flex; align-items: center;">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul id="profile-dropdown" class="dropdown-content">                    
-                                        <li><a onclick="showSection('micuenta')"><i class="material-icons">account_box</i>Mi cuenta</a></li>
-                                        <li><a href="/"><i class="material-icons">keyboard_tab</i>Salir</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+            <header>
+                <nav>
+                    <div class="nav-wrapper">
+                        <div class="dropdown-trigger custom-select-container" data-target="dropdown-left-nav">
+                            <span id="label-select-actual">Calificaciones</span>
+                            <i class="material-icons">arrow_drop_down</i>
                         </div>
-                    </nav>
-                </div>
+                        <ul id="dropdown-left-nav" class="dropdown-content">
+                            <li><a onclick="showSection('libreta_de_pago')">Libreta de pago</a></li>
+                            <li><a onclick="showSection('colegiaturas')">Colegiaturas / Inscr.</a></li>
+                            <li><a onclick="showSection('horario')">Horario</a></li>
+                            <li><a onclick="showSection('asignaturas')">Asignaturas</a></li>
+                            <li><a onclick="showSection('calificaciones')">Calificaciones</a></li>
+                            <li><a onclick="showSection('ordinarios')">Ordinarios</a></li>
+                            <li><a onclick="showSection('adeudadas')">Asig. Adeudadas</a></li>
+                            <li><a onclick="showSection('constancias')">Constancias</a></li>
+                            <li><a onclick="showSection('documentos')">Documentos</a></li>
+                        </ul>
+
+                        <div class="brand-logo-center">Universidad Modelo</div>
+
+                        <div class="user-info-right">
+                            <span class="user-name-text">SANTIAGO DE JESUS ARCOS GUZMAN</span>
+                            <i class="material-icons more-btn-trigger dropdown-trigger" data-target="profile-dropdown">more_vert</i>
+                        </div>
+                        <ul id="profile-dropdown" class="dropdown-content">                    
+                            <li><a onclick="showSection('micuenta')"><i class="material-icons" style="color: #555;">person</i> Mi cuenta</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/"><i class="material-icons" style="color: #555;">arrow_forward</i> Salir</a></li>
+                        </ul>
+                    </div>
+                </nav>
             </header>
 
             <div id="main" class="mainPaddingSidebar">
                 <div class="wrapper">
                     <aside id="left-sidebar-nav">
-                        <ul class="collapsible collapsible-accordion" style="margin: 0; padding: 0; list-style: none;" data-collapsible="accordion">
-                            <li class="custom-menu-li" id="menu-libreta_de_pago"><a onclick="showSection('libreta_de_pago')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>LIBRETA DE PAGO</a></li>
-                            <li class="custom-menu-li" id="menu-colegiaturas"><a onclick="showSection('colegiaturas')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>COLEGIATURAS / INSCR.</a></li>
-                            <li class="custom-menu-li" id="menu-horario"><a onclick="showSection('horario')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>HORARIO</a></li>
-                            <li class="custom-menu-li" id="menu-asignaturas"><a onclick="showSection('asignaturas')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>ASIGNATURAS</a></li>
-                            <li class="custom-menu-li" id="menu-calificaciones"><a onclick="showSection('calificaciones')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>CALIFICACIONES</a></li>
-                            <li class="custom-menu-li" id="menu-ordinarios"><a onclick="showSection('ordinarios')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>ORDINARIOS</a></li>
-                            <li class="custom-menu-li" id="menu-adeudadas"><a onclick="showSection('adeudadas')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>ASIG.ADEUDADAS</a></li>
-                            <li class="custom-menu-li" id="menu-constancias"><a onclick="showSection('constancias')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>CONSTANCIAS</a></li>
-                            
-                            <li id="menu-extraordinarios-root">
-                                <a class="collapsible-header waves-effect">
-                                    <div>
-                                        <i class="material-icons main-icon">dashboard</i>
-                                        <span>EXTRAORDINARIOS</span>
-                                    </div>
-                                    <i class="material-icons arrow-indicator">keyboard_arrow_down</i>
-                                </a>
-                                <div class="collapsible-body">
-                                    <ul>
-                                        <li class="custom-menu-li" id="menu-extra_inscritos"><a onclick="showSection('extra_inscritos')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>Exámenes Inscritos</a></li>
-                                        <li class="custom-menu-li" id="menu-extra_calificaciones"><a onclick="showSection('extra_calificaciones')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>Calificaciones</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="custom-menu-li" id="menu-formularios"><a onclick="showSection('formularios')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>FORMULARIOS</a></li>
-                            <li class="custom-menu-li" id="menu-biblioteca"><a onclick="showSection('biblioteca')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>BIBLIOTECA</a></li>
-                            <li class="custom-menu-li" id="menu-micuenta"><a onclick="showSection('micuenta')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>MI CUENTA</a></li>
-                            <li class="custom-menu-li" id="menu-documentos"><a onclick="showSection('documentos')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>DOCUMENTOS</a></li>
-                            <li class="custom-menu-li" id="menu-eduvida"><a onclick="showSection('eduvida')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>EDUCACION PARA LA VIDA</a></li>
-                            <li class="custom-menu-li"><a href="/" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>SALIR</a></li>
+                        <ul style="margin: 0; padding: 0; list-style: none;">
+                            <li class="custom-menu-li" id="menu-libreta_de_pago"><a onclick="showSection('libreta_de_pago')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>LIBRETA DE PAGO</a></li>
+                            <li class="custom-menu-li" id="menu-colegiaturas"><a onclick="showSection('colegiaturas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>COLEGIATURAS / INSCR.</a></li>
+                            <li class="custom-menu-li" id="menu-horario"><a onclick="showSection('horario')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>HORARIO</a></li>
+                            <li class="custom-menu-li" id="menu-asignaturas"><a onclick="showSection('asignaturas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ASIGNATURAS</a></li>
+                            <li class="custom-menu-li" id="menu-calificaciones"><a onclick="showSection('calificaciones')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>CALIFICACIONES</a></li>
+                            <li class="custom-menu-li" id="menu-ordinarios"><a onclick="showSection('ordinarios')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ORDINARIOS</a></li>
+                            <li class="custom-menu-li" id="menu-adeudadas"><a onclick="showSection('adeudadas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ASIG.ADEUDADAS</a></li>
+                            <li class="custom-menu-li" id="menu-constancias"><a onclick="showSection('constancias')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>CONSTANCIAS</a></li>
+                            <li class="custom-menu-li" id="menu-micuenta"><a onclick="showSection('micuenta')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>MI CUENTA</a></li>
+                            <li class="custom-menu-li" id="menu-documentos"><a onclick="showSection('documentos')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>DOCUMENTOS</a></li>
                         </ul>
                     </aside>
 
                     <section id="content" style="padding: 20px;">
                         <div class="container" style="width: 100%; max-width: 1200px;">
-                            <div id="breadcrumb-container"></div>
+                            <div id="breadcrumb-container" style="font-size: 14px; color: #666; margin-bottom: 10px;"></div>
                             <div id="dynamicRenderCard" style="background: white; padding: 30px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); min-height: 450px;"></div>
                         </div>
                     </section>
@@ -389,7 +360,7 @@ function getPortalTemplate() {
                 const sectionsData = {
                     libreta_de_pago: {
                         label: 'Libreta de pago',
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Libreta de pago',
+                        breadcrumb: 'Inicio > Libreta de pago',
                         html: '<h5 style="font-weight: 400; color: #222; margin-bottom: 25px;">LIBRETA DE PAGO</h5>' +
                               '<div class="libreta-container">' +
                               '<p><b>Estimado(a) alumno(a):</b> Aquí puedes descargar tu libreta de pago acorde a tu plan de pago previamente registrado: <span class="libreta-blue-text">Colegiatura Diez Meses, y la Inscripción de Enero a pagarse el monto total en el mes de Enero.</span></p>' +
@@ -417,12 +388,12 @@ function getPortalTemplate() {
                     },
                     colegiaturas: {
                         label: 'Colegiaturas / Inscr.',
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Pagos del Alumno',
+                        breadcrumb: 'Inicio > Pagos del Alumno',
                         html: 'TRIGGER_PAGE_1'
                     },
                     horario: {
                         label: 'Horario',
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Horarios del alumno',
+                        breadcrumb: 'Inicio > Horarios del alumno',
                         html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Horarios del Alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
@@ -437,7 +408,7 @@ function getPortalTemplate() {
                     },
                     asignaturas: {
                         label: 'Asignaturas',
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas',
+                        breadcrumb: 'Inicio > Asignaturas',
                         html: '<h5 style="font-weight: 400; color: #222;">Asignaturas del alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
@@ -452,7 +423,7 @@ function getPortalTemplate() {
                     },
                     calificaciones: {
                         label: 'Calificaciones',
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Calificaciones',
+                        breadcrumb: 'Inicio > Calificaciones',
                         html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Calificaciones del Alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
@@ -467,22 +438,24 @@ function getPortalTemplate() {
                     },
                     ordinarios: { 
                         label:'Ordinarios', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', 
+                        breadcrumb: 'Inicio > Ordinarios', 
                         html: '<h5>Exámenes Ordinarios</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
-                              '<thead><tr><th>Materia</th><th>Fecha</th><th>Hora</th><th>Maestro</th><th>Apellido paterno</th><th>Apellido materno</th></tr></thead>' +
+                              '<thead><tr><th>Materia</th><th>Fecha</th><th>Hora</th><th>Salón</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>ALGORITMOS</td><td>05-06-2026</td><td>11:00:00</td><td>EDSON GEOVANNY</td><td>ESTRADA</td><td>LOPEZ</td></tr>' +
-                              '<tr><td>CALCULO DIFERENCIAL</td><td>10-06-2026</td><td>11:00:00</td><td>AYLIN</td><td>GARCIA</td><td>REYES</td></tr>' +
-                              '<tr><td>FISICA APLICADA</td><td>03-06-2026</td><td>09:00:00</td><td>ALBERTO GABRIEL</td><td>VEGA</td><td>POOT</td></tr>' +
+                              '<tr><td>ALGORITMOS</td><td>05-06-2026</td><td>11:00:00</td><td>SALON 12</td></tr>' +
+                              '<tr><td>CALCULO DIFERENCIAL</td><td>10-06-2026</td><td>11:00:00</td><td>SALON 14</td></tr>' +
+                              '<tr><td>FISICA APLICADA</td><td>03-06-2026</td><td>09:00:00</td><td>LAB FISICA</td></tr>' +
                               '</tbody></table>'
                     },
                     adeudadas: { 
                         label: 'Asig. Adeudadas', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas Adeudadas', 
-                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Asignaturas Adeudadas</h5>' +
+                        breadcrumb: 'Inicio > Asignaturas Adeudadas', 
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase; margin-bottom: 20px;">Asignaturas Adeudadas</h5>' +
+                              '<button type="button" class="section-action-btn waves-effect waves-light">Periodo Escolar: SELECONAR</button>' +
+                              '<div class="section-line-divider"></div>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
@@ -494,8 +467,10 @@ function getPortalTemplate() {
                     },
                     constancias: { 
                         label: 'Constancias', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', 
-                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Trámite de Constancias</h5>' +
+                        breadcrumb: 'Inicio > Constancias', 
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase; margin-bottom: 20px;">Trámite de Constancias</h5>' +
+                              '<button type="button" class="section-action-btn waves-effect waves-light">Nueva Solicitud</button>' +
+                              '<div class="section-line-divider"></div>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
@@ -505,13 +480,9 @@ function getPortalTemplate() {
                               '<tr><td colspan="4" class="no-records-row">No se encontraron resultados</td></tr>' +
                               '</tbody></table>' + footerConstancias 
                     },
-                    extra_inscritos: { label:'Exámenes Inscritos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Inscritos', html: "<h5>Exámenes Extraordinarios Inscritos</h5><p>No cuentas con exámenes extraordinarios inscritos en este periodo.</p>" },
-                    extra_calificaciones: { label:'Calificaciones', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Calificaciones', html: "<h5>Calificaciones de Extraordinarios</h5><p>No se registran calificaciones de exámenes extraordinarios históricos.</p>" },
-                    formularios: { label:'Formularios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2'>Evaluación Docente 2026</button>" },
-                    biblioteca: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
                     micuenta: { 
                         label: 'Mi Cuenta', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', 
+                        breadcrumb: 'Inicio > Mi Cuenta', 
                         html: '<div class="mc-header-container">' +
                               '    <h5 class="mc-title">USUARIO SANTIAGO DE JESUS ARCOS GUZMAN</h5>' +
                               '</div>' +
@@ -548,7 +519,7 @@ function getPortalTemplate() {
                     },
                     documentos: { 
                         label: 'Documentos', 
-                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', 
+                        breadcrumb: 'Inicio > Documentos', 
                         html: '<h5 style="font-size: 24px; font-weight: 300; margin: 0 0 10px 0; color: #111;">Documentos</h5>' +
                               '<div class="doc-main-container">' +
                               '    <div class="doc-left-panel">' +
@@ -569,8 +540,7 @@ function getPortalTemplate() {
                               '        </ul>' +
                               '    </div>' +
                               '</div>'
-                    },
-                    eduvida: { label:'EduVida', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> EduVida', html: "<h5>Educación para la Vida</h5><p>Talleres acreditados.</p>" }
+                    }
                 };
 
                 function showSection(sectionKey) {
@@ -580,7 +550,7 @@ function getPortalTemplate() {
                         card.css('opacity', '0.3');
                         
                         setTimeout(function() {
-                            document.getElementById('breadcrumb-container').innerHTML = data.breadcrumb;
+                            document.getElementById('breadcrumb-container').innerText = data.breadcrumb;
                             
                             if (sectionKey === 'colegiaturas') {
                                 changeColegiaturasPage(1);
@@ -589,41 +559,18 @@ function getPortalTemplate() {
                             }
                             
                             $('.custom-menu-li').removeClass('active-item');
-                            
-                            if(sectionKey === 'extra_inscritos' || sectionKey === 'extra_calificaciones') {
-                                $('#menu-extraordinarios-root').addClass('active-item');
-                            } else {
-                                $('#menu-' + sectionKey).addClass('active-item');
-                            }
+                            $('#menu-' + sectionKey).addClass('active-item');
                             
                             if (data.label) {
-                                document.getElementById('label-select-actual').innerHTML = data.label + ' <i class="material-icons">arrow_drop_down</i>';
+                                document.getElementById('label-select-actual').innerText = data.label;
                             }
                             
-                            if (typeof Waves !== 'undefined') {
-                                Waves.displayEffect();
-                            }
                             card.css('opacity', '1');
                         }, 80);
                     }
                 }
 
-                $('.sidenav-trigger-toggle').on('click', function(e) {
-                    e.preventDefault();
-                    var sidebar = $('#left-sidebar-nav');
-                    var main = $('#main');
-                    if(sidebar.hasClass('side-nav-hidden')) {
-                        sidebar.removeClass('side-nav-hidden');
-                        main.removeClass('mainPaddingLeft').addClass('mainPaddingSidebar');
-                    } else {
-                        sidebar.addClass('side-nav-hidden');
-                        main.removeClass('mainPaddingSidebar').addClass('mainPaddingLeft');
-                    }
-                });
-
                 $(document).ready(function() {
-                    $('.collapsible').collapsible();
-                    
                     $('.dropdown-trigger').dropdown({ 
                         constrainWidth: false, 
                         alignment: 'left', 
