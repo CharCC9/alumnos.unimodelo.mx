@@ -8,9 +8,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Escudo oficial de la Universidad Modelo convertido a Base64 de alta resolución
-const LOGO_PORTAL_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABUCAMAAAD477WbAAAAYFBMVEUAAAD///////////8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf8Anv8Anf912pOnAAAAH3RSTlMA9g729g32FhYWFvb2FhYWFhH29vb29vb29g72EfbuYpYAAALFSURVRYw82W2ZKiMBSG6Y6isgkiKK447/v+T7tA0IDZOC6bUvOf9Sshv86XpEwS27b/WzZ17zFvXOf79YhZ+Bv3zuyzmu/3/Ond/60bCHg7wA5wfj+O6Kbe78wV6XgX6oO/b/fD7GfvsM6QXsV8w3pEpMDf7Yf5PrvSOnLoxHq97X2BwAnI7gDYH+bb+kNIPb7ZAn0Eeh6fE9I/yJy9wVz1PULPofcoZ/gX0v/wX/Bfv+LvevW6v9V/C89o2o9D77Zz94wI99gC/F19eFvXmS4z9uDu7/D/Y3+M3Xp89vV7YJ2FwX0f1l2wKvZvxtwOixTAbyLlThPTFr99XwpxYmHwN+F8ZqgK/v6x7gTqNfH9Zas3uE+vW4K8gN6hnwXp3YgG5D68P4GvD8H7VfC6gVzHe/bY6/NmsN6/bofvM34I9gq7M/7L3YPeid/vFvs9vxtgY/OewRsG838D6A4bWfX/ox3fXDKXpB6TpmUFPKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKvofob93yAnInwN6CqI/D+itwXwZ0GuD0W3fXwG9NJgrV9NAsVAtA8X8H6EioUoGyoTyA6UClf8gFC7v/D9DoVDmHyF3C/w/Q+FymX+EguVyfKioX97tA3KBy38M6m8v7wP6Z3l/KJS4fArK5XgKykW/e3gT1D3vHh2V99H6GNTWfBw69vIuI/Yw6bCuj+fWfXpM70Z9T2qCshV70gPyvXG2R0wK/A2vXofU96jGZ0XIdPKVAuSPXbQitvUAnfD74+wTqG9/yA7fC3Wp7DofA9/q72A/gK4Iem82D6N7jP4P/C/O7z9EAgG8VwAAAABJRU5ErkJggg==";
-
 function getLoginTemplate(showAlert = false) {
     return `
         <!DOCTYPE html>
@@ -37,7 +34,7 @@ function getLoginTemplate(showAlert = false) {
         </head>
         <body>
             <div class="login-card">
-                <div class="logo-container"><img src="${LOGO_PORTAL_BASE64}" alt="Logo"></div>
+                <div class="logo-container"><img src="/mi-logotipo.png" alt="Logo Universidad Modelo"></div>
                 <div class="system-title">SERVICIOS</div>
                 <div class="system-subtitle">ESCOLARES</div>
                 
@@ -92,7 +89,7 @@ function getPortalTemplate() {
                 .nav-brand-area { width: 240px; height: 64px; background-color: #0a3c8a; float: left; display: flex; align-items: center; padding-left: 15px; box-sizing: border-box; }
                 .nav-brand-area img { width: 44px; height: 44px; margin-left: 15px; object-fit: contain; }
                 
-                /* SOLUCIÓN AL SELECT FLOTANTE: MATERIALIZE DROPDOWN BUTTON */
+                /* DROPDOWN NATIVO DE MATERIALIZE */
                 .custom-select-trigger { background-color: white !important; color: #333 !important; border: 1px solid #ccc; border-radius: 3px; height: 34px; line-height: 34px; padding: 0 30px 0 10px; text-transform: none; font-size: 14px; font-weight: 400; display: inline-flex; align-items: center; justify-content: space-between; width: 190px; position: relative; box-shadow: none !important; }
                 .custom-select-trigger i { position: absolute; right: 5px; color: #666; }
                 .dropdown-select-content { width: 190px !important; background-color: white; }
@@ -159,7 +156,7 @@ function getPortalTemplate() {
                                 <a href="#" style="color:white; display: flex; align-items: center;" class="sidenav-trigger-toggle waves-effect waves-light">
                                     <i class="material-icons" style="font-size:28px;">menu</i>
                                 </a>
-                                <img src="${LOGO_PORTAL_BASE64}" alt="Escudo Universidad Modelo">
+                                <img src="/el-otro-logo.png" alt="Escudo Universidad Modelo">
                             </div>
                             
                             <div style="display: inline-block; margin-left: 20px; padding-top: 14px; vertical-align: top;">
@@ -229,7 +226,6 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                // Generador de inputs externos con anchos perfectamente calculados por columna
                 function generateExternalDataTablesFooter(columnWidthsArray, totalEntries) {
                     let searchBoxesHtml = '<div class="dt-search-footer-container">';
                     
@@ -253,7 +249,6 @@ function getPortalTemplate() {
                     return searchBoxesHtml + paginationHtml;
                 }
 
-                // Distribución exacta de columnas (en %)
                 const footerColegiaturas = generateExternalDataTablesFooter([25, 25, 25, 25], 5);
                 const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3);
                 const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
@@ -373,7 +368,6 @@ function getPortalTemplate() {
                             $('.custom-menu-li').removeClass('active-item');
                             $('#menu-' + sectionKey).addClass('active-item');
                             
-                            // Cambia dinámicamente el texto del botón desplegable superior
                             if (data.label) {
                                 document.getElementById('label-select-actual').innerHTML = data.label + ' <i class="material-icons">arrow_drop_down</i>';
                             }
@@ -400,7 +394,6 @@ function getPortalTemplate() {
                 });
 
                 $(document).ready(function() {
-                    // Inicializar dropdowns de Materialize de forma limpia
                     $('.dropdown-trigger').dropdown({ 
                         constrainWidth: false, 
                         alignment: 'left', 
