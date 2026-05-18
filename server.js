@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Procesar el inicio de sesión y renderizar el portal completo con Navbar y Sidenav
+// Procesar inicio de sesión y renderizar la réplica del portal con iframe externo seguro
 app.post('/login', (req, res) => {
     const { username } = req.body;
     console.log(`Usuario autenticado con éxito - ID: ${username}`);
@@ -31,6 +31,7 @@ app.post('/login', (req, res) => {
                     background-color: #f4f6f9;
                     font-family: 'Segoe UI', sans-serif;
                     margin: 0;
+                    overflow: hidden; /* Evita doble barra de scroll en la página principal */
                 }
                 
                 /* Pantalla de transición / carga */
@@ -55,11 +56,12 @@ app.post('/login', (req, res) => {
                 /* Contenedor del panel principal */
                 #portalView {
                     display: none;
-                    padding-left: 300px; /* Alineación con el Sidenav fijo */
-                    padding-top: 20px;
                 }
                 
-                /* Barra de navegación superior fija estilo institucional */
+                /* Barra de navegación superior fija */
+                .navbar-fixed {
+                    z-index: 997;
+                }
                 .navbar-color {
                     background-color: #0d2c54 !important; /* Azul oscuro Unimodelo */
                 }
@@ -71,7 +73,6 @@ app.post('/login', (req, res) => {
                     width: 60%;
                     margin-left: 20px;
                 }
-                /* Ajuste para el selector nativo dentro del navbar */
                 #menu-navegacion {
                     background-color: rgba(255, 255, 255, 0.9);
                     border: none;
@@ -81,7 +82,7 @@ app.post('/login', (req, res) => {
                     display: inline-block;
                 }
 
-                /* Menú lateral fijo de Materialize */
+                /* Menú lateral izquierdo fijo */
                 .side-nav.fixed {
                     width: 300px;
                     background-color: #ffffff;
@@ -110,27 +111,30 @@ app.post('/login', (req, res) => {
                     margin-right: 16px;
                     color: #757575;
                 }
-                
-                /* Contenido Principal */
-                .main-content {
-                    padding: 20px;
+                .collapsible-body {
+                    background-color: #fafafa;
                 }
-                .welcome-card {
-                    background: white;
-                    padding: 24px;
-                    border-radius: 8px;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-                }
-                .welcome-card h4 {
-                    margin: 0 0 10px 0;
-                    color: #1a365d;
-                    font-size: 24px;
+                .collapsible-body li a {
+                    padding-left: 54px;
                 }
 
-                /* Ajustes adaptables para pantallas medianas o pequeñas */
+                /* Contenedor incrustado para evitar páginas vacías o errores */
+                .iframe-container {
+                    margin-left: 300px; /* Desplaza el contenido a la derecha del menú */
+                    height: calc(100vh - 64px);
+                    position: relative;
+                    overflow: hidden;
+                }
+                .iframe-container iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                }
+
+                /* Adaptabilidad móvil básica */
                 @media only screen and (max-width : 992px) {
-                    #portalView { padding-left: 0; }
                     .side-nav.fixed { top: 56px; height: calc(100vh - 56px); }
+                    .iframe-container { margin-left: 0; height: calc(100vh - 56px); }
                 }
             </style>
         </head>
@@ -173,12 +177,12 @@ app.post('/login', (req, res) => {
                                     </a>
                                     <ul id="profile-dropdown" class="dropdown-content">                   
                                         <li>
-                                            <a href="https://alumnos.unimodelo.mx/micuenta" class="grey-text text-darken-1" bis_skin_checked="1">
+                                            <a href="https://alumnos.unimodelo.mx/micuenta" target="contenidoPortal" class="grey-text text-darken-1" bis_skin_checked="1">
                                                 <i class="material-icons">account_box</i>Mi cuenta
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="https://alumnos.unimodelo.mx/logout" class="grey-text text-darken-1" bis_skin_checked="1">
+                                            <a href="/" class="grey-text text-darken-1" bis_skin_checked="1">
                                                 <i class="material-icons">keyboard_tab</i>Salir
                                             </a>
                                         </li>
@@ -194,36 +198,157 @@ app.post('/login', (req, res) => {
                     <li class="no-padding">
                         <ul class="collapsible" data-collapsible="accordion">
                             <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/libreta_de_pago">
+                                <a href="https://alumnos.unimodelo.mx/libreta_de_pago" target="contenidoPortal">
                                     <i class="material-icons">keyboard_arrow_right</i>
                                     <span>LIBRETA DE PAGO</span>
                                 </a>
                             </li>
                             <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/alumno_pagos/15246740">
+                                <a href="https://alumnos.unimodelo.mx/alumno_pagos/15246740" target="contenidoPortal">
                                     <i class="material-icons">keyboard_arrow_right</i>
                                     <span>COLEGIATURAS / INSCR.</span>
                                 </a>
                             </li>
                             <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/horario">
+                                <a href="https://alumnos.unimodelo.mx/horario" target="contenidoPortal">
                                     <i class="material-icons">keyboard_arrow_right</i>
                                     <span>HORARIO</span>
                                 </a>
                             </li>
                             <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/asignaturas">
+                                <a href="https://alumnos.unimodelo.mx/asignaturas" target="contenidoPortal">
                                     <i class="material-icons">keyboard_arrow_right</i>
                                     <span>ASIGNATURAS</span>
                                 </a>
                             </li>
                             <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/calificaciones">
+                                <a href="https://alumnos.unimodelo.mx/calificaciones" target="contenidoPortal">
                                     <i class="material-icons">keyboard_arrow_right</i>
                                     <span>CALIFICACIONES</span>
                                 </a>
                             </li>
                             <li class="bold">
-                                <a href="https://alumnos.unimodelo.mx/ordinarios">
+                                <a href="https://alumnos.unimodelo.mx/ordinarios" target="contenidoPortal">
                                     <i class="material-icons">keyboard_arrow_right</i>
-                                    <span>
+                                    <span>ORDINARIOS</span>
+                                </a>
+                            </li>
+                            <li class="bold">
+                                <a href="https://alumnos.unimodelo.mx/adeudadas" target="contenidoPortal">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>ASIG.ADEUDADAS</span>
+                                </a>
+                            </li>
+                            <li class="bold">
+                                <a href="https://alumnos.unimodelo.mx/constancias" target="contenidoPortal">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>CONSTANCIAS</span>
+                                </a>
+                            </li>
+                            <li class="bold">
+                                <a class="collapsible-header waves-effect waves-cyan">
+                                    <i class="material-icons">dashboard</i>
+                                    <span class="nav-text">EXTRAORDINARIOS</span>
+                                </a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li>
+                                            <a href="https://alumnos.unimodelo.mx/extraordinarios" target="contenidoPortal">
+                                                <i class="material-icons">keyboard_arrow_right</i>
+                                                <span>Exámenes Inscritos</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://alumnos.unimodelo.mx/calificaciones_extraordinarios" target="contenidoPortal">
+                                                <i class="material-icons">keyboard_arrow_right</i>
+                                                <span>Calificaciones</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="bold">
+                                <a href="https://alumnos.unimodelo.mx/tutorias_encuestas/encuestas_disponibles/15246740/278528" target="contenidoPortal">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>FORMULARIOS</span>
+                                </a>
+                            </li>
+                            <li class="bold">
+                                <a href="https://alumnos.unimodelo.mx/biblioteca" target="contenidoPortal">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>BIBLIOTECA</span>
+                                </a>
+                            </li>
+                            <li class="bold">
+                                <a href="https://alumnos.unimodelo.mx/micuenta" target="contenidoPortal">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>MI CUENTA</span>
+                                </a>
+                            </li>
+                            <li class="bold">
+                                <a href="https://alumnos.unimodelo.mx/documentos2" target="contenidoPortal">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>DOCUMENTOS</span>
+                                </a>
+                            </li>
+                            <li class="bold">
+                                <a href="https://alumnos.unimodelo.mx/eduvida" target="contenidoPortal">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>EDUCACIÓN PARA LA VIDA</span>
+                                </a>
+                            </li>
+                            <li class="bold">
+                                <a href="/">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>SALIR</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="iframe-container">
+                    <iframe name="contenidoPortal" src="https://alumnos.unimodelo.mx/libreta_de_pago"></iframe>
+                </div>
+
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            <script>
+                $(document).ready(function(){
+                    // Inicializar acordeones internos
+                    $('.collapsible').collapsible();
+                    
+                    // Inicializar menú desplegable de perfil a la derecha
+                    $('.dropdown-trigger').dropdown({
+                        constrainWidth: false,
+                        alignment: 'right',
+                        hover: false
+                    });
+                    
+                    // Sincronizar el selector de barra superior con el iframe interno
+                    $('#menu-navegacion').on('change', function() {
+                        const url = $(this).val();
+                        if(url.includes('logout')) {
+                            window.location.href = '/';
+                        } else {
+                            window.open(url, 'contenidoPortal');
+                        }
+                    });
+                    
+                    // Quitar pantalla de carga e inicializar vista
+                    setTimeout(() => {
+                        document.getElementById('loadingView').style.display = 'none';
+                        document.getElementById('portalView').style.display = 'block';
+                    }, 2500);
+                });
+            </script>
+        </body>
+        </html>
+    `);
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor activo en el puerto ${PORT}`);
+});
