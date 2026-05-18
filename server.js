@@ -9,6 +9,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// URL del logotipo oficial de la Universidad Modelo
+const LOGO_URL = "https://www.unimodelo.edu.mx/images/logo.png";
+
 // 1. PLANTILLA DE LOGIN
 function getLoginTemplate(errorMessage = "") {
     let errorHtml = "";
@@ -39,7 +42,7 @@ function getLoginTemplate(errorMessage = "") {
         </head>
         <body>
             <div class="login-card">
-                <div class="logo-container"><img src="/logo.png" alt="Logo"></div>
+                <div class="logo-container"><img src="${LOGO_URL}" alt="Logo"></div>
                 <div class="system-title">SERVICIOS</div>
                 <div class="system-subtitle">ESCOLARES</div>
                 ${errorHtml}
@@ -83,7 +86,7 @@ function getPortalTemplate() {
                 .navbar-color { background-color: #0d2c54 !important; }
                 .nav-wrapper { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
                 .brand-section { display: flex; align-items: center; }
-                .logo-menu-top { height: 40px; width: auto; margin-left: 15px; }
+                .logo-menu-top { height: 42px; width: auto; margin-left: 15px; filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.2)); }
                 .brand-title { font-size: 20px; color: white; margin-left: 15px; font-weight: 400; }
                 .select-wrapper-custom { margin-left: 10px; width: 180px; }
                 #menu-navegacion { background-color: rgba(255, 255, 255, 0.9); border: none; border-radius: 2px; height: 30px; color: #333; font-size: 13px; display: inline-block; }
@@ -111,7 +114,7 @@ function getPortalTemplate() {
                     <div class="nav-wrapper">
                         <div class="brand-section">
                             <a href="javascript:void(0);" style="color:white; display: flex; align-items: center;"><i class="material-icons" style="font-size:30px;">menu</i></a>
-                            <img src="/logo.png" alt="Escudo" class="logo-menu-top">
+                            <img src="${LOGO_URL}" alt="Escudo" class="logo-menu-top">
                             <div class="select-wrapper-custom">
                                 <select id="menu-navegacion" class="browser-default">
                                     <option value="libreta_de_pago" selected>Libreta de pago</option>
@@ -230,7 +233,6 @@ app.get('/', (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    // Validación estricta solicitada
     if (username === "15246740" && password === "ARCOS") {
         res.send(getPortalTemplate());
     } else {
