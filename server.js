@@ -79,29 +79,20 @@ function getPortalTemplate() {
             <style>
                 body { background-color: #f9f9f9; }
                 .mainPaddingSidebar { padding-left: 240px; transition: padding 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+                .mainPaddingLeft { padding-left: 0px; transition: padding 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
                 
-                #left-sidebar-nav { position: fixed; width: 240px; left: 0; top: 64px; height: calc(100vh - 64px); background: #fff; z-index: 999; box-shadow: 1px 0 5px rgba(0,0,0,0.1); overflow-y: auto; }
+                #left-sidebar-nav { position: fixed; width: 240px; left: 0; top: 64px; height: calc(100vh - 64px); background: #fff; z-index: 999; box-shadow: 1px 0 5px rgba(0,0,0,0.1); transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); overflow-y: auto; }
+                .side-nav-hidden { transform: translateX(-240px); }
                 
-                header nav { background-color: #025fa4 !important; height: 64px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-                .nav-wrapper { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 64px; }
+                header nav { background-color: #0d47a1 !important; height: 64px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+                .nav-brand-area { width: 240px; height: 64px; background-color: #0a3c8a; float: left; display: flex; align-items: center; padding-left: 15px; box-sizing: border-box; }
+                .nav-brand-area img { width: 44px; height: 44px; margin-left: 15px; object-fit: contain; }
                 
-                .brand-logo-center { position: absolute; left: 50%; transform: translateX(-50%); font-size: 24px; font-weight: 400; color: white; white-space: nowrap; }
-
-                .custom-select-container { width: 220px; height: 34px; background: white; border-radius: 2px; position: relative; cursor: pointer; display: flex; align-items: center; padding: 0 10px; border: 1px solid #ccc; box-sizing: border-box; }
-                .custom-select-container span { color: #333; font-size: 14px; flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-                .custom-select-container i { color: #777; }
-                
-                #dropdown-left-nav { width: 220px !important; background-color: white; }
-                #dropdown-left-nav li a { color: #333 !important; font-size: 14px; padding: 12px 16px; }
-
-                .user-info-right { display: flex; align-items: center; color: white; }
-                .user-name-text { font-size: 14px; margin-right: 15px; font-weight: 400; text-transform: uppercase; }
-                .more-btn-trigger { cursor: pointer; color: white; display: flex; align-items: center; }
-                #profile-dropdown { background-color: white; }
-                #profile-dropdown li a { color: #333 !important; font-size: 14px; }
-
-                .section-action-btn { background-color: #007bc4; color: white; border: none; border-radius: 4px; height: 40px; line-height: 40px; padding: 0 20px; font-size: 13px; font-weight: 500; text-transform: uppercase; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); margin-bottom: 20px; }
-                .section-line-divider { border: none; border-bottom: 1px solid #e0e0e0; margin-bottom: 20px; width: 100%; }
+                .custom-select-trigger { background-color: white !important; color: #333 !important; border: 1px solid #ccc; border-radius: 3px; height: 34px; line-height: 34px; padding: 0 30px 0 10px; text-transform: none; font-size: 14px; font-weight: 400; display: inline-flex; align-items: center; justify-content: space-between; width: 190px; position: relative; box-shadow: none !important; }
+                .custom-select-trigger i { position: absolute; right: 5px; color: #666; }
+                .dropdown-select-content { width: 190px !important; background-color: white; }
+                .dropdown-select-content li a { color: #333 !important; font-size: 14px; padding: 12px 16px; }
+                .dropdown-select-content li:hover { background-color: #f1f1f1; }
 
                 .libreta-container { font-family: 'Segoe UI', Arial, sans-serif; color: #333333; font-size: 14.5px; line-height: 1.6; }
                 .libreta-blue-text { color: #0033cc; font-weight: bold; }
@@ -126,11 +117,11 @@ function getPortalTemplate() {
 
                 .dt-search-footer-container { display: flex; width: 100%; background: transparent; padding-top: 8px; box-sizing: border-box; }
                 .dt-search-col-box { padding-right: 0px; box-sizing: border-box; display: inline-block; }
-                .dt-search-input { width: 96% !important; height: 28px !important; margin: 0 auto !important; padding: 0 4px !important; font-size: 13px !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; display: block; }
+                .dt-search-input { width: 96% !important; height: 28px !important; margin: 0 auto !important; padding: 0 4px !important; font-size: 13px !important; border: none !important; border-bottom: 1px solid #ccc !important; box-sizing: border-box !important; background: transparent !important; font-family: 'Segoe UI', Arial, sans-serif; display: block; }
                 .dt-search-input::placeholder { color: #bbb; font-weight: 400; }
-                .dt-search-input:focus { border-bottom: 1px solid #025fa4 !important; box-shadow: none !important; outline: none; }
+                .dt-search-input:focus { border-bottom: 1px solid #0d47a1 !important; box-shadow: none !important; }
                 
-                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; font-size: 13px; color: #333; }
+                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #333; }
                 .dt-info { font-size: 13.5px; color: #333; }
                 .dt-pagination { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
                 .dt-pagination li { margin: 0 2px; }
@@ -138,26 +129,43 @@ function getPortalTemplate() {
                 .dt-pagination li.active-page a { background-color: #e0e0e0; font-weight: bold; border: 1px solid #ccc; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
                 .dt-pagination li.disabled-page a { color: #bbb; cursor: default; }
                 
-                .custom-menu-li a { color: #444 !important; display: flex !important; align-items: center; padding: 14px 20px; cursor: pointer; font-size: 13px; font-weight: 500; text-transform: uppercase; position: relative; }
+                .custom-menu-li a { color: #444 !important; display: flex !important; align-items: center; padding: 14px 20px; cursor: pointer; font-size: 13px; font-weight: 500; text-transform: uppercase; position: relative; overflow: hidden; }
                 .custom-menu-li a:hover { background-color: #f0f0f0; }
-                .custom-menu-li a i { margin-right: 15px; color: #777; font-size: 18px; }
-                .custom-menu-li.active-item { background-color: #e0e0e0; border-left: 4px solid #025fa4; }
-                .custom-menu-li.active-item a { color: #025fa4 !important; font-weight: bold; }
-                .custom-menu-li.active-item a i { color: #025fa4; }
+                .custom-menu-li a i.menu-arrow { margin-right: 15px; color: #777; font-size: 18px; font-weight: bold; }
+                .custom-menu-li.active-item { background-color: #e0e0e0; border-left: 4px solid #0d47a1; }
+                .custom-menu-li.active-item a { color: #0d47a1 !important; font-weight: bold; }
+                .custom-menu-li.active-item a i.menu-arrow { color: #0d47a1; }
 
-                /* Estilos Mi Cuenta */
-                .mc-header-container { margin-bottom: 20px; }
-                .mc-title { font-size: 22px; color: #333; font-weight: 400; text-transform: uppercase; margin: 0; }
-                .mc-banner-blue { background-color: #025fa4; color: white; padding: 10px 15px; font-size: 14px; font-weight: 500; text-transform: uppercase; margin-bottom: 30px; border-radius: 2px; }
-                .mc-form-row { margin-bottom: 25px; }
-                .mc-input-field label { display: block; font-size: 13.5px; color: #9e9e9e; margin-bottom: 5px; }
-                .mc-input-field input { width: 100%; height: 36px; border: none; border-bottom: 1px solid #ccc; font-size: 14px; box-sizing: border-box; background: transparent; }
-                .mc-checkbox-container { margin-top: 15px; margin-bottom: 30px; }
-                .mc-checkbox-label { display: flex; align-items: center; cursor: pointer; font-size: 14px; color: #666; }
-                .mc-checkbox-label input { margin-right: 10px; width: 16px; height: 16px; accent-color: #025fa4; }
+                /* Estilos para el menú colapsable */
+                .collapsible-header { background-color: transparent !important; border: none !important; padding: 14px 20px !important; font-size: 13px !important; font-weight: 500 !important; color: #444 !important; text-transform: uppercase; display: flex !important; align-items: center; justify-content: space-between; }
+                .collapsible-header:hover { background-color: #f0f0f0; }
+                .collapsible-header div { display: flex; align-items: center; }
+                .collapsible-header i.main-icon { margin-right: 15px; color: #777; font-size: 20px; }
+                .collapsible-header i.arrow-indicator { font-size: 18px; color: #777; transition: transform 0.2s; }
+                li.active .collapsible-header i.arrow-indicator { transform: rotate(180deg); }
+                .collapsible-body { padding: 0 !important; border: none !important; background-color: #fafafa; }
+                .collapsible-body li a { padding-left: 54px !important; font-size: 13px !important; text-transform: none !important; font-weight: 400 !important; color: #555 !important; }
+                .collapsible-body li.active-subitem a { color: #0d47a1 !important; font-weight: bold !important; background-color: #e0e0e0; }
                 
-                /* Botón Genérico */
-                .generic-blue-btn { background-color: #007bc4; color: white; border: none; border-radius: 3px; height: 38px; padding: 0 20px; font-size: 13.5px; text-transform: uppercase; display: inline-flex; align-items: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-weight: 400; gap: 8px; }
+                #breadcrumb-container { font-size: 15px; color: #666; margin-bottom: 10px; display: flex; align-items: center; }
+                #breadcrumb-container i { font-size: 16px; margin: 0 8px; color: #999; }
+                
+                #dynamicRenderCard { transition: opacity 0.2s ease-in-out; }
+
+                /* Estilos para Mi Cuenta */
+                .mc-header-container { border-bottom: none; margin-bottom: 20px; }
+                .mc-title { font-size: 22px; color: #333; font-weight: 400; text-transform: uppercase; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+                .mc-banner-blue { background-color: #025fa4; color: white; padding: 10px 15px; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 30px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+                .mc-form-row { margin-bottom: 25px; }
+                .mc-input-field input[type=password], .mc-input-field input[type=text] { width: 100%; height: 36px; border: none; border-bottom: 1px solid #ccc; font-size: 14px; margin-bottom: 0; box-sizing: border-box; background: transparent; transition: border-bottom 0.2s; }
+                .mc-input-field input[type=password]:focus, .mc-input-field input[type=text]:focus { border-bottom: 1px solid #025fa4; box-shadow: none; outline: none; }
+                .mc-input-field label { display: block; font-size: 13.5px; color: #9e9e9e; margin-bottom: 5px; font-weight: 400; }
+                .mc-checkbox-container { margin-top: 15px; margin-bottom: 30px; }
+                .mc-checkbox-label { display: flex; align-items: center; cursor: pointer; user-select: none; font-size: 14px; color: #666; }
+                .mc-checkbox-label input[type=checkbox] { margin-right: 10px; width: 16px; height: 16px; accent-color: #025fa4; cursor: pointer; }
+                .mc-btn-save { background-color: #007bc4; color: white; border: none; border-radius: 3px; height: 38px; line-height: 38px; padding: 0 20px; font-size: 13.5px; font-weight: 500; text-transform: uppercase; display: inline-flex; align-items: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); transition: background-color 0.2s; }
+                .mc-btn-save:hover { background-color: #006aa9; }
+                .mc-btn-save i { font-size: 18px; margin-right: 8px; }
 
                 /* Estilos de la sección Documentos */
                 .doc-main-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; font-family: 'Segoe UI', Arial, sans-serif; gap: 40px; }
@@ -165,74 +173,101 @@ function getPortalTemplate() {
                 .doc-banner-blue { background-color: #025fa4; height: 42px; width: 100%; margin-bottom: 25px; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
                 .doc-select-btn { background-color: #007bc4; color: white; border: none; border-radius: 4px; height: 40px; line-height: 40px; padding: 0 20px; font-size: 13px; font-weight: 500; text-transform: uppercase; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); margin-bottom: 20px; }
                 .doc-line-divider { border: none; border-bottom: 1px solid #e0e0e0; margin-bottom: 20px; width: 100%; }
-                .doc-btn-submit-disabled { background-color: #e0e0e0; color: #a6a6a6; border: none; border-radius: 4px; height: 36px; line-height: 36px; padding: 0 18px; font-size: 13px; font-weight: 500; text-transform: uppercase; display: inline-flex; align-items: center; cursor: not-allowed; }
+                .doc-btn-submit-disabled { background-color: #e0e0e0; color: #a6a6a6; border: none; border-radius: 4px; height: 36px; line-height: 36px; padding: 0 18px; font-size: 13px; font-weight: 500; text-transform: uppercase; display: inline-flex; align-items: center; cursor: not-allowed; box-shadow: none; pointer-events: none; }
                 .doc-btn-submit-disabled i { font-size: 18px; margin-right: 8px; color: #a6a6a6; }
                 .doc-right-notes-card { width: 320px; background-color: #e8f4fd; border-radius: 4px; padding: 25px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
                 .doc-notes-title { font-size: 20px; color: #333; font-weight: 300; margin: 0 0 15px 0; }
                 .doc-notes-list { margin: 0; padding-left: 20px; list-style-type: disc; }
                 .doc-notes-list li { font-size: 13.5px; color: #444; margin-bottom: 12px; line-height: 1.5; font-weight: 400; }
-                
-                #dynamicRenderCard { transition: opacity 0.2s ease-in-out; }
             </style>
         </head>
         <body>
 
-            <header>
-                <nav>
-                    <div class="nav-wrapper">
-                        <div class="dropdown-trigger custom-select-container" data-target="dropdown-left-nav">
-                            <span id="label-select-actual">Calificaciones</span>
-                            <i class="material-icons">arrow_drop_down</i>
-                        </div>
-                        <ul id="dropdown-left-nav" class="dropdown-content">
-                            <li><a onclick="showSection('libreta_de_pago')">Libreta de pago</a></li>
-                            <li><a onclick="showSection('colegiaturas')">Colegiaturas / Inscr.</a></li>
-                            <li><a onclick="showSection('horario')">Horario</a></li>
-                            <li><a onclick="showSection('asignaturas')">Asignaturas</a></li>
-                            <li><a onclick="showSection('calificaciones')">Calificaciones</a></li>
-                            <li><a onclick="showSection('ordinarios')">Ordinarios</a></li>
-                            <li><a onclick="showSection('adeudadas')">Asig. Adeudadas</a></li>
-                            <li><a onclick="showSection('constancias')">Constancias</a></li>
-                            <li><a onclick="showSection('documentos')">Documentos</a></li>
-                            <li><a onclick="showSection('eduvida')">Educación para la Vida</a></li>
-                        </ul>
+            <header id="header" class="page-topbar">
+                <div class="navbar-fixed">
+                    <nav class="navbar-color">
+                        <div class="nav-wrapper">
+                            <div class="nav-brand-area">
+                                <a href="#" style="color:white; display: flex; align-items: center;" class="sidenav-trigger-toggle waves-effect waves-light">
+                                    <i class="material-icons" style="font-size:28px;">menu</i>
+                                </a>
+                                <img src="/el-otro-logo.png" alt="Escudo Universidad Modelo">
+                            </div>
+                            
+                            <div style="display: inline-block; margin-left: 20px; padding-top: 14px; vertical-align: top;">
+                                <a class="dropdown-trigger btn custom-select-trigger" href="#" data-target="dropdown-menu-nav" id="label-select-actual">
+                                    Calificaciones <i class="material-icons">arrow_drop_down</i>
+                                </a>
+                                <ul id="dropdown-menu-nav" class="dropdown-content dropdown-select-content">
+                                    <li><a onclick="showSection('libreta_de_pago')">Libreta de pago</a></li>
+                                    <li><a onclick="showSection('colegiaturas')">Colegiaturas / Inscr.</a></li>
+                                    <li><a onclick="showSection('horario')">Horario</a></li>
+                                    <li><a onclick="showSection('asignaturas')">Asignaturas</a></li>
+                                    <li><a onclick="showSection('calificaciones')">Calificaciones</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="/">Salir</a></li>
+                                </ul>
 
-                        <div class="brand-logo-center">Universidad Modelo</div>
-
-                        <div class="user-info-right">
-                            <span class="user-name-text">SANTIAGO DE JESUS ARCOS GUZMAN</span>
-                            <i class="material-icons more-btn-trigger dropdown-trigger" data-target="profile-dropdown">more_vert</i>
+                                <span style="font-size: 22px; color: white; margin-left: 20px; vertical-align: middle; font-weight: 300; line-height: 34px;">Universidad Modelo 🏆</span>
+                            </div>
+                            <ul class="right hide-on-med-and-down" style="margin-right: 20px;">
+                                <li style="color: white; font-size: 14px; display: inline-block; vertical-align: middle; margin-right: 10px;">SANTIAGO DE JESUS ARCOS GUZMAN</li>
+                                <li style="display: inline-block; vertical-align: middle;">
+                                    <a href="#" class="dropdown-trigger waves-effect waves-light" data-target="profile-dropdown" style="color: white; height: 64px; display: flex; align-items: center;">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul id="profile-dropdown" class="dropdown-content">                    
+                                        <li><a onclick="showSection('micuenta')"><i class="material-icons">account_box</i>Mi cuenta</a></li>
+                                        <li><a href="/"><i class="material-icons">keyboard_tab</i>Salir</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
-                        <ul id="profile-dropdown" class="dropdown-content">                    
-                            <li><a onclick="showSection('micuenta')"><i class="material-icons" style="color: #555;">person</i> Mi cuenta</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/"><i class="material-icons" style="color: #555;">arrow_forward</i> Salir</a></li>
-                        </ul>
-                    </div>
-                </nav>
+                    </nav>
+                </div>
             </header>
 
             <div id="main" class="mainPaddingSidebar">
                 <div class="wrapper">
                     <aside id="left-sidebar-nav">
-                        <ul style="margin: 0; padding: 0; list-style: none;">
-                            <li class="custom-menu-li" id="menu-libreta_de_pago"><a onclick="showSection('libreta_de_pago')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>LIBRETA DE PAGO</a></li>
-                            <li class="custom-menu-li" id="menu-colegiaturas"><a onclick="showSection('colegiaturas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>COLEGIATURAS / INSCR.</a></li>
-                            <li class="custom-menu-li" id="menu-horario"><a onclick="showSection('horario')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>HORARIO</a></li>
-                            <li class="custom-menu-li" id="menu-asignaturas"><a onclick="showSection('asignaturas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ASIGNATURAS</a></li>
-                            <li class="custom-menu-li" id="menu-calificaciones"><a onclick="showSection('calificaciones')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>CALIFICACIONES</a></li>
-                            <li class="custom-menu-li" id="menu-ordinarios"><a onclick="showSection('ordinarios')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ORDINARIOS</a></li>
-                            <li class="custom-menu-li" id="menu-adeudadas"><a onclick="showSection('adeudadas')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>ASIG.ADEUDADAS</a></li>
-                            <li class="custom-menu-li" id="menu-constancias"><a onclick="showSection('constancias')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>CONSTANCIAS</a></li>
-                            <li class="custom-menu-li" id="menu-micuenta"><a onclick="showSection('micuenta')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>MI CUENTA</a></li>
-                            <li class="custom-menu-li" id="menu-documentos"><a onclick="showSection('documentos')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>DOCUMENTOS</a></li>
-                            <li class="custom-menu-li" id="menu-eduvida"><a onclick="showSection('eduvida')" class="waves-effect"><i class="material-icons">keyboard_arrow_right</i>EDUVIDA</a></li>
+                        <ul class="collapsible collapsible-accordion" style="margin: 0; padding: 0; list-style: none;" data-collapsible="accordion">
+                            <li class="custom-menu-li" id="menu-libreta_de_pago"><a onclick="showSection('libreta_de_pago')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>LIBRETA DE PAGO</a></li>
+                            <li class="custom-menu-li" id="menu-colegiaturas"><a onclick="showSection('colegiaturas')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>COLEGIATURAS / INSCR.</a></li>
+                            <li class="custom-menu-li" id="menu-horario"><a onclick="showSection('horario')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>HORARIO</a></li>
+                            <li class="custom-menu-li" id="menu-asignaturas"><a onclick="showSection('asignaturas')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>ASIGNATURAS</a></li>
+                            <li class="custom-menu-li" id="menu-calificaciones"><a onclick="showSection('calificaciones')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>CALIFICACIONES</a></li>
+                            <li class="custom-menu-li" id="menu-ordinarios"><a onclick="showSection('ordinarios')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>ORDINARIOS</a></li>
+                            <li class="custom-menu-li" id="menu-adeudadas"><a onclick="showSection('adeudadas')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>ASIG.ADEUDADAS</a></li>
+                            <li class="custom-menu-li" id="menu-constancias"><a onclick="showSection('constancias')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>CONSTANCIAS</a></li>
+                            
+                            <li id="menu-extraordinarios-root">
+                                <a class="collapsible-header waves-effect">
+                                    <div>
+                                        <i class="material-icons main-icon">dashboard</i>
+                                        <span>EXTRAORDINARIOS</span>
+                                    </div>
+                                    <i class="material-icons arrow-indicator">keyboard_arrow_down</i>
+                                </a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li class="custom-menu-li" id="menu-extra_inscritos"><a onclick="showSection('extra_inscritos')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>Exámenes Inscritos</a></li>
+                                        <li class="custom-menu-li" id="menu-extra_calificaciones"><a onclick="showSection('extra_calificaciones')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>Calificaciones</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="custom-menu-li" id="menu-formularios"><a onclick="showSection('formularios')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>FORMULARIOS</a></li>
+                            <li class="custom-menu-li" id="menu-biblioteca"><a onclick="showSection('biblioteca')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>BIBLIOTECA</a></li>
+                            <li class="custom-menu-li" id="menu-micuenta"><a onclick="showSection('micuenta')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>MI CUENTA</a></li>
+                            <li class="custom-menu-li" id="menu-documentos"><a onclick="showSection('documentos')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>DOCUMENTOS</a></li>
+                            <li class="custom-menu-li" id="menu-eduvida"><a onclick="showSection('eduvida')" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>EDUCACION PARA LA VIDA</a></li>
+                            <li class="custom-menu-li"><a href="/" class="waves-effect"><i class="material-icons menu-arrow">keyboard_arrow_right</i>SALIR</a></li>
                         </ul>
                     </aside>
 
                     <section id="content" style="padding: 20px;">
                         <div class="container" style="width: 100%; max-width: 1200px;">
-                            <div id="breadcrumb-container" style="font-size: 14px; color: #666; margin-bottom: 10px;"></div>
+                            <div id="breadcrumb-container"></div>
                             <div id="dynamicRenderCard" style="background: white; padding: 30px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); min-height: 450px;"></div>
                         </div>
                     </section>
@@ -243,7 +278,7 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
-                function generateExternalDataTablesFooter(columnWidthsArray, totalEntries, showPageTwo = false, isZeroEntries = false, searchFieldsCount = null, currentPage = 1, totalPages = 2) {
+                function generateExternalDataTablesFooter(columnWidthsArray, totalEntries, showPageTwo = false, isZeroEntries = false, searchFieldsCount = null) {
                     let searchBoxesHtml = '<div class="dt-search-footer-container">';
                     let limit = searchFieldsCount !== null ? searchFieldsCount : columnWidthsArray.length;
                     
@@ -261,45 +296,40 @@ function getPortalTemplate() {
                     if (isZeroEntries) {
                         return searchBoxesHtml + 
                             '<div class="dt-footer-container">' +
-                                '<div class="dt-info">Mostrando 0 a 0 de 0 registros</div>' +
+                                '<div class="dt-info">Showing 0 to 0 of 0 entries</div>' +
                                 '<ul class="dt-pagination">' +
-                                    '<li class="disabled-page"><a>Anterior</a></li>' +
-                                    '<li class="disabled-page"><a>Siguiente</a></li>' +
+                                    '<li class="disabled-page"><a>Previous</a></li>' +
+                                    '<li class="disabled-page"><a>Next</a></li>' +
                                 '</ul>' +
                             '</div>';
                     }
                     
-                    let startEntry = showPageTwo ? 16 : 1;
-                    let endEntry = showPageTwo ? totalEntries : 15;
-                    if (totalEntries <= 15) { endEntry = totalEntries; }
+                    let startEntry = showPageTwo ? 11 : 1;
+                    let endEntry = showPageTwo ? totalEntries : 10;
+                    if (totalEntries <= 10) { endEntry = totalEntries; }
 
                     let prevClass = showPageTwo ? "" : "disabled-page";
                     let nextClass = showPageTwo ? "disabled-page" : "";
                     let p1Class = showPageTwo ? "" : "active-page";
                     let p2Class = showPageTwo ? "active-page" : "";
                     
-                    let paginationItemsHtml = '';
-                    if (totalPages === 1) {
-                        paginationItemsHtml = '<li class="disabled-page"><a>Anterior</a></li><li class="active-page"><a>1</a></li><li class="disabled-page"><a>Siguiente</a></li>';
-                    } else {
-                        paginationItemsHtml = 
-                            '<li class="' + prevClass + '"><a onclick="changeColegiaturasPage(1)">Anterior</a></li>' +
-                            '<li class="' + p1Class + '"><a onclick="changeColegiaturasPage(1)">1</a></li>' +
-                            '<li class="' + p2Class + '"><a onclick="changeColegiaturasPage(2)">2</a></li>' +
-                            '<li class="' + nextClass + '"><a onclick="changeColegiaturasPage(2)">Siguiente</a></li>';
-                    }
-
                     return searchBoxesHtml + 
                         '<div class="dt-footer-container">' +
-                            '<div class="dt-info">Página ' + currentPage + ' de ' + totalPages + '</div>' +
-                            '<ul class="dt-pagination">' + paginationItemsHtml + '</ul>' +
+                            '<div class="dt-info">Showing ' + startEntry + ' to ' + endEntry + ' of ' + totalEntries + ' entries</div>' +
+                            '<ul class="dt-pagination">' +
+                                '<li class="' + prevClass + '"><a onclick="changeColegiaturasPage(1)">Previous</a></li>' +
+                                '<li class="' + p1Class + '"><a onclick="changeColegiaturasPage(1)">1</a></li>' +
+                                '<li class="' + p2Class + '"><a onclick="changeColegiaturasPage(2)">2</a></li>' +
+                                '<li class="' + nextClass + '"><a onclick="changeColegiaturasPage(2)">Next</a></li>' +
+                            '</ul>' +
                         '</div>';
                 }
 
-                const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3, false, false, null, 1, 1);
-                const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3, false, false, null, 1, 1);
-                const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3, false, false, null, 1, 1);
-                const footerAdeudadas = generateExternalDataTablesFooter([30, 50, 20], 3, false, false, null, 1, 1);
+                const footerHorarios = generateExternalDataTablesFooter([25, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5], 3);
+                const footerAsignaturas = generateExternalDataTablesFooter([50, 50], 3);
+                const footerCalificaciones = generateExternalDataTablesFooter([25, 15, 15, 15, 15, 15], 3);
+                const footerAdeudadas = generateExternalDataTablesFooter([50, 25, 25], 0, false, true);
+                const footerConstancias = generateExternalDataTablesFooter([35, 25, 20, 20], 0, false, true, 3);
 
                 function changeColegiaturasPage(pageNumber) {
                     const container = $('#dynamicRenderCard');
@@ -320,30 +350,24 @@ function getPortalTemplate() {
                                 '<tr><td>Colegiatura Septiembre/2025</td><td>01</td><td>2501</td><td>NO</td></tr>' +
                                 '<tr><td>Inscripción Anual o Semestral / Agosto 2025</td><td>99</td><td>2599</td><td>NO</td></tr>' +
                                 '<tr><td>Colegiatura Junio/2025</td><td>10</td><td>2410</td><td>NO</td></tr>' +
-                                '<tr><td>Colegiatura Mayo/2025</td><td>09</td><td>2409</td><td>NO</td></tr>' +
+                                '<tr><td>Colegiatura Mayo/2025</td><td>09</td><td>2409</td><td>NO</td></tr>';
+                            footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 14, false);
+                        } else {
+                            tbodyHtml = 
                                 '<tr><td>Colegiatura Abril/2025</td><td>08</td><td>2408</td><td>NO</td></tr>' +
                                 '<tr><td>Colegiatura Marzo/2025</td><td>07</td><td>2407</td><td>NO</td></tr>' +
                                 '<tr><td>Colegiatura Febrero/2025</td><td>06</td><td>2406</td><td>NO</td></tr>' +
-                                '<tr><td>Inscripción Semestral / Enero 2025</td><td>00</td><td>2400</td><td>NO</td></tr>' +
-                                '<tr><td>Colegiatura Enero/2025</td><td>05</td><td>2405</td><td>NO</td></tr>';
-                            footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 20, false, false, null, 1, 2);
-                        } else {
-                            tbodyHtml = 
-                                '<tr><td>Colegiatura Diciembre/2024</td><td>04</td><td>2404</td><td>NO</td></tr>' +
-                                '<tr><td>Colegiatura Noviembre/2024</td><td>03</td><td>2403</td><td>NO</td></tr>' +
-                                '<tr><td>Colegiatura Octubre/2024</td><td>02</td><td>2402</td><td>NO</td></tr>' +
-                                '<tr><td>Colegiatura Septiembre/2024</td><td>01</td><td>2401</td><td>NO</td></tr>' +
-                                '<tr><td>Inscripción Anual o Semestral/ Agosto 2024</td><td>99</td><td>2499</td><td>NO</td></tr>';
-                            footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 20, true, false, null, 2, 2);
+                                '<tr><td>Inscripción Semestral / Enero 2025</td><td>00</td><td>2400</td><td>NO</td></tr>';
+                            footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 14, true);
                         }
                         
                         let baseHtml = 
-                              '<h5 style="font-weight: 400; color: #222;">PAGOS DEL ALUMNO</h5>' +
+                              '<h5 style="font-weight: 400; color: #222;">Pagos del alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
                               '<colgroup><col style="width:40%"><col style="width:15%"><col style="width:25%"><col style="width:20%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon-active">Descripción</th><th class="dt-sort-icon">Concepto</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Adeudo vigente</th></tr></thead>' +
+                              '<thead><tr><th class="dt-sort-icon">Descripción</th><th class="dt-sort-icon">Concepto</th><th class="dt-sort-icon">Referencia</th><th class="dt-sort-icon">Adeudo vigente</th></tr></thead>' +
                               '<tbody>' + tbodyHtml + '</tbody></table>' + footerHtml;
                               
                         document.getElementById('dynamicRenderCard').innerHTML = baseHtml;
@@ -365,7 +389,7 @@ function getPortalTemplate() {
                 const sectionsData = {
                     libreta_de_pago: {
                         label: 'Libreta de pago',
-                        breadcrumb: 'Inicio > Libreta de pago',
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Libreta de pago',
                         html: '<h5 style="font-weight: 400; color: #222; margin-bottom: 25px;">LIBRETA DE PAGO</h5>' +
                               '<div class="libreta-container">' +
                               '<p><b>Estimado(a) alumno(a):</b> Aquí puedes descargar tu libreta de pago acorde a tu plan de pago previamente registrado: <span class="libreta-blue-text">Colegiatura Diez Meses, y la Inscripción de Enero a pagarse el monto total en el mes de Enero.</span></p>' +
@@ -393,12 +417,12 @@ function getPortalTemplate() {
                     },
                     colegiaturas: {
                         label: 'Colegiaturas / Inscr.',
-                        breadcrumb: 'Inicio > Pagos del Alumno',
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Pagos del Alumno',
                         html: 'TRIGGER_PAGE_1'
                     },
                     horario: {
                         label: 'Horario',
-                        breadcrumb: 'Inicio > Horarios del alumno',
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Horarios del alumno',
                         html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Horarios del Alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
@@ -413,7 +437,7 @@ function getPortalTemplate() {
                     },
                     asignaturas: {
                         label: 'Asignaturas',
-                        breadcrumb: 'Inicio > Asignaturas',
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas',
                         html: '<h5 style="font-weight: 400; color: #222;">Asignaturas del alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
@@ -428,7 +452,7 @@ function getPortalTemplate() {
                     },
                     calificaciones: {
                         label: 'Calificaciones',
-                        breadcrumb: 'Inicio > Calificaciones',
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Calificaciones',
                         html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Calificaciones del Alumno</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
@@ -443,60 +467,51 @@ function getPortalTemplate() {
                     },
                     ordinarios: { 
                         label:'Ordinarios', 
-                        breadcrumb: 'Inicio > Ordinarios', 
-                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Exámenes Ordinarios</h5>' +
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', 
+                        html: '<h5>Exámenes Ordinarios</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
                               '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
-                              '<thead><tr><th class="dt-sort-icon-active">Materia</th><th class="dt-sort-icon">Fecha</th><th class="dt-sort-icon">Hora</th><th class="dt-sort-icon">Maestro</th><th class="dt-sort-icon">Apellido paterno</th><th class="dt-sort-icon">Apellido materno</th></tr></thead>' +
+                              '<thead><tr><th>Materia</th><th>Fecha</th><th>Hora</th><th>Maestro</th><th>Apellido paterno</th><th>Apellido materno</th></tr></thead>' +
                               '<tbody>' +
                               '<tr><td>ALGORITMOS</td><td>05-06-2026</td><td>11:00:00</td><td>EDSON GEOVANNY</td><td>ESTRADA</td><td>LOPEZ</td></tr>' +
                               '<tr><td>CALCULO DIFERENCIAL</td><td>10-06-2026</td><td>11:00:00</td><td>AYLIN</td><td>GARCIA</td><td>REYES</td></tr>' +
                               '<tr><td>FISICA APLICADA</td><td>03-06-2026</td><td>09:00:00</td><td>ALBERTO GABRIEL</td><td>VEGA</td><td>POOT</td></tr>' +
-                              '</tbody></table>' + generateExternalDataTablesFooter([20, 15, 15, 20, 15, 15], 3, false, false, null, 1, 1)
+                              '</tbody></table>'
                     },
                     adeudadas: { 
                         label: 'Asig. Adeudadas', 
-                        breadcrumb: 'Inicio > Asignaturas Adeudadas del Alumno', 
-                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase; margin-bottom: 10px;">ASIGNATURAS ADEUDADAS DEL ALUMNO</h5>' +
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas Adeudadas', 
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Asignaturas Adeudadas</h5>' +
                               '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
-                              '<p style="margin: 5px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
-                              '<p style="margin: 5px 0 20px 0;"><b>NOTA:</b> Las materias marcadas en <span style="color:red; font-weight:bold;">rojo</span> son urgentes por aprobar. Comunícate a la brevedad con la coordinación de tu carrera.</p>' +
+                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
                               '<table class="simulated-table">' +
-                              '<colgroup><col style="width:30%"><col style="width:50%"><col style="width:20%"></colgroup>' +
-                              '<thead><tr><th class="dt-sort-icon-active">Clave</th><th class="dt-sort-icon">Asignatura</th><th class="dt-sort-icon">Semestre</th></tr></thead>' +
+                              '<colgroup><col style="width:50%"><col style="width:25%"><col style="width:25%"></colgroup>' +
+                              '<thead><tr><th class="dt-sort-icon">Materia</th><th class="dt-sort-icon">Oportunidad</th><th class="dt-sort-icon">Calificación Final</th></tr></thead>' +
                               '<tbody>' +
-                              '<tr><td>99221</td><td>CALCULO DIFERENCIAL</td><td>2</td></tr>' +
-                              '<tr><td>99231</td><td>ALGORITMOS</td><td>2</td></tr>' +
-                              '<tr><td>99251</td><td>FISICA APLICADA</td><td>2</td></tr>' +
+                              '<tr><td colspan="3" class="no-records-row">No se encontraron registros de asignaturas adeudadas.</td></tr>' +
                               '</tbody></table>' + footerAdeudadas 
                     },
                     constancias: { 
                         label: 'Constancias', 
-                        breadcrumb: 'Inicio > Constancias', 
-                        html: '<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; font-family: \'Segoe UI\', sans-serif;">' +
-                              '    <div style="flex: 1; max-width: 320px;">' +
-                              '        <h5 style="font-size: 22px; font-weight: 300; color: #333; margin-top: 0; margin-bottom: 20px;">CONSTANCIAS</h5>' +
-                              '        <label style="font-size: 12px; color: #9e9e9e;">Constancia *</label>' +
-                              '        <select class="browser-default" style="width: 100%; height: 36px; border: none; border-bottom: 1px solid #ccc; background: transparent; font-size: 14px; margin-bottom: 30px;">' +
-                              '            <option>Buena conducta</option>' +
-                              '        </select>' +
-                              '        <button type="button" class="generic-blue-btn"><i class="material-icons" style="font-size:18px;">picture_as_pdf</i> Solicitar</button>' +
-                              '    </div>' +
-                              '    <div style="flex: 2; background: white; padding: 10px 20px;">' +
-                              '        <h4 style="text-align: center; font-size: 32px; font-weight: 300; margin: 0 0 20px 0; letter-spacing: 1px;">AVISO</h4>' +
-                              '        <p style="font-size: 14px; line-height: 1.6; color: #333; margin-bottom: 15px;">A partir del 1 de septiembre 2023, Las constancias tendrán un costo de: $ 50.00 (cincuenta pesos 00/100, m.n.), después de hacer la solicitud en el portal deberán de acudir a efectuar el pago a la Dirección de Control Escolar (Secretaría Administrativa) y pasar por ella en 24 horas posterior al pago.</p>' +
-                              '        <p style="font-size: 14px; line-height: 1.6; color: #333; margin-bottom: 15px;">En el caso de que la constancia que requiere no se encuentre en las opciones o tiene alguna duda, mandar un correo especificando el requerimiento a: <b>constancias@modelo.edu.mx</b></p>' +
-                              '        <p style="font-size: 14px; line-height: 1.6; color: #333; margin-bottom: 15px;">Si deseas solicitar constancias del siguiente período escolar (becas e inscripción) es necesario haber pagado la inscripción de dicho período.</p>' +
-                              '        <p style="font-size: 14px; line-height: 1.6; color: #333; margin-bottom: 25px;">Para el caso de no poder pasar a recibir personalmente su constancia, lo podrá hacer a través de cualquier persona, mediante carta poder, en la que consten ambas firmas, incluyendo copias fotostáticas de sus identificaciones (INE, licencia de conducir o pasaporte).</p>' +
-                              '        <p style="font-size: 14px; line-height: 1.4; color: #333; margin: 0;">Dirección de Control Escolar</p>' +
-                              '        <p style="font-size: 14px; line-height: 1.4; color: #333; margin: 0;">Tel.: 9999301900 ext. 1130-1134</p>' +
-                              '    </div>' +
-                              '</div>'
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Constancias', 
+                        html: '<h5 style="font-weight: 400; color: #222; text-transform: uppercase;">Trámite de Constancias</h5>' +
+                              '<p style="margin: 5px 0;"><b>Clave:</b> 15246740</p>' +
+                              '<p style="margin: 5px 0 20px 0;"><b>Nombre:</b> SANTIAGO DE JESUS ARCOS GUZMAN</p>' +
+                              '<table class="simulated-table">' +
+                              '<colgroup><col style="width:35%"><col style="width:25%"><col style="width:20%"><col style="width:20%"></colgroup>' +
+                              '<thead><tr><th class="dt-sort-icon">Trámite</th><th class="dt-sort-icon">Fecha de solicitud</th><th class="dt-sort-icon">Estatus</th><th class="dt-sort-icon">Opciones</th></tr></thead>' +
+                              '<tbody>' +
+                              '<tr><td colspan="4" class="no-records-row">No se encontraron resultados</td></tr>' +
+                              '</tbody></table>' + footerConstancias 
                     },
+                    extra_inscritos: { label:'Exámenes Inscritos', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Inscritos', html: "<h5>Exámenes Extraordinarios Inscritos</h5><p>No cuentas con exámenes extraordinarios inscritos en este periodo.</p>" },
+                    extra_calificaciones: { label:'Calificaciones', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Extraordinarios <i class="material-icons">chevron_right</i> Calificaciones', html: "<h5>Calificaciones de Extraordinarios</h5><p>No se registran calificaciones de exámenes extraordinarios históricos.</p>" },
+                    formularios: { label:'Formularios', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Formularios', html: "<h5>Formularios</h5><button class='btn green darken-2'>Evaluación Docente 2026</button>" },
+                    biblioteca: { label:'Biblioteca', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Biblioteca', html: "<h5>Biblioteca</h5><p>Catálogo digital verificado correctamente.</p>" },
                     micuenta: { 
                         label: 'Mi Cuenta', 
-                        breadcrumb: 'Inicio > Mi Cuenta', 
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Mi Cuenta', 
                         html: '<div class="mc-header-container">' +
                               '    <h5 class="mc-title">USUARIO SANTIAGO DE JESUS ARCOS GUZMAN</h5>' +
                               '</div>' +
@@ -526,14 +541,14 @@ function getPortalTemplate() {
                               '            <span>Mostrar contraseña</span>' +
                               '        </label>' +
                               '    </div>' +
-                              '    <button type="button" class="generic-blue-btn">' +
-                              '        <i class="material-icons" style="font-size:18px;">save</i> Guardar' +
+                              '    <button type="button" class="mc-btn-save waves-effect waves-light">' +
+                              '        <i class="material-icons">save</i> Guardar' +
                               '    </button>' +
                               '</form>'
                     },
                     documentos: { 
                         label: 'Documentos', 
-                        breadcrumb: 'Inicio > Documentos', 
+                        breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Documentos', 
                         html: '<h5 style="font-size: 24px; font-weight: 300; margin: 0 0 10px 0; color: #111;">Documentos</h5>' +
                               '<div class="doc-main-container">' +
                               '    <div class="doc-left-panel">' +
@@ -555,16 +570,7 @@ function getPortalTemplate() {
                               '    </div>' +
                               '</div>'
                     },
-                    eduvida: {
-                        label: 'Educación para la Vida',
-                        breadcrumb: 'Inicio > Eduvida',
-                        html: '<h5 style="font-size: 24px; font-weight: 300; margin: 0 0 20px 0; color: #111; text-transform: uppercase;">EDUVIDA</h5>' +
-                              '<div style="background: white; border: 1px solid #e0e0e0; border-radius: 4px; padding: 25px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); max-width: 500px;">' +
-                              '    <button type="button" class="generic-blue-btn" style="height: 42px; padding: 0 24px;">' +
-                              '        <i class="material-icons" style="font-size:20px;">save</i> Entrar al Portal' +
-                              '    </button>' +
-                              '</div>'
-                    }
+                    eduvida: { label:'EduVida', breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> EduVida', html: "<h5>Educación para la Vida</h5><p>Talleres acreditados.</p>" }
                 };
 
                 function showSection(sectionKey) {
@@ -574,7 +580,7 @@ function getPortalTemplate() {
                         card.css('opacity', '0.3');
                         
                         setTimeout(function() {
-                            document.getElementById('breadcrumb-container').innerText = data.breadcrumb;
+                            document.getElementById('breadcrumb-container').innerHTML = data.breadcrumb;
                             
                             if (sectionKey === 'colegiaturas') {
                                 changeColegiaturasPage(1);
@@ -583,18 +589,41 @@ function getPortalTemplate() {
                             }
                             
                             $('.custom-menu-li').removeClass('active-item');
-                            $('#menu-' + sectionKey).addClass('active-item');
                             
-                            if (data.label) {
-                                document.getElementById('label-select-actual').innerText = data.label;
+                            if(sectionKey === 'extra_inscritos' || sectionKey === 'extra_calificaciones') {
+                                $('#menu-extraordinarios-root').addClass('active-item');
+                            } else {
+                                $('#menu-' + sectionKey).addClass('active-item');
                             }
                             
+                            if (data.label) {
+                                document.getElementById('label-select-actual').innerHTML = data.label + ' <i class="material-icons">arrow_drop_down</i>';
+                            }
+                            
+                            if (typeof Waves !== 'undefined') {
+                                Waves.displayEffect();
+                            }
                             card.css('opacity', '1');
                         }, 80);
                     }
                 }
 
+                $('.sidenav-trigger-toggle').on('click', function(e) {
+                    e.preventDefault();
+                    var sidebar = $('#left-sidebar-nav');
+                    var main = $('#main');
+                    if(sidebar.hasClass('side-nav-hidden')) {
+                        sidebar.removeClass('side-nav-hidden');
+                        main.removeClass('mainPaddingLeft').addClass('mainPaddingSidebar');
+                    } else {
+                        sidebar.addClass('side-nav-hidden');
+                        main.removeClass('mainPaddingSidebar').addClass('mainPaddingLeft');
+                    }
+                });
+
                 $(document).ready(function() {
+                    $('.collapsible').collapsible();
+                    
                     $('.dropdown-trigger').dropdown({ 
                         constrainWidth: false, 
                         alignment: 'left', 
