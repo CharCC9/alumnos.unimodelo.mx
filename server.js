@@ -81,7 +81,6 @@ function getPortalTemplate() {
             
             <style>
                 body { background-color: #f9f9f9; }
-                /* Animaciones suaves de transición para el menú y contenido */
                 .mainPaddingSidebar { padding-left: 240px; transition: padding 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
                 .mainPaddingLeft { padding-left: 0px; transition: padding 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
                 
@@ -100,14 +99,28 @@ function getPortalTemplate() {
                 .libreta-red-note { color: #a30000; font-weight: bold; margin: 25px 0; font-size: 14.5px; text-transform: uppercase; }
                 .libreta-action-btn { background-color: #007bc4 !important; color: white !important; font-weight: 400; text-transform: uppercase; padding: 0 25px; height: 46px; line-height: 46px; border-radius: 4px; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); font-size: 14.5px; margin-top: 10px; }
                 
-                .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 14px; color: #333; }
+                .simulated-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; color: #333; margin-bottom: 0px !important;}
                 .simulated-table th, .simulated-table td { border: 1px solid #cccccc; padding: 10px 12px; text-align: left; }
                 .simulated-table th { background-color: #f5f5f5; color: #111111; font-weight: bold; }
                 .simulated-table tr:nth-child(even) { background-color: #fafafa; }
                 
+                /* --- ESTILOS NATIVOS DE DATATABLES REPLICADOS --- */
+                .dt-search-row td { padding: 8px 12px !important; background-color: #ffffff; border: 1px solid #cccccc; }
+                .dt-search-input { width: 100% !important; height: 26px !important; margin: 0 !important; padding: 0 5px !important; font-size: 13px !important; border: 1px solid #ccc !important; box-sizing: border-box !important; background: #fff !important; font-family: 'Segoe UI', Arial, sans-serif;}
+                .dt-search-input::placeholder { color: #bbb; font-weight: 400; }
+                .dt-search-input:focus { border-bottom: 1px solid #0d47a1 !important; box-shadow: none !important; }
+                
+                .dt-footer-container { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #333; }
+                .dt-info { font-size: 13.5px; color: #333; }
+                .dt-pagination { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
+                .dt-pagination li { margin: 0 2px; }
+                .dt-pagination li a { display: block; padding: 6px 12px; color: #333; text-decoration: none; font-size: 13px; border-radius: 2px; cursor: pointer; }
+                .dt-pagination li.active-page a { background-color: #e0e0e0; font-weight: bold; border: 1px solid #ccc; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+                .dt-pagination li.disabled-page a { color: #bbb; cursor: default; }
+                /* ----------------------------------------------- */
+
                 header nav { background-color: #0d47a1 !important; height: 64px; }
                 
-                /* Estilos del menú lateral con soporte completo para la animación Waves */
                 .custom-menu-li a { color: #444 !important; display: flex !important; align-items: center; padding: 14px 20px; cursor: pointer; font-size: 13px; font-weight: 500; text-transform: uppercase; position: relative; overflow: hidden; }
                 .custom-menu-li a:hover { background-color: #f0f0f0; }
                 .custom-menu-li a i { margin-right: 15px; color: #777; font-size: 20px; pointer-events: none; }
@@ -118,7 +131,6 @@ function getPortalTemplate() {
                 #breadcrumb-container { font-size: 15px; color: #666; margin-bottom: 10px; display: flex; align-items: center; }
                 #breadcrumb-container i { font-size: 16px; margin: 0 8px; color: #999; }
                 
-                /* Transición sutil al cambiar de vista de sección */
                 #dynamicRenderCard { transition: opacity 0.2s ease-in-out; }
             </style>
         </head>
@@ -193,6 +205,34 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
+                // Función global helper para inyectar los inputs Buscar y la paginación de DataTables a cualquier tabla de 3 registros
+                function appendDataTablesFooter(columnCount) {
+                    let searchCells = '';
+                    for (let i = 0; i < columnCount; i++) {
+                        searchCells += '<td><input type="text" class="dt-search-input" placeholder="Buscar"></td>';
+                    }
+                    
+                    let searchRow = '<tr class="dt-search-row">' + searchCells + '</tr>';
+                    
+                    let footerControls = 
+                        '<div class="dt-footer-container">' +
+                            '<div class="dt-info">Showing 1 to 3 of 3 entries</div>' +
+                            '<ul class="dt-pagination">' +
+                                '<li class="disabled-page"><a>Previous</a></li>' +
+                                '<li class="active-page"><a>1</a></li>' +
+                                '<li class="disabled-page"><a>Next</a></li>' +
+                            '</ul>' +
+                        '</div>';
+                        
+                    return { searchRow: searchRow, footerControls: footerControls };
+                }
+
+                // Generación de plantillas seguras
+                const dt3 = appendDataTablesFooter(4);
+                const dt7 = appendDataTablesFooter(7);
+                const dt2 = appendDataTablesFooter(2);
+                const dt6 = appendDataTablesFooter(6);
+
                 const sectionsData = {
                     libreta_de_pago: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Libreta de pago',
@@ -234,7 +274,8 @@ function getPortalTemplate() {
                               '<tr><td>Colegiatura Marzo/2026</td><td>072507</td><td></td><td>NO</td></tr>' +
                               '<tr><td>Colegiatura Febrero/2026</td><td>062506</td><td></td><td>NO</td></tr>' +
                               '<tr><td>Inscripción Semestral / Enero 2026</td><td>002500</td><td></td><td>NO</td></tr>' +
-                              '</tbody></table>'
+                              searchCellsFooter(4, 5) + // Helper dinámico para colegiaturas con paginación real
+                              '</tbody></table>' + footerContainerText(5)
                     },
                     horario: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Horarios del alumno',
@@ -247,7 +288,8 @@ function getPortalTemplate() {
                               '<tr><td>ALGORITMOS</td><td></td><td>11-13</td><td></td><td></td><td>9-11</td><td></td></tr>' +
                               '<tr><td>CÁLCULO DIFERENCIAL</td><td>11-13</td><td></td><td>11-13</td><td></td><td>11-13</td><td></td></tr>' +
                               '<tr><td>FÍSICA APLICADA</td><td>9-11</td><td></td><td>9-11</td><td></td><td></td><td></td></tr>' +
-                              '</tbody></table>'
+                              dt7.searchRow +
+                              '</tbody></table>' + dt7.footerControls
                     },
                     asignaturas: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Asignaturas',
@@ -260,7 +302,8 @@ function getPortalTemplate() {
                               '<tr><td>ALGORITMOS</td><td>EDSON GEOVANNY ESTRADA LOPEZ</td></tr>' +
                               '<tr><td>CÁLCULO DIFERENCIAL</td><td>AYLIN GARCIA REYES</td></tr>' +
                               '<tr><td>FÍSICA APLICADA</td><td>ALBERTO GABRIEL VEGA POOT</td></tr>' +
-                              '</tbody></table>'
+                              dt2.searchRow +
+                              '</tbody></table>' + dt2.footerControls
                     },
                     calificaciones: {
                         breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Calificaciones',
@@ -273,7 +316,8 @@ function getPortalTemplate() {
                               '<tr><td>ALGORITMOS</td><td>8</td><td>8</td><td>8.0</td><td></td><td></td></tr>' +
                               '<tr><td>CÁLCULO DIFERENCIAL</td><td>8</td><td>8</td><td>8.0</td><td></td><td></td></tr>' +
                               '<tr><td>FÍSICA APLICADA</td><td>8</td><td>7</td><td>7.5</td><td></td><td></td></tr>' +
-                              '</tbody></table>'
+                              dt6.searchRow +
+                              '</tbody></table>' + dt6.footerControls
                     },
                     ordinarios: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Ordinarios', html: "<h5>Exámenes Ordinarios</h5><p><i>La publicación oficial del rol de exámenes ordinarios está pendiente.</i></p>" },
                     adeudadas: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> Adeudadas', html: "<h5>Asignaturas Adeudadas</h5><p style='color:green;'><b>Estatus Regular:</b> No se registran asignaturas reprobadas o adeudadas en este ciclo.</p>" },
@@ -285,23 +329,29 @@ function getPortalTemplate() {
                     eduvida: { breadcrumb: 'Inicio <i class="material-icons">chevron_right</i> EduVida', html: "<h5>Educación para la Vida</h5><p>Talleres curriculares vigentes y acreditados.</p>" }
                 };
 
+                // Funciones auxiliares para la vista única de pagos
+                function searchCellsFooter(columns, totalEntries) {
+                    let cells = '';
+                    for(let i=0; i<columns; i++) { cells += '<td><input type="text" class="dt-search-input" placeholder="Buscar"></td>'; }
+                    return '<tr class="dt-search-row">' + cells + '</tr>';
+                }
+                function footerContainerText(totalEntries) {
+                    return '<div class="dt-footer-container"><div class="dt-info">Showing 1 to '+totalEntries+' of '+totalEntries+' entries</div><ul class="dt-pagination"><li class="disabled-page"><a>Previous</a></li><li class="active-page"><a>1</a></li><li class="disabled-page"><a>Next</a></li></ul></div>';
+                }
+
                 function showSection(sectionKey) {
                     const data = sectionsData[sectionKey];
                     if (data) {
                         const card = $('#dynamicRenderCard');
-                        
-                        // Efecto suave de cambio de opacidad al renderizar nuevas vistas
                         card.css('opacity', '0.3');
                         
                         setTimeout(function() {
                             document.getElementById('breadcrumb-container').innerHTML = data.breadcrumb;
                             document.getElementById('dynamicRenderCard').innerHTML = data.html;
                             
-                            // Resaltar visualmente la pestaña seleccionada en el menú izquierdo
                             $('.custom-menu-li').removeClass('active-item');
                             $('#menu-' + sectionKey).addClass('active-item');
                             
-                            // Re-inicializar el efecto Waves para elementos dinámicos
                             if (typeof Waves !== 'undefined') {
                                 Waves.displayEffect();
                             }
@@ -314,7 +364,6 @@ function getPortalTemplate() {
                     }
                 }
 
-                // Animación fluida de colapso/expansión del menú lateral izquierdo (Slide-out)
                 $('.sidenav-trigger-toggle').on('click', function(e) {
                     e.preventDefault();
                     var sidebar = $('#left-sidebar-nav');
@@ -329,7 +378,6 @@ function getPortalTemplate() {
                 });
 
                 $(document).ready(function() {
-                    // Inicialización nativa del menú desplegable del perfil con animación original
                     $('.dropdown-trigger').dropdown({ 
                         constrainWidth: false, 
                         alignment: 'right', 
@@ -343,7 +391,7 @@ function getPortalTemplate() {
                         else showSection($(this).val());
                     });
 
-                    // Carga la sección por defecto directamente con animaciones fluidas
+                    // Por defecto te manda a Calificaciones para verificar el cambio de inmediato
                     showSection('calificaciones');
                 });
             </script>
