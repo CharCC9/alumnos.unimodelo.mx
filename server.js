@@ -4,7 +4,7 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 
-// Habilitar la lectura de datos de formularios
+// Habilitar la lectura de datos de formularios (POST)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -15,7 +15,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 function getLoginTemplate(errorMessage = "") {
     let errorHtml = "";
     if (errorMessage) {
-        errorHtml = `<div style="color: #d32f2f; font-weight: 500; margin-bottom: 20px; font-size: 15px;">${errorMessage}</div>`;
+        // Estilo adaptado para mostrar la alerta en rojo estructurada de la institución
+        errorHtml = `<div style="color: #d32f2f; font-weight: 500; margin-bottom: 25px; font-size: 15px; text-align: center;">${errorMessage}</div>`;
     }
 
     return `
@@ -73,7 +74,7 @@ function getLoginTemplate(errorMessage = "") {
                     position: absolute;
                     left: 0;
                     top: 10px;
-                    color: #007bc4;
+                    color: #111111;
                     font-size: 26px;
                 }
                 .input-field input {
@@ -138,18 +139,18 @@ function getLoginTemplate(errorMessage = "") {
     `;
 }
 
-// 1. RUTA DE INICIO: Muestra el login limpio por defecto
+// 1. RUTA DE INICIO (Muestra el login limpio por defecto)
 app.get('/', (req, res) => {
     res.send(getLoginTemplate());
 });
 
-// 2. RUTA POST /LOGIN: Realiza la validación estricta de credenciales
+// 2. RUTA POST /LOGIN: Maneja la validación de credenciales solicitada
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    // Validación estricta con las credenciales solicitadas
+    // Validación estricta: Usuario "15246740" y Contraseña "ARCOS"
     if (username === "15246740" && password === "ARCOS") {
-        // Credenciales correctas -> Renderiza el portal escolar
+        // Si es correcto, da acceso al Panel del Alumno
         res.send(`
             <!DOCTYPE html>
             <html lang="es">
@@ -337,125 +338,4 @@ app.post('/login', (req, res) => {
                                     <i class="material-icons">more_vert</i>
                                 </a>
                                 <ul id="profile-dropdown" class="dropdown-content">                   
-                                    <li><a onclick="showSection('micuenta')" class="grey-text text-darken-1"><i class="material-icons">account_box</i>Mi cuenta</a></li>
-                                    <li><a href="/" class="grey-text text-darken-1"><i class="material-icons">keyboard_tab</i>Salir</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-
-                <div class="side-nav-container">
-                    <ul>
-                        <li><a onclick="showSection('libreta_de_pago')"><span>LIBRETA DE PAGO</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('colegiaturas')"><span>COLEGIATURAS / INSCR.</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('horario')"><span>HORARIO</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('asignaturas')"><span>ASIGNATURAS</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('calificaciones')"><span>CALIFICACIONES</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('ordinarios')"><span>ORDINARIOS</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('adeudadas')"><span>ASIG.ADEUDADAS</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('constancias')"><span>CONSTANCIAS</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        
-                        <li>
-                            <a onclick="toggleExtraordinarios()">
-                                <span style="display:flex; align-items:center;"><i class="material-icons" style="margin-right:10px; color:#555;">dashboard</i>EXTRAORDINARIOS</span>
-                                <i class="material-icons arrow-icon" id="arrow-toggle">keyboard_arrow_right</i>
-                            </a>
-                            <div class="collapsible-body-custom" id="extra-menu">
-                                <ul>
-                                    <li><a onclick="showSection('extraordinarios_inscritos')">Exámenes Inscritos</a></li>
-                                    <li><a onclick="showSection('extraordinarios_calif')">Calificaciones</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li><a onclick="showSection('formularios')"><span>FORMULARIOS</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('biblioteca')"><span>BIBLIOTECA</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('micuenta')"><span>MI CUENTA</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('documentos')"><span>DOCUMENTOS</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a onclick="showSection('eduvida')"><span>EDUCACIÓN PARA LA VIDA</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                        <li><a href="/"><span>SALIR</span><i class="material-icons arrow-icon">keyboard_arrow_right</i></a></li>
-                    </ul>
-                </div>
-                
-                <div class="main-content-area">
-                    <div id="dynamicContentCard" class="content-card"></div>
-                </div>
-
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-                <script>
-                    const sectionsData = {
-                        libreta_de_pago: {
-                            title: "Libreta de Pago",
-                            html: "<p>No hay estados de cuenta pendientes de liquidación.</p><table class='simulated-table'><tr><th>Concepto</th><th>Fecha de Vencimiento</th><th>Monto</th><th>Estatus</th></tr><tr><td>Colegiatura del Mes</td><td>10/05/2026</td><td>$4,200.00</td><td><span class='green-text'><b>PAGADO</b></span></td></tr></table>"
-                        },
-                        colegiaturas: {
-                            title: "Colegiaturas e Inscripciones",
-                            html: "<table class='simulated-table'><tr><th>Folio Digital</th><th>Periodo</th><th>Concepto Base</th><th>Monto</th></tr><tr><td>MOD-78452</td><td>2026-A</td><td>Reinscripción Semestral</td><td>$5,100.00</td></tr></table>"
-                        },
-                        horario: {
-                            title: "Horario de Clases",
-                            html: "<table class='simulated-table'><tr><th>Hora</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th></tr><tr><td>07:00 - 09:00</td><td>Programación Web</td><td>Base de Datos</td><td>Programación Web</td><td>Base de Datos</td><td>Taller</td></tr></table>"
-                        },
-                        asignaturas: {
-                            title: "Asignaturas Inscritas",
-                            html: "<ul><li>• Laboratorio de Programación Web</li><li>• Ingeniería de Software II</li><li>• Arquitectura de Sistemas Distribuidos</li><li>• Redes Avanzadas de Computadoras</li></ul>"
-                        },
-                        calificaciones: {
-                            title: "Consulta de Calificaciones",
-                            html: "<table class='simulated-table'><tr><th>Materia</th><th>Parcial 1</th><th>Parcial 2</th><th>Promedio General</th></tr><tr><td>Programación Web</td><td>9.5</td><td>9.0</td><td><b>9.5</b></td></tr></table>"
-                        },
-                        ordinarios: { title: "Exámenes Ordinarios", html: "<p class='grey-text'><i>La publicación del rol oficial está pendiente por servicios escolares.</i></p>" },
-                        adeudadas: { title: "Asignaturas Adeudadas", html: "<p class='green-text'><b>Estatus Regular:</b> No se registran asignaturas reprobadas.</p>" },
-                        constancias: { title: "Trámite de Constancias", html: "<button class='btn blue darken-3'>Generar Constancia de Estudios</button>" },
-                        extraordinarios_inscritos: { title: "Exámenes Extraordinarios Inscritos", html: "<p>No cuenta con solicitudes registradas.</p>" },
-                        extraordinarios_calif: { title: "Calificaciones de Extraordinarios", html: "<p>Historial limpio. Sin actas registradas.</p>" },
-                        formularios: { title: "Formularios y Encuestas", html: "<button class='btn green'>Aplicar Evaluación de Calidad Docente</button>" },
-                        biblioteca: { title: "Biblioteca Virtual", html: "<p>Acceso autorizado al catálogo y repositorios digitales.</p>" },
-                        micuenta: { title: "Mi Cuenta de Alumno", html: "<p><b>Nombre del Alumno:</b> SANTIAGO DE JESUS ARCOS GUZMAN<br><b>Matrícula:</b> 15246740<br><b>Programa Educativo:</b> Ingeniería en Sistemas Computacionales</p>" },
-                        documentos: { title: "Documentos Digitales", html: "<p>Expediente de ingreso validado correctamente.</p>" },
-                        eduvida: { title: "Educación para la Vida", html: "<p>Talleres complementarios registrados.</p>" }
-                    };
-
-                    function showSection(sectionKey) {
-                        const data = sectionsData[sectionKey];
-                        if (data) {
-                            document.getElementById('dynamicContentCard').innerHTML = '<h4>' + data.title + '</h4>' + data.html;
-                            if(sectionKey === 'libreta_de_pago') $('#menu-navegacion').val('libreta_de_pago');
-                        }
-                    }
-
-                    function toggleExtraordinarios() {
-                        const menu = document.getElementById('extra-menu');
-                        const arrow = document.getElementById('arrow-toggle');
-                        if (menu.style.display === 'block') {
-                            menu.style.display = 'none';
-                            arrow.innerText = 'keyboard_arrow_right';
-                        } else {
-                            menu.style.display = 'block';
-                            arrow.innerText = 'keyboard_arrow_down';
-                        }
-                    }
-
-                    $(document).ready(function(){
-                        $('.dropdown-trigger').dropdown({ constrainWidth: false, alignment: 'right' });
-                        $('#menu-navegacion').on('change', function() {
-                            if($(this).val() === 'logout') window.location.href = '/';
-                            else showSection($(this).val());
-                        });
-                        showSection('libreta_de_pago');
-                    });
-                </script>
-            </body>
-            </html>
-        `);
-    } else {
-        // Credenciales incorrectas -> Recarga el login inyectando el aviso solicitado
-        res.send(getLoginTemplate("Escuela Modelo Usuario y/o contraseña inválidos"));
-    }
-});
-
-app.listen(PORT, () => {
-    console.log(`Servidor activo en el puerto ${PORT}`);
-});
+                                    <li>
