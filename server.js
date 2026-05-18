@@ -9,25 +9,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Logotipo Oficial de la Universidad Modelo en Base64 (Carga garantizada al 100%)
+// Logotipo Oficial de la Universidad Modelo en Base64 (Carga 100% garantizada de forma local)
 const LOGO_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABY7eeBAAAASFBMVEUAAAD///8OnMEAnMAAnf8Anf4Anf0AnP8Anf8Anf4Anf8Anf8Anf8Anf8Anv8Anf8Anf8Anf8Anv8Anf8Anv8Anf8Anf8Anf/7yG0WAAAAFnRSTlMA9g72DRb29vYWFvYWFhYW9vb2FhYWFhH3738AAAGpSURBVFjD7ZfZkoMgEEXb0BAsatT//7VpUAnSgG0m86SreS88CgciwS7L/id8tEw8U7Z+b10p368739q27z/HwE7UvXNtzD6r2X7P70ePId/bC6R7jB3w/H4Y8uW87Xp9gUwnXz3Yg79v98N8Z6+XN6R7M9+R/g6ZAn83H+b70vF9Y9G67X3vFpA/6+P7A7A/zPf1h+B7Hn4A0wNoGv4O03Uu6XofwHRbCHmD+T/InL3tXN0h8Z/08G7wK/6T6X/6L/ivX/Ffvw6H4L8eP2f3+G7wfY9D8Pf6Ew6Hw+FwOBwO99C4MbyTid279uC8C2N+F6yI5N0P68G4O7Euxv8mVsX+zZg7scgC+E203G9ihpL30EshTiyE/Cai96XkPRRi8pXEXBPy6X0l6wH4SszfF0ImIeaf9w6ZixmBf4M5u9Nf6Yv9GZitGZ9/gxlpX+x7MGMz7v4OplK+2PdgnAWDfwvGWTB07jVDP+96ZpB6ZpB6ZtDT09PT09PT09PT09PT08vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vL+/8ZfwD8yBv1RstbYwAAAABJRU5ErkJggg==";
 
-// 1. PLANTILLA DE LOGIN
+// 1. PLANTILLA DE LOGIN (Limpia, sin interferencias de barras de navegación)
 function getLoginTemplate(showAlert = false) {
     let alertScript = "";
     if (showAlert) {
-        // Inyecta el cuadrito de alerta estilizado si las credenciales fallan
+        // Cuadrito emergente idéntico al solicitado
         alertScript = `
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     var alertBox = document.createElement('div');
                     alertBox.innerHTML = \`
-                        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 10000;">
-                            <div style="background: white; padding: 25px; border-radius: 8px; max-width: 340px; width: 90%; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: 'Segoe UI', sans-serif;">
-                                <i class="material-icons" style="color: #d32f2f; font-size: 48px; margin-bottom: 10px;">error_outline</i>
-                                <h5 style="margin: 0 0 10px 0; color: #333; font-weight: 500; font-size: 18px;">Error de ingreso</h5>
-                                <p style="color: #666; font-size: 14px; margin-bottom: 20px; line-height: 1.4;">Escuela Modelo<br>Usuario y/o contraseña inválidos</p>
-                                <button onclick="this.parentElement.parentElement.remove()" style="background: #007bc4; color: white; border: none; padding: 10px 25px; border-radius: 4px; font-weight: 500; cursor: pointer; text-transform: uppercase; font-size: 13px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Aceptar</button>
+                        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; z-index: 10000;">
+                            <div style="background: #ffffff; padding: 30px 40px; border-radius: 8px; max-width: 440px; width: 85%; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.15); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+                                <h4 style="margin: 0 0 12px 0; color: #4a4a4a; font-weight: bold; font-size: 32px; letter-spacing: -0.5px;">Escuela Modelo</h4>
+                                <p style="color: #7a7a7a; font-size: 17px; margin: 0 0 25px 0; font-weight: 300;">Usuario y/o contraseña inválidos</p>
+                                <button onclick="this.parentElement.parentElement.remove()" style="background: #2979ff; color: white; border: none; padding: 10px 32px; border-radius: 6px; font-weight: 500; cursor: pointer; font-size: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: background 0.2s;">Ok</button>
                             </div>
                         </div>
                     \`;
@@ -48,8 +47,8 @@ function getLoginTemplate(showAlert = false) {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
             <style>
                 body { background: #e9ecef url('https://www.transparenttextures.com/patterns/cream-paper.png'); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Segoe UI', sans-serif; }
-                .login-card { background: white; padding: 40px 30px; width: 100%; max-width: 420px; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
-                .logo-container img { width: 110px; height: auto; margin-bottom: 10px; }
+                .login-card { background: white; padding: 40px 30px; width: 100%; max-width: 420px; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; z-index: 10; }
+                .logo-container img { width: 110px; height: auto; margin-bottom: 10px; display: inline-block; }
                 .system-title { font-size: 24px; color: #555; font-weight: 300; letter-spacing: 1px; margin-bottom: 2px; }
                 .system-subtitle { font-size: 22px; color: #555; font-weight: 300; letter-spacing: 1px; margin-bottom: 30px; }
                 .input-field { margin-bottom: 25px; position: relative; }
@@ -256,7 +255,7 @@ app.post('/login', (req, res) => {
     if (username === "15246740" && password === "ARCOS") {
         res.send(getPortalTemplate());
     } else {
-        // Al fallar las credenciales, activa el parámetro para pintar el cuadrito popup
+        // Ejecuta el login mandando el activador de la alerta popup
         res.send(getLoginTemplate(true));
     }
 });
