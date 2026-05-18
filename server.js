@@ -213,7 +213,7 @@ function getPortalTemplate() {
                                     <a href="#" class="dropdown-trigger waves-effect waves-light" data-target="profile-dropdown" style="color: white; height: 64px; display: flex; align-items: center;">
                                         <i class="material-icons">more_vert</i>
                                     </a>
-                                    <ul id="profile-dropdown" class="dropdown-content">                     
+                                    <ul id="profile-dropdown" class="dropdown-content">                    
                                         <li><a onclick="showSection('micuenta')"><i class="material-icons">account_box</i>Mi cuenta</a></li>
                                         <li><a href="/"><i class="material-icons">keyboard_tab</i>Salir</a></li>
                                     </ul>
@@ -275,6 +275,7 @@ function getPortalTemplate() {
             <script type="text/javascript" src="https://alumnos.unimodelo.mx/js/materialize.min.js"></script>
             
             <script>
+                // Función global para renderizar los pies de tabla tipo DataTables
                 function generateExternalDataTablesFooter(columnWidthsArray, totalEntries, showPageTwo = false, isZeroEntries = false, searchFieldsCount = null) {
                     let searchBoxesHtml = '<div class="dt-search-footer-container">';
                     let limit = searchFieldsCount !== null ? searchFieldsCount : columnWidthsArray.length;
@@ -328,6 +329,7 @@ function getPortalTemplate() {
                 const footerAdeudadas = generateExternalDataTablesFooter([50, 25, 25], 0, false, true);
                 const footerConstancias = generateExternalDataTablesFooter([35, 25, 20, 20], 0, false, true, 3);
 
+                // Función de paginación para Colegiaturas completa y correctamente cerrada
                 function changeColegiaturasPage(pageNumber) {
                     const container = $('#dynamicRenderCard');
                     container.css('opacity', '0.4');
@@ -358,15 +360,274 @@ function getPortalTemplate() {
                             footerHtml = generateExternalDataTablesFooter([40, 15, 25, 20], 14, true);
                         }
                         
-                        $('#colegiaturasTableBody').html(tbodyHtml);
-                        $('#colegiaturasFooterNav').html(footerHtml);
+                        let baseHtml = 
+                            '<h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Colegiaturas / Inscripciones</h5>' +
+                            '<table class="simulated-table">' +
+                                '<thead>' +
+                                    '<tr>' +
+                                        '<th style="width: 40%;">Descripción <span class="dt-sort-icon"></span></th>' +
+                                        '<th style="width: 15%;">Mes <span class="dt-sort-icon"></span></th>' +
+                                        '<th style="width: 25%;">Folio <span class="dt-sort-icon"></span></th>' +
+                                        '<th style="width: 20%;">Recargo <span class="dt-sort-icon"></span></th>' +
+                                    '</tr>' +
+                                '</thead>' +
+                                '<tbody>' + tbodyHtml + '</tbody>' +
+                            '</table>' + footerHtml;
+                        
+                        container.html(baseHtml);
                         container.css('opacity', '1');
                     }, 200);
                 }
 
+                // OBJETO SECCIONES: Aquí es donde inyectas la información que tenías antes
+                const secciones = {
+                    libreta_de_pago: \`
+                        <div class="libreta-container">
+                            <h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Libreta de Pago</h5>
+                            <p>Para realizar depósitos en ventanilla bancaria, cajeros automáticos, o mediante transferencia electrónica, utilice los datos siguientes:</p>
+                            <hr class="libreta-divider">
+                            <div class="libreta-subtitle-large">Detalle de cuentas para pago</div>
+                            <div class="libreta-title-ins">UNIVERSIDAD MODELO S.C.P.</div>
+                            <div class="libreta-indented-block">
+                                <span class="libreta-blue-text">Clave de Alumno:</span> 20261109
+                            </div>
+                            <div class="libreta-bank-header">BANAMEX</div>
+                            <div class="libreta-indented-block">
+                                <b>Cuenta:</b> 4567 / <b>Sucursal:</b> 100<br>
+                                <b>Referencia Bancaria:</b> MOD2026XYZ
+                            </div>
+                            <div class="libreta-bank-header-hsbc">HSBC (Rapicaja)</div>
+                            <div class="libreta-indented-block">
+                                <b>Servicio:</b> 5543<br>
+                                <b>Referencia Bancaria:</b> 9988776655
+                            </div>
+                            <p class="libreta-red-note">Nota: Es indispensable verificar su referencia antes de efectuar cualquier pago.</p>
+                        </div>
+                    \`,
+                    colegiaturas: "", // Se maneja dinámicamente mediante changeColegiaturasPage(1)
+                    horario: \`
+                        <h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Horario de Clases</h5>
+                        <table class="simulated-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Asignatura</th>
+                                    <th style="width: 12.5%;">Lunes</th>
+                                    <th style="width: 12.5%;">Martes</th>
+                                    <th style="width: 12.5%;">Miércoles</th>
+                                    <th style="width: 12.5%;">Jueves</th>
+                                    <th style="width: 12.5%;">Viernes</th>
+                                    <th style="width: 12.5%;">Sábado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Ingeniería de Software</td><td>07:00-09:00</td><td>-</td><td>07:00-09:00</td><td>-</td><td>-</td><td>-</td></tr>
+                                <tr><td>Bases de Datos Avanzadas</td><td>-</td><td>09:00-11:00</td><td>-</td><td>09:00-11:00</td><td>-</td><td>-</td></tr>
+                                <tr><td>Desarrollo Web Fullstack</td><td>11:00-13:00</td><td>-</td><td>11:00-13:00</td><td>-</td><td>11:00-13:00</td><td>-</td></tr>
+                            </tbody>
+                        </table>
+                        \${footerHorarios}
+                    \`,
+                    asignaturas: \`
+                        <h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Asignaturas Inscritas</h5>
+                        <table class="simulated-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%;">Nombre de la Materia</th>
+                                    <th style="width: 50%;">Profesor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Ingeniería de Software</td><td>Ing. Carlos Mendoza</td></tr>
+                                <tr><td>Bases de Datos Avanzadas</td><td>Mtra. Elena Rostova</td></tr>
+                                <tr><td>Desarrollo Web Fullstack</td><td>Dr. Alejandro Silva</td></tr>
+                            </tbody>
+                        </table>
+                        \${footerAsignaturas}
+                    \`,
+                    calificaciones: \`
+                        <h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Calificaciones Parciales</h5>
+                        <table class="simulated-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%;">Asignatura</th>
+                                    <th style="width: 15%;">Parcial 1</th>
+                                    <th style="width: 15%;">Parcial 2</th>
+                                    <th style="width: 15%;">Parcial 3</th>
+                                    <th style="width: 15%;">Tareas</th>
+                                    <th style="width: 15%;">Final</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Ingeniería de Software</td><td>92</td><td>85</td><td>90</td><td>100</td><td>91</td></tr>
+                                <tr><td>Bases de Datos Avanzadas</td><td>80</td><td>78</td><td>88</td><td>90</td><td>83</td></tr>
+                                <tr><td>Desarrollo Web Fullstack</td><td>95</td><td>100</td><td>98</td><td>95</td><td>97</td></tr>
+                            </tbody>
+                        </table>
+                        \${footerCalificaciones}
+                    \`,
+                    ordinarios: \`
+                        <h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Exámenes Ordinarios</h5>
+                        <p style="color:#666; font-style:italic;">No hay fechas programadas ni publicadas para exámenes ordinarios en este período escolar.</p>
+                    \`,
+                    adeudadas: \`
+                        <h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Asignaturas Adeudadas</h5>
+                        <table class="simulated-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%;">Asignatura</th>
+                                    <th style="width: 25%;">Semestre</th>
+                                    <th style="width: 25%;">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="no-records-row"><td colspan="3">No se encontraron registros</td></tr>
+                            </tbody>
+                        </table>
+                        \${footerAdeudadas}
+                    \`,
+                    constancias: \`
+                        <h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Constancias Solicitadas</h5>
+                        <table class="simulated-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 35%;">Tipo de Constancia</th>
+                                    <th style="width: 25%;">Fecha Solicitud</th>
+                                    <th style="width: 20%;">Costo</th>
+                                    <th style="width: 20%;">Estatus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="no-records-row"><td colspan="4">No se encontraron registros</td></tr>
+                            </tbody>
+                        </table>
+                        \${footerConstancias}
+                    \`,
+                    extra_inscritos: \`<h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Exámenes Extraordinarios Inscritos</h5><p style="color:#666;">No cuentas con exámenes extraordinarios registrados en este ciclo.</p>\`,
+                    extra_calificaciones: \`<h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Calificaciones de Extraordinarios</h5><p style="color:#666;">No se registran calificaciones de extraordinarios vigentes.</p>\`,
+                    formularios: \`<h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Formularios Escolares</h5><p>Descarga de solicitudes de baja, alta, cambios de sección o trámites institucionales oficiales.</p>\`,
+                    biblioteca: \`<h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Biblioteca Digital</h5><p>Acceso directo al catálogo y repositorios de libros de la Universidad Modelo.</p>\`,
+                    eduvida: \`<h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Educación para la Vida</h5><p>Información referente a las asignaturas de tronco común académico y formación integral.</p>\`,
+                    micuenta: \`
+                        <div class="mc-header-container"><h5 class="mc-title">Cambiar Contraseña</h5></div>
+                        <div class="mc-banner-blue">Datos de la Cuenta</div>
+                        <form id="form-cambio-password">
+                            <div class="row mc-form-row">
+                                <div class="col s12 m6 mc-input-field">
+                                    <label>Contraseña Actual</label>
+                                    <input type="password" required>
+                                </div>
+                            </div>
+                            <div class="row mc-form-row">
+                                <div class="col s12 m6 mc-input-field">
+                                    <label>Nueva Contraseña</label>
+                                    <input type="password" required>
+                                </div>
+                                <div class="col s12 m6 mc-input-field">
+                                    <label>Confirmar Nueva Contraseña</label>
+                                    <input type="password" required>
+                                </div>
+                            </div>
+                            <div class="mc-checkbox-container">
+                                <label class="mc-checkbox-label">
+                                    <input type="checkbox">
+                                    <span>Cerrar sesión en todos los demás dispositivos activos</span>
+                                </label>
+                            </div>
+                            <button type="button" class="mc-btn-save"><i class="material-icons">save</i>Guardar Cambios</button>
+                        </form>
+                    \`,
+                    documentos: \`
+                        <h5 style="font-size:22px; color:#333; font-weight:400; text-transform:uppercase; margin-top:0; margin-bottom:20px;">Entrega de Documentos Digitales</h5>
+                        <div class="doc-main-container">
+                            <div class="doc-left-panel">
+                                <div class="doc-banner-blue"></div>
+                                <button class="doc-select-btn">Seleccionar Archivo</button>
+                                <div class="doc-line-divider"></div>
+                                <button class="doc-btn-submit-disabled"><i class="material-icons">cloud_upload</i>Enviar Documento</button>
+                            </div>
+                            <div class="doc-right-notes-card">
+                                <h6 class="doc-notes-title">Notas importantes</h6>
+                                <ul class="doc-notes-list">
+                                    <li>Los archivos deben ser escaneados de forma legible únicamente en formato PDF.</li>
+                                    <li>El tamaño máximo por archivo individual es de 5 MB.</li>
+                                    <li>Asegúrese de cargar los documentos completos (ambos lados cuando aplique).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    \`
+                };
+
+                // FUNCIÓN QUE RENDERIZA LA INFORMACIÓN EN PANTALLA SEGÚN EL MENÚ CLICADO
+                function showSection(sectionId) {
+                    // Remover clases activas de los menús
+                    $('.custom-menu-li').removeClass('active-item');
+                    $('.collapsible-body li').removeClass('active-subitem');
+                    
+                    // Resaltar elemento actual
+                    $('#menu-' + sectionId).addClass('active-item');
+                    if($('#menu-' + sectionId).closest('.collapsible-body').length > 0) {
+                        $('#menu-' + sectionId).addClass('active-subitem');
+                    }
+
+                    // Actualizar el título dinámico (select dropdown superior)
+                    let textMapping = {
+                        'libreta_de_pago': 'Libreta de pago',
+                        'colegiaturas': 'Colegiaturas / Inscr.',
+                        'horario': 'Horario',
+                        'asignaturas': 'Asignaturas',
+                        'calificaciones': 'Calificaciones',
+                        'ordinarios': 'Ordinarios',
+                        'adeudadas': 'Asig. Adeudadas',
+                        'constancias': 'Constancias',
+                        'extra_inscritos': 'Exámenes Inscritos',
+                        'extra_calificaciones': 'Calificaciones Extra',
+                        'formularios': 'Formularios',
+                        'biblioteca': 'Biblioteca',
+                        'micuenta': 'Mi Cuenta',
+                        'documentos': 'Documentos',
+                        'eduvida': 'Eduvida'
+                    };
+                    
+                    if(textMapping[sectionId]) {
+                        $('#label-select-actual').html(textMapping[sectionId] + ' <i class="material-icons">arrow_drop_down</i>');
+                    }
+
+                    // Actualizar Migas de Pan (Breadcrumbs)
+                    let breadcrumbHtml = '<span>Alumnos</span> <i class="material-icons">keyboard_arrow_right</i> <span>Control Escolar</span>';
+                    if(sectionId === 'extra_inscritos' || sectionId === 'extra_calificaciones') {
+                        breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span>Extraordinarios</span>';
+                    }
+                    if(textMapping[sectionId]) {
+                        breadcrumbHtml += ' <i class="material-icons">keyboard_arrow_right</i> <span style="color:#111; font-weight:500;">' + textMapping[sectionId] + '</span>';
+                    }
+                    $('#breadcrumb-container').html(breadcrumbHtml);
+
+                    // Renderizar contenido en el Card Principal
+                    if (sectionId === 'colegiaturas') {
+                        changeColegiaturasPage(1);
+                    } else if (secciones[sectionId] !== undefined) {
+                        $('#dynamicRenderCard').html(secciones[sectionId]);
+                    }
+                }
+
+                // Configuración inicial al cargar la página
                 $(document).ready(function(){
-                    $('.dropdown-trigger').dropdown({ constrainWidth: false });
+                    $('.dropdown-trigger').dropdown({ constrainWidth: false, coverTrigger: false });
                     $('.collapsible').collapsible();
+                    
+                    // Activar toggle del menú lateral
+                    $('.sidenav-trigger-toggle').on('click', function(e) {
+                        e.preventDefault();
+                        $('#left-sidebar-nav').toggleClass('side-nav-hidden');
+                        if($('#left-sidebar-nav').hasClass('side-nav-hidden')) {
+                            $('#main').removeClass('mainPaddingSidebar').addClass('mainPaddingLeft');
+                        } else {
+                            $('#main').removeClass('mainPaddingLeft').addClass('mainPaddingSidebar');
+                        }
+                    });
+
+                    // Cargar sección por defecto
+                    showSection('calificaciones');
                 });
             </script>
         </body>
@@ -374,25 +635,20 @@ function getPortalTemplate() {
     `;
 }
 
-// --- Rutas del Servidor ---
-
+// CONTROLADORES DE RUTA (EXPRESS)
 app.get('/', (req, res) => {
-    res.send(getLoginTemplate(false));
+    res.send(getLoginTemplate());
 });
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    // Credenciales de acceso para las pruebas locales/despliegue
-    if (username === 'santiago' && password === 'modelo123') {
+    if (username === 'santiago' && password === '1234') {
         res.send(getPortalTemplate());
     } else {
         res.send(getLoginTemplate(true));
     }
 });
 
-// ==========================================
-// EL BLOQUE CORREGIDO (Línea final limpia)
-// ==========================================
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
